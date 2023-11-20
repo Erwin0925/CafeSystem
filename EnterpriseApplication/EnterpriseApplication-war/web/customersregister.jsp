@@ -12,9 +12,9 @@
         <title>Registration Page</title>
     </head>
     <body>
-        <a href="login.jsp">Login Page</a>
-        <br><br><br>
-        <form action = "Register" method = "Post">
+        <h1>Customer Registration</h1>
+        <br><br>
+        <form action = "CustomersRegister" method = "Post">
             <table>
                 <tr>
                     <td>Username: </td><td><input type="text" name="username" size="20"></td>
@@ -34,5 +34,9 @@
             </table>
             <p><input type="submit" value="Register"></p>
         </form>
+        <br><br><br>
+        <a href="login.jsp">Login Page</a>
+        <br><br>
+        <a href="stallstaffsregister.jsp">Stall Staff Registration Page</a><br>
     </body>
 </html>

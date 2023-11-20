@@ -13,24 +13,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Customers;
-import model.modelfacade.CustomersFacade;
+import model.Stallstaffs;
 import model.Users;
+import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
-public class Register extends HttpServlet {
+@WebServlet(name = "StallStaffsRegister", urlPatterns = {"/StallStaffsRegister"})
+public class StallStaffsRegister extends HttpServlet {
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
 
     @EJB
     private UsersFacade usersFacade;
-
-    @EJB
-    private CustomersFacade customersFacade;
     
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,9 +51,9 @@ public class Register extends HttpServlet {
                 String password = request.getParameter("password");
                 String email = request.getParameter("email");
                 String address = request.getParameter("address");
-                String hp = request.getParameter("hp");
+                String hp = request.getParameter("phone");
                 String status = "pending";
-                String role = "Customers";
+                String role = "Stallstaff";
 
                 if (usersFacade.find(username) != null) {
                     throw new Exception();
@@ -64,22 +65,22 @@ public class Register extends HttpServlet {
                 
                 
 
-                Customers newCustomer = new Customers(username, email, hp, address);
+                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address);
                 // Create and persist the new user entity
-//                Users newUser = new Users(username,email, password, status, hp, address);
-                customersFacade.create(newCustomer);
+                stallstaffsFacade.create(newStallstaff);
                 
                 
                 
 
                 // Forward to the registration page with a success message
                 //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("register.jsp").include(request, response);
+                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
+//                response.sendRedirect("login.jsp");
                 out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
                 // Forward back to the registration page with an error message
                 //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("register.jsp").include(request, response);
+                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
                 out.println("<br><br><br>Wrong input!");
             }
         }

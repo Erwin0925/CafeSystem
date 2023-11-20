@@ -12,8 +12,8 @@
         <title>Login Page</title>
     </head>
     <body>
-        <a href="register.jsp">New User Registration</a>
-        <br><br><br>
+        <h1>Login</h1>
+        <br><br>
         <form action = "Login" method = "Post">
             <table>
                 <tr>
@@ -25,5 +25,9 @@
             </table>
             <p><input type="submit" value="Login"></p>
         </form>
+        <br><br><br>
+        <a href="customersregister.jsp">New Customer Registration</a> 
+        <br><br>
+        <a href="stallstaffsregister.jsp">New Stall Staff Registration</a>
     </body>
 </html>
