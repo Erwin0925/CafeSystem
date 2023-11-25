@@ -52,6 +52,7 @@ public class StallStaffsRegister extends HttpServlet {
                 String email = request.getParameter("email");
                 String address = request.getParameter("address");
                 String hp = request.getParameter("phone");
+                String gender = request.getParameter("gender");
                 String status = "pending";
                 String role = "Stallstaff";
 
@@ -65,7 +66,7 @@ public class StallStaffsRegister extends HttpServlet {
                 
                 
 
-                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address);
+                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address,gender);
                 // Create and persist the new user entity
                 stallstaffsFacade.create(newStallstaff);
                 

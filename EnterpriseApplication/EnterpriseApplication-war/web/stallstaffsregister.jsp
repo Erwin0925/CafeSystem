@@ -10,11 +10,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Stall Staff Registration Page</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
     </head>
     <body>
         <h1>Stall Staff Registration</h1>
         <br><br>
         <form action="StallStaffsRegister" method="Post">
+            <div class="inline-button-group ">
+                <a href="customersregister.jsp" class="register-button-group button inactive">Customer Registration</a>
+                <a href="stallstaffsregister.jsp" class="register-button-group button active">Stall Staff Registration</a>
+                <br><br><br>
+            </div>
             <table>
                 <!-- Stall staff specific registration fields -->
                 <tr>
@@ -32,13 +38,21 @@
                 <tr>
                     <td>Origin State: </td><td><input type="text" name="address" size="20"></td>
                 </tr>
-                <!-- Additional fields specific to stall staff can be added here -->
+                <tr>
+                    <td>Gender: </td>
+                    <td>
+                        <input type="radio" id="male" name="gender" value="Male">
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Female</label>
+                    </td>
+                </tr>
             </table>
-            <p><input type="submit" value="Register"></p>
+            <div class="inline-button-group">
+                <br><br><br>
+                <a href="login.jsp"><input type="button" value="Login" class="register-button-group"></a>
+                <input type="submit" value="Register" class="register-button-group">
+            </div>
         </form>
-        <br><br><br>
-        <a href="customersregister.jsp">Customer Registration Page</a>
-        <br><br>
-        <a href="login.jsp">Login Page</a>
     </body>
 </html>

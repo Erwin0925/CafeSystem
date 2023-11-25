@@ -10,10 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
         <h1>Login</h1>
-        <br><br>
+        <br>
         <form action = "Login" method = "Post">
             <table>
                 <tr>
@@ -24,10 +25,13 @@
                 </tr>
             </table>
             <p><input type="submit" value="Login"></p>
+            <br><br>
+            <div class="inline-button-group">
+                <a href="customersregister.jsp" class="register-button-group button inactive">Customer Registration</a>
+                <a href="stallstaffsregister.jsp" class="register-button-group button inactive">Stall Staff Registration</a>
+                <br><br><br>
+            </div>
+            
         </form>
-        <br><br><br>
-        <a href="customersregister.jsp">New Customer Registration</a> 
-        <br><br>
-        <a href="stallstaffsregister.jsp">New Stall Staff Registration</a>
     </body>
 </html>

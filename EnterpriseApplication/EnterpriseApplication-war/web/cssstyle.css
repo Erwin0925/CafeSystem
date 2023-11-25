@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 26, 2023, 12:26:48 AM
+    Author     : Erwin_Yoga
+*/
+
+body {
+    text-align: center; /* Center text */
+}
+
+form {
+    margin: 0 auto; /* Center form */
+    width: fit-content; /* Adjust width to content */
+}
+
+table {
+    margin: 0 auto; /* Center table */
+}
+
+.inline-button-group {
+    display: inline-block; /* Align buttons in a row */
+}
+
+.register-button-group {
+    margin: 0 5px; /* Spacing between buttons */
+    padding: 10px 20px; /* Increase padding */
+    font-size: 15px; /* Larger font size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor changes to hand on hover */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.active {
+    background-color: #FF66CC; /* Pink color for the active state */
+    color: white;
+}
+
+.inactive {
+    background-color: white;
+    color: black;
+    border: 1px solid #FF66CC; /* Pink border for inactive state */
+}
+
+
+
+

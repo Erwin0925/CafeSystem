@@ -14,7 +14,10 @@
     <body>
         <header>
             <h1>Stallstaff Dashboard</h1>
-            <p>Welcome, <%= request.getSession().getAttribute("stallstaffName") %> | <a href="login.jsp">Logout</a></p>
+            <form action = "Logout" method = "Post">
+                <p>Welcome | <input type="submit" value="Logout"></p>
+            </form>
+            <link rel="stylesheet" type="text/css" href="cssstyle.css">
         </header>
 
         <nav>

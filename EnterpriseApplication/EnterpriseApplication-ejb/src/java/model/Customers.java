@@ -26,6 +26,7 @@ public class Customers implements Serializable {
     private String email;
     private String hp;
     private String address;
+    private String gender;
 
     public Customers() {
     }
@@ -36,6 +37,23 @@ public class Customers implements Serializable {
         this.hp = hp;
         this.address = address;
     }
+
+    public Customers(String username, String email, String hp, String address, String gender) {
+        this.username = username;
+        this.email = email;
+        this.hp = hp;
+        this.address = address;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
 
     public String getUsername() {
         return username;
