@@ -45,6 +45,13 @@ table {
     border: 1px solid #FF66CC; /* Pink border for inactive state */
 }
 
-
+.back-button {
+            border: 1px solid #000; /* Add border */
+            padding: 5px 10px; /* Add padding for better appearance */
+            text-decoration: none; /* Remove underline */
+            color: #000; /* Text color */
+            position: absolute; /* Set the position to absolute */
+            left: 20px; /* Adjust the left position to place it on the left side */
+        }
 
 

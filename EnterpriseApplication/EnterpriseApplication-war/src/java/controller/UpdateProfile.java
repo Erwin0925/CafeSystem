@@ -8,7 +8,6 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,6 +57,14 @@ public class UpdateProfile extends HttpServlet {
         String userType= loginUser.getRole();
         String pw= loginUser.getPassword();
         
+        String newEmail = request.getParameter("email");
+        String newAddress = request.getParameter("address");
+        String newPhone = request.getParameter("phone");
+        String newGender = request.getParameter("gender");
+        String newPassword = request.getParameter("password");
+        // Retrieve other updated data as needed
+        
+        
         try (PrintWriter out = response.getWriter()) {
             if ("Customer".equalsIgnoreCase(userType)){
                 Customers profile = customersFacade.find(userName);
@@ -66,6 +73,8 @@ public class UpdateProfile extends HttpServlet {
                 s.setAttribute("email", profile.getEmail());
                 s.setAttribute("gender", profile.getGender());
                 s.setAttribute("pw",pw);
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
             }else if("Stallstaff".equalsIgnoreCase(userType)){
                 Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
                 s.setAttribute("address", profile.getAddress());
@@ -73,10 +82,13 @@ public class UpdateProfile extends HttpServlet {
                 s.setAttribute("email", profile.getEmail());
                 s.setAttribute("gender", profile.getGender());
                 s.setAttribute("pw",pw);
-                System.out.println(profile.getGender());
-                System.out.println("dsfsdfs");
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
             }
             request.getRequestDispatcher("updateprofile.jsp").forward(request, response);
+            
+
+            
         }
     }
 

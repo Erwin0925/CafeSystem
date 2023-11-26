@@ -17,56 +17,69 @@
     String hp = (String) session.getAttribute("hp");
     String email = (String) session.getAttribute("email");
     String gender = (String) session.getAttribute("gender");
+    String role = (String) session.getAttribute("role");
     %>
+    
+    
+    
     <body>
 
-    <h2>Edit Profile</h2>
-    <table border="1">
-    <tr>
-        <th>Original Password</th>
-        <th>Original Email</th>
-        <th>Original Address</th>
-        <th>Original Phone Number</th>
-        <th>Original Gender</th>
-    </tr>
-    <tr>
-        <td><%= password %></td>
-        <td><%= email %></td>
-        <td><%= address %></td>
-        <td><%= hp %></td>
-        <td><%= gender %></td>
-    </tr>
-</table>
+        <h2>Edit Profile</h2>
+        <%
+        // Define the default URL for the "Back" button
+        String backUrl = "customershome.jsp"; // Default to customershome.jsp
 
-    <!-- Assuming you have a servlet that handles the update profile request -->
-    <form action="UpdateProfile" method="POST">
-        <br><br>
-        <table>
-            <tr>
-                <td>Password: </td><td><input type="password" name="password" size="20"></td>
-            </tr>
-            <tr>
-                <td>Email: </td><td><input type="text" name="email" size="20"></td>
-            </tr>
-            <tr>
-                <td>Phone Number: </td><td><input type="text" name="phone" size="20"></td>
-            </tr>
-            <tr>
-                <td>Origin State: </td><td><input type="text" name="address" size="20"></td>
-            </tr>
-            <tr>
-                <td>Gender: </td>
-                <td>
-                    <input type="radio" id="male" name="gender" value="Male">
-                    <label for="male">Male</label>
-                    <input type="radio" id="female" name="gender" value="Female">
-                    <label for="female">Female</label>
-                </td>
-            </tr>
-        </table>
-        <p><input type="submit" value="Comfirm Update"></p>
-    </form>
+        // Update the URL based on the user's role
+        if ("Stallstaff".equalsIgnoreCase(role)) {
+            backUrl = "stallstaffshome.jsp";
+        }
+        %>
+        <a href="<%= backUrl %>" class="back-button">Back</a><br><br>
+        <table border="1">
+        <tr>
+            <th>Original Password</th>
+            <th>Original Email</th>
+            <th>Original Address</th>
+            <th>Original Phone Number</th>
+            <th>Original Gender</th>
+        </tr>
+        <tr>
+            <td><%= password %></td>
+            <td><%= email %></td>
+            <td><%= address %></td>
+            <td><%= hp %></td>
+            <td><%= gender %></td>
+        </tr>
+    </table>
 
+        <!-- Assuming you have a servlet that handles the update profile request -->
+        <form action="UpdateProfile" method="POST">
+            <br><br>
+            <table>
+                <tr>
+                    <td>Password: </td><td><input type="password" name="password" size="20" value="<%= password %>"></td>
+                </tr>
+                <tr>
+                    <td>Email: </td><td><input type="text" name="email" size="20" value="<%= email %>"></td>
+                </tr>
+                <tr>
+                    <td>Phone Number: </td><td><input type="text" name="phone" size="20" value="<%= hp %>"></td>
+                </tr>
+                <tr>
+                    <td>Origin State: </td><td><input type="text" name="address" size="20" value="<%= address %>"></td>
+                </tr>
+                <tr>
+                    <td>Gender: </td>
+                    <td>
+                        <input type="radio" id="male" name="gender" value="Male" <%= "Male".equalsIgnoreCase(gender) ? "checked" : "" %>>
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="Female" <%= "Female".equalsIgnoreCase(gender) ? "checked" : "" %>>
+                        <label for="female">Female</label>
+                    </td>
+                </tr>
+            </table>
+            <p><input type="submit" value="Comfirm Update"></p>
+        </form>
     </body>
 </html>
 
