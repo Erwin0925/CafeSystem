@@ -14,19 +14,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customers;
+import model.Stallstaffs;
 import model.Users;
+import model.modelfacade.CustomersFacade;
+import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "UpdateProfile", urlPatterns = {"/UpdateProfile"})
+public class UpdateProfile extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-    
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
+
+    @EJB
+    private CustomersFacade customersFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,51 +49,46 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession s = request.getSession(false);
+   
+        Users loginUser = (Users)s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();
+        String userType= loginUser.getRole();
+        String pw= loginUser.getPassword();
+        
+        String newEmail = request.getParameter("email");
+        String newAddress = request.getParameter("address");
+        String newPhone = request.getParameter("phone");
+        String newGender = request.getParameter("gender");
+        String newPassword = request.getParameter("password");
+        // Retrieve other updated data as needed
+        
+        
         try (PrintWriter out = response.getWriter()) {
-            try {
-            String username = request.getParameter("username");
-            Users found = usersFacade.find(username);
-            if (found == null) {
-                throw new Exception("User not found");
+            if ("Customer".equalsIgnoreCase(userType)){
+                Customers profile = customersFacade.find(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("pw",pw);
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
+            }else if("Stallstaff".equalsIgnoreCase(userType)){
+                Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("pw",pw);
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
             }
-            String password = request.getParameter("password");
-            if (!password.equals(found.getPassword())) {
-                throw new Exception("Invalid password");
-            }
-
-            // Check the user's status
-            String status = found.getStatus();
-            if ("pending".equalsIgnoreCase(status)) {
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Account pending approval. Please wait.");
-                return;
-            } else if (!"approved".equalsIgnoreCase(status)) {
-                throw new Exception("Account not approved or recognized.");
-            }
+            request.getRequestDispatcher("updateprofile.jsp").forward(request, response);
             
-            HttpSession s = request.getSession();
-            s.setAttribute("loginUser", found);
 
-            // Determine which homepage to redirect based on the user's role
-            String userRole = found.getRole();
-            switch (userRole) {
-                case "Customer":
-                    request.getRequestDispatcher("customershome.jsp").include(request, response);
-                    break;
-                case "Manager":
-                    request.getRequestDispatcher("managershome.jsp").include(request, response);
-                    break;
-                case "Stallstaff":
-                    request.getRequestDispatcher("stallstaffshome.jsp").include(request, response);
-                    break;
-                default:
-                    throw new Exception("Invalid role");
-            }
-
-            } catch (Exception e) {
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>" + e.getMessage());
-            }
+            
         }
     }
 

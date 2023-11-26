@@ -5,9 +5,11 @@
  */
 package model.modelfacade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Stallstaffs;
 
 /**
@@ -29,4 +31,13 @@ public class StallstaffsFacade extends AbstractFacade<Stallstaffs> {
         super(Stallstaffs.class);
     }
     
+    public Stallstaffs findstallstaffdetails(String username) {
+        Query query = em.createNamedQuery("stallstaff.details");
+        query.setParameter("username", username);
+        List<Stallstaffs> result = query.getResultList();
+        if(result.size()>0){
+            return result.get(0);
+        }
+        return null;
+    }
 }
