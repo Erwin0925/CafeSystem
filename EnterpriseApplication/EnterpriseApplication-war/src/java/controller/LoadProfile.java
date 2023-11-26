@@ -7,8 +7,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +25,8 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "UpdateProfile", urlPatterns = {"/UpdateProfile"})
-public class UpdateProfile extends HttpServlet {
+@WebServlet(name = "LoadProfile", urlPatterns = {"/LoadProfile"})
+public class LoadProfile extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
@@ -39,7 +37,6 @@ public class UpdateProfile extends HttpServlet {
     @EJB
     private CustomersFacade customersFacade;
 
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,40 +51,39 @@ public class UpdateProfile extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession s = request.getSession(false);
+   
         Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
         String userType= loginUser.getRole();
         String pw= loginUser.getPassword();
         
-        String newEmail = request.getParameter("email");
-        String newAddress = request.getParameter("address");
-        String newPhone = request.getParameter("phone");
-        String newGender = request.getParameter("gender");
-        String newPassword = request.getParameter("password");
+
+        // Retrieve other updated data as needed
+        
         
         try (PrintWriter out = response.getWriter()) {
+            
             Users userProfile = usersFacade.find(userName);
-            userProfile.setPassword(newPassword);
-            usersFacade.edit(userProfile);
+            s.setAttribute("pw",userProfile.getPassword());
             
             if ("Customer".equalsIgnoreCase(userType)){
-                Customers customerProfile = customersFacade.findcustomerdetails(userName);
-                customerProfile.setEmail(newEmail);
-                customerProfile.setAddress(newAddress);
-                customerProfile.setGender(newGender);
-                customerProfile.setHp(newPhone);
-                customersFacade.edit(customerProfile);
+                Customers profile = customersFacade.findcustomerdetails(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
             }else if("Stallstaff".equalsIgnoreCase(userType)){
-                Stallstaffs stallstaffProfile = stallstaffsFacade.findstallstaffdetails(userName);
-                stallstaffProfile.setEmail(newEmail);
-                stallstaffProfile.setAddress(newAddress);
-                stallstaffProfile.setGender(newGender);
-                stallstaffProfile.setHp(newPhone);
-                // Update other profile attributes as needed
-                stallstaffsFacade.edit(stallstaffProfile);
+                Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("role",userType);
+                s.setAttribute("id",profile.getId());
             }
-            request.getRequestDispatcher("LoadProfile").forward(request, response);
-
+            request.getRequestDispatcher("updateprofile.jsp").forward(request, response); 
         }
     }
 

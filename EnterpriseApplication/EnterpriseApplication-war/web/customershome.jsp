@@ -18,7 +18,7 @@
 
         <nav>
             <ul>
-                <li><a href="viewProfile.jsp">View Profile</a></li> <br><br>
+                <li><a href="LoadProfile">View Profile</a></li> <br><br>
                 <li><a href="viewMenu.jsp">View Menu</a></li> <br><br>
                 <li><a href="placeOrder.jsp">Place Order</a></li> <br><br>
                 <li><a href="giveFeedback.jsp">Give Feedback</a></li> <br><br>

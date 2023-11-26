@@ -10,12 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Erwin_Yoga
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "customer.details",query = "SELECT u FROM Customers u WHERE u.username = :username"),
+})
 public class Customers implements Serializable {
 
     private static final long serialVersionUID = 1L;
