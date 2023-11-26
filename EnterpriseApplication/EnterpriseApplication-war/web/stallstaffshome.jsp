@@ -22,11 +22,11 @@
 
         <nav>
             <ul>
-                <li><a href="LoadProfile">Edit Profile</a></li>
-                <li><a href="menuManagement.jsp">Menu Management</a></li>
-                <li><a href="salesRecords.jsp">Sales Records</a></li>
-                <li><a href="viewRatings.jsp">View Ratings</a></li>
-                <li><a href="reporting.jsp">Reporting</a></li>
+                <a href="LoadProfile">Edit Profile</a><br><br>
+                <a href="menuManagement.jsp">Menu Management</a><br><br>
+                <a href="salesRecords.jsp">Sales Records</a><br><br>
+                <a href="viewRatings.jsp">View Ratings</a><br><br>
+                <a href="reporting.jsp">Reporting</a><br><br>
             </ul>
         </nav>
 
