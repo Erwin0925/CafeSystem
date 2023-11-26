@@ -10,19 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Erwin_Yoga
  */
 @Entity
-
-@NamedQueries({
-    @NamedQuery(name = "Users.details",query = "SELECT u FROM Users u WHERE u.username = :username AND u.password = :password"),
-})
-
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;

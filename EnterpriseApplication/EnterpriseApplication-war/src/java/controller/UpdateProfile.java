@@ -7,26 +7,19 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Users;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "UpdateProfile", urlPatterns = {"/UpdateProfile"})
+public class UpdateProfile extends HttpServlet {
 
-    @EJB
-    private UsersFacade usersFacade;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,51 +33,16 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try {
-            String username = request.getParameter("username");
-            Users found = usersFacade.find(username);
-            if (found == null) {
-                throw new Exception("User not found");
-            }
-            String password = request.getParameter("password");
-            if (!password.equals(found.getPassword())) {
-                throw new Exception("Invalid password");
-            }
-
-            // Check the user's status
-            String status = found.getStatus();
-            if ("pending".equalsIgnoreCase(status)) {
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Account pending approval. Please wait.");
-                return;
-            } else if (!"approved".equalsIgnoreCase(status)) {
-                throw new Exception("Account not approved or recognized.");
-            }
-            
-            HttpSession s = request.getSession();
-            s.setAttribute("loginUser", found);
-            s.setAttribute("userType", found.getRole());
-
-            // Determine which homepage to redirect based on the user's role
-            String userRole = found.getRole();
-            switch (userRole) {
-                case "Customer":
-                    request.getRequestDispatcher("customershome.jsp").include(request, response);
-                    break;
-                case "Manager":
-                    request.getRequestDispatcher("managershome.jsp").include(request, response);
-                    break;
-                case "Stallstaff":
-                    request.getRequestDispatcher("stallstaffshome.jsp").include(request, response);
-                    break;
-                default:
-                    throw new Exception("Invalid role");
-            }
-
-            } catch (Exception e) {
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>" + e.getMessage());
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateProfile</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateProfile at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
