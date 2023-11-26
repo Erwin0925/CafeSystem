@@ -5,10 +5,13 @@
  */
 package model.modelfacade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Customers;
+import model.Stallstaffs;
 
 /**
  *
@@ -28,5 +31,16 @@ public class CustomersFacade extends AbstractFacade<Customers> {
     public CustomersFacade() {
         super(Customers.class);
     }
+    
+    public Customers findcustomerdetails(String username) {
+        Query query = em.createNamedQuery("customer.details");
+        query.setParameter("username", username);
+        List<Customers> result = query.getResultList();
+        if(result.size()>0){
+            return result.get(0);
+        }
+        return null;
+    }
+
     
 }
