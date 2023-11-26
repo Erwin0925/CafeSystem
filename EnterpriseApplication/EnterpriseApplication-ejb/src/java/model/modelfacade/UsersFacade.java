@@ -5,9 +5,12 @@
  */
 package model.modelfacade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Users;
 
 /**
@@ -27,6 +30,17 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     public UsersFacade() {
         super(Users.class);
+    }
+    
+    public Users findUserRole(String username, String password) {
+        Query query = em.createNamedQuery("Users.details");
+        query.setParameter("username", username);
+        query.setParameter("password", password); // Remember to use hashed passwords in a real application
+        List<Users> result = query.getResultList();
+        if(result.size()>0){
+            return result.get(0);
+        }
+        return null;
     }
     
 }

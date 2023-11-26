@@ -61,8 +61,11 @@ public class Login extends HttpServlet {
                 throw new Exception("Account not approved or recognized.");
             }
             
+            Users x = usersFacade.findUserRole(username, password);
+            
             HttpSession session = request.getSession();
             session.setAttribute("loginUser", found);
+            session.setAttribute("userType", x.getRole());
 
             // Determine which homepage to redirect based on the user's role
             String userRole = found.getRole();
@@ -79,8 +82,6 @@ public class Login extends HttpServlet {
                 default:
                     throw new Exception("Invalid role");
             }
-
-            out.println("<br><br><br>Welcome");
 
             } catch (Exception e) {
                 request.getRequestDispatcher("login.jsp").include(request, response);
