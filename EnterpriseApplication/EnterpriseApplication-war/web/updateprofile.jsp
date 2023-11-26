@@ -42,28 +42,29 @@
     <form action="UpdateProfile" method="POST">
         <br><br>
         <table>
-                <tr>
-                    <td>Password: </td><td><input type="password" name="password" size="20"></td>
-                </tr>
-                <tr>
-                    <td>Email: </td><td><input type="text" name="email" size="20"></td>
-                </tr>
-                <tr>
-                    <td>Phone Number: </td><td><input type="text" name="phone" size="20"></td>
-                </tr>
-                <tr>
-                    <td>Origin State: </td><td><input type="text" name="address" size="20"></td>
-                </tr>
-                <tr>
-                    <td>Gender: </td>
-                    <td>
-                        <input type="radio" id="male" name="gender" value="Male">
-                        <label for="male">Male</label>
-                        <input type="radio" id="female" name="gender" value="Female">
-                        <label for="female">Female</label>
-                    </td>
-                </tr>
-            </table>
+            <tr>
+                <td>Password: </td><td><input type="password" name="password" size="20"></td>
+            </tr>
+            <tr>
+                <td>Email: </td><td><input type="text" name="email" size="20"></td>
+            </tr>
+            <tr>
+                <td>Phone Number: </td><td><input type="text" name="phone" size="20"></td>
+            </tr>
+            <tr>
+                <td>Origin State: </td><td><input type="text" name="address" size="20"></td>
+            </tr>
+            <tr>
+                <td>Gender: </td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="Male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="Female">
+                    <label for="female">Female</label>
+                </td>
+            </tr>
+        </table>
+        <p><input type="submit" value="Comfirm Update"></p>
     </form>
 
     </body>

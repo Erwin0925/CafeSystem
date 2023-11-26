@@ -51,9 +51,8 @@ public class UpdateProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("updateprofile.jsp").forward(request, response);        RequestDispatcher dispatcher = request.getRequestDispatcher("updateprofile.jsp");
-        
         HttpSession s = request.getSession(false);
+   
         Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
         String userType= loginUser.getRole();
@@ -68,7 +67,7 @@ public class UpdateProfile extends HttpServlet {
                 s.setAttribute("gender", profile.getGender());
                 s.setAttribute("pw",pw);
             }else if("Stallstaff".equalsIgnoreCase(userType)){
-                Stallstaffs profile = stallstaffsFacade.find(userName);
+                Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
                 s.setAttribute("address", profile.getAddress());
                 s.setAttribute("hp", profile.getHp());
                 s.setAttribute("email", profile.getEmail());
@@ -77,7 +76,7 @@ public class UpdateProfile extends HttpServlet {
                 System.out.println(profile.getGender());
                 System.out.println("dsfsdfs");
             }
-
+            request.getRequestDispatcher("updateprofile.jsp").forward(request, response);
         }
     }
 
