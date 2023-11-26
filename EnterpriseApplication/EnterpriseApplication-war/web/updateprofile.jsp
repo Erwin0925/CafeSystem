@@ -11,6 +11,13 @@
         <title>Edit Profile</title>
         <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
+    <%
+    String password = (String) session.getAttribute("pw");
+    String address = (String) session.getAttribute("address");
+    String hp = (String) session.getAttribute("hp");
+    String email = (String) session.getAttribute("email");
+    String gender = (String) session.getAttribute("gender");
+    %>
     <body>
 
     <h2>Edit Profile</h2>
@@ -23,11 +30,11 @@
         <th>Original Gender</th>
     </tr>
     <tr>
-        <td>${stallStaff.email}</td>
-        <td>${stallStaff.email}</td>
-        <td>${stallStaff.address}</td>
-        <td>${stallStaff.hp}</td>
-        <td>${stallStaff.gender}</td>
+        <td><%= password %></td>
+        <td><%= email %></td>
+        <td><%= address %></td>
+        <td><%= hp %></td>
+        <td><%= gender %></td>
     </tr>
 </table>
 

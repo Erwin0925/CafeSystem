@@ -7,11 +7,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customers;
+import model.Stallstaffs;
+import model.Users;
+import model.modelfacade.CustomersFacade;
+import model.modelfacade.StallstaffsFacade;
+import model.modelfacade.UsersFacade;
 
 /**
  *
@@ -19,6 +28,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UpdateProfile", urlPatterns = {"/UpdateProfile"})
 public class UpdateProfile extends HttpServlet {
+
+    @EJB
+    private UsersFacade usersFacade;
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
+
+    @EJB
+    private CustomersFacade customersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +50,34 @@ public class UpdateProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        request.getRequestDispatcher("updateprofile.jsp").forward(request, response);        RequestDispatcher dispatcher = request.getRequestDispatcher("updateprofile.jsp");
+        
+        HttpSession s = request.getSession(false);
+        Users loginUser = (Users)s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();
+        String userType= loginUser.getRole();
+        String pw= loginUser.getPassword();
+        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateProfile</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if ("Customer".equalsIgnoreCase(userType)){
+                Customers profile = customersFacade.find(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("pw",pw);
+            }else if("Stallstaff".equalsIgnoreCase(userType)){
+                Stallstaffs profile = stallstaffsFacade.find(userName);
+                s.setAttribute("address", profile.getAddress());
+                s.setAttribute("hp", profile.getHp());
+                s.setAttribute("email", profile.getEmail());
+                s.setAttribute("gender", profile.getGender());
+                s.setAttribute("pw",pw);
+                System.out.println(profile.getGender());
+                System.out.println("dsfsdfs");
+            }
+
         }
     }
 

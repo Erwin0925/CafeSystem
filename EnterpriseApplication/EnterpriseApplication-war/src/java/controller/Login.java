@@ -63,7 +63,6 @@ public class Login extends HttpServlet {
             
             HttpSession s = request.getSession();
             s.setAttribute("loginUser", found);
-            s.setAttribute("userType", found.getRole());
 
             // Determine which homepage to redirect based on the user's role
             String userRole = found.getRole();
