@@ -63,6 +63,7 @@ public class UpdateMenu extends HttpServlet {
             if(stallname.equals(stallname2)){
                 menuProfile.setItemname(newName);
                 menuProfile.setPrice(newPrice);
+                menuProfile.setModifyby(userName);
                 menusFacade.edit(menuProfile);
             }
             request.getRequestDispatcher("LoadStallstaffMenu").forward(request, response);              
