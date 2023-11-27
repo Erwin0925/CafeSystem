@@ -13,7 +13,9 @@
         <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
     </head>
     <body>
+        <a href="stallstaffshome.jsp" class="back-button">Back</a><br><br>
         <h1>Menu Management</h1>
+        
 
         <!-- Add Menu Form -->
         <!-- ... (previous code for adding, deleting, searching, and updating menus) ... -->
