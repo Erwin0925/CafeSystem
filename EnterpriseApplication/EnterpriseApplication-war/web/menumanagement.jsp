@@ -49,6 +49,9 @@
         <input type="text" id="menuPrice" name="menuPrice" required><br><br>
         <input type="submit" value="Add Menu">
     </form>
+    <% if (request.getAttribute("errorMessage") != null) { %>
+    <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+    <% } %>
 
     <!-- Delete Menu Form -->
     <h2>Delete Menu</h2>
@@ -60,11 +63,27 @@
 
     <!-- Search Menu Form -->
     <h2>Search Menu</h2>
-    <form action="SearchMenuServlet" method="post">
+    <form action="SearchMenu" method="post">
         <label for="menuNameToSearch">Menu Name to Search:</label>
         <input type="text" id="menuNameToSearch" name="menuNameToSearch" required><br><br>
         <input type="submit" value="Search Menu">
     </form>
+    <c:choose>
+        <c:when test="${not empty searchResult}">
+            <div id="searchResults">
+                <!-- If searchResult is a single object -->
+                <div>
+                    <span>${searchResult.itemname}</span>
+                    <!-- Other details -->
+                </div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div id="noResults">
+                No menu with this name.
+            </div>
+        </c:otherwise>
+    </c:choose>
 
     <!-- Update Menu Form -->
     <h2>Update Menu</h2>

@@ -21,6 +21,8 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "menu.details",query = "SELECT m FROM Menus m WHERE m.stallname = :stallName"),
     @NamedQuery(name = "specificmenu.details",query = "SELECT m FROM Menus m WHERE m.id = :stallId"),
+    @NamedQuery(name = "Menus.findAllItemNames", query = "SELECT DISTINCT m.itemname FROM Menus m WHERE m.stallname = :stallName"),
+    @NamedQuery(name = "Menu.findByName", query = "SELECT m FROM Menus m WHERE m.itemname = :name AND m.stallname = :stallname"),
 })
 public class Menus implements Serializable {
 
