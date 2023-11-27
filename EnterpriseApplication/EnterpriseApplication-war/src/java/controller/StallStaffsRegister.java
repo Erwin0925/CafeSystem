@@ -13,8 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Stalls;
 import model.Stallstaffs;
 import model.Users;
+import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
@@ -24,6 +26,9 @@ import model.modelfacade.UsersFacade;
  */
 @WebServlet(name = "StallStaffsRegister", urlPatterns = {"/StallStaffsRegister"})
 public class StallStaffsRegister extends HttpServlet {
+
+    @EJB
+    private StallsFacade stallsFacade;
 
     @EJB
     private StallstaffsFacade stallstaffsFacade;
@@ -53,6 +58,7 @@ public class StallStaffsRegister extends HttpServlet {
                 String address = request.getParameter("address");
                 String hp = request.getParameter("phone");
                 String gender = request.getParameter("gender");
+                String stallname = request.getParameter("stallname");
                 String status = "pending";
                 String role = "Stallstaff";
 
@@ -63,22 +69,19 @@ public class StallStaffsRegister extends HttpServlet {
                 Users newUser = new Users(username,password, role, status);
                 usersFacade.create(newUser);
                 
-                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address,gender);
-                // Create and persist the new user entity
+                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address, gender, stallname);
                 stallstaffsFacade.create(newStallstaff);
-                
-                
-                
-                
 
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
+                // Find the existing stall by name (you might want to add error handling if it doesn't exist)
+                Stalls existingStall = stallsFacade.find(stallname);
+
+                // Add the new stall staff to the stall
+                existingStall.getStallstaffs().add(newStallstaff);
+                stallsFacade.edit(existingStall);
+                
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-//                response.sendRedirect("login.jsp");
                 out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
                 out.println("<br><br><br>Wrong input!");
             }

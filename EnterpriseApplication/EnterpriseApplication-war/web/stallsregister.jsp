@@ -6,23 +6,22 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
-<head>
-    <title>Register New Stall</title>
-    <!-- Add any additional CSS or JS you need here -->
-</head>
-<body>
+    <head>
+        <title>Register New Stall</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css">
+    </head>
+    <body>
+        <a href="stallstaffsregister.jsp" class="back-button">Back</a><br><br>
+        <h2>Register New Stall</h2>
 
-<h2>Register New Stall</h2>
+        <form action="RegisterStall" method="post"> <!-- Action points to a Servlet that handles the saving -->
+            <label for="stallName">Stall Name:</label>
+            <input type="text" name="stallName" required size="20"><br><br>
 
-<form action="SaveStallServlet" method="post"> <!-- Action points to a Servlet that handles the saving -->
-    <label for="stallName">Stall Name:</label><br>
-    <input type="text" id="stallName" name="stallName" required><br>
+            <label for="stallCategory">Stall Category:</label>
+            <input type="text" name="category" required size="20"><br><br>
 
-    <label for="stallCategory">Stall Category:</label><br>
-    <input type="text" id="stallCategory" name="stallCategory" required><br><br>
-
-    <input type="submit" value="Register Stall">
-</form>
-
-</body>
+            <input type="submit" value="Register Stall">
+        </form>
+    </body>
 </html>

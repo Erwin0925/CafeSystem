@@ -41,9 +41,10 @@ public class RegisterStall extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             try
             {  
-                String stallname = request.getParameter("stallname");
+                String stallname = request.getParameter("stallName");
                 String category = request.getParameter("category");
                 String status = ("pending");
+                System.out.println("step 1");
 
 
                 if (stallsFacade.find(stallname) != null) 
@@ -51,12 +52,13 @@ public class RegisterStall extends HttpServlet {
                     throw new Exception();
                 }
                 
+                System.out.println("step 2");
                 Stalls newStall = new Stalls(stallname, category, status);
                 stallsFacade.create(newStall);
                 
                 
                 
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
+                request.getRequestDispatcher("LoadStallstaffRegister").include(request, response);
                 out.println("<br><br><br>Registration Completed!");
                 
             } catch (Exception e) {

@@ -18,7 +18,7 @@
         <form action = "CustomersRegister" method = "Post">
             <div class="inline-button-group">
                 <a href="customersregister.jsp" class="register-button-group button active">Customer Registration</a>
-                <a href="stallstaffsregister.jsp" class="register-button-group button inactive">Stall Staff Registration</a>
+                <a href="LoadStallstaffRegister" class="register-button-group button inactive">Stall Staff Registration</a>
                 <br><br><br>
             </div>
             <table>
