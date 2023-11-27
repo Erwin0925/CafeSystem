@@ -21,8 +21,9 @@
                 <a href="stallstaffsregister.jsp" class="register-button-group button active">Stall Staff Registration</a>
                 <br><br><br>
             </div>
+            <br><a href="stallsregister.jsp" class="register-button-group button inactive">Stall Registration</a>
             <table>
-                <!-- Stall staff specific registration fields -->
+                <br><br>
                 <tr>
                     <td>Username: </td><td><input type="text" name="username" size="20"></td>
                 </tr>
@@ -53,6 +54,6 @@
                 <a href="login.jsp"><input type="button" value="Login" class="register-button-group"></a>
                 <input type="submit" value="Register" class="register-button-group">
             </div>
-        </form>
+        </form> 
     </body>
 </html>

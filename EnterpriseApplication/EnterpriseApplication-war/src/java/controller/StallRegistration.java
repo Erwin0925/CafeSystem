@@ -7,30 +7,18 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Stallstaffs;
-import model.Users;
-import model.modelfacade.StallstaffsFacade;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "StallStaffsRegister", urlPatterns = {"/StallStaffsRegister"})
-public class StallStaffsRegister extends HttpServlet {
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
-
-    @EJB
-    private UsersFacade usersFacade;
-    
+@WebServlet(name = "StallRegistration", urlPatterns = {"/StallRegistration"})
+public class StallRegistration extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,43 +33,16 @@ public class StallStaffsRegister extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try 
-            {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String hp = request.getParameter("phone");
-                String gender = request.getParameter("gender");
-                String status = "pending";
-                String role = "Stallstaff";
-
-                if (usersFacade.find(username) != null) {
-                    throw new Exception();
-                }
-               
-                Users newUser = new Users(username,password, role, status);
-                usersFacade.create(newUser);
-                
-                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address,gender);
-                // Create and persist the new user entity
-                stallstaffsFacade.create(newStallstaff);
-                
-                
-                
-                
-
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-//                response.sendRedirect("login.jsp");
-                out.println("<br><br><br>Registration Completed!");
-            } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet StallRegistration</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet StallRegistration at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
