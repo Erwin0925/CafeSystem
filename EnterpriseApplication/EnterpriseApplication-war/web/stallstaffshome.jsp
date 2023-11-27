@@ -23,7 +23,7 @@
         <nav>
             <ul>
                 <a href="LoadProfile">Edit Profile</a><br><br>
-                <a href="menumanagement.jsp">Menu Management</a><br><br>
+                <a href="LoadStallstaffMenu">Menu Management</a><br><br>
                 <a href="salesRecords.jsp">Sales Records</a><br><br>
                 <a href="viewRatings.jsp">View Ratings</a><br><br>
                 <a href="reporting.jsp">Reporting</a><br><br>

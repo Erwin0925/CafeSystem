@@ -3,43 +3,44 @@
     Created on : Nov 27, 2023, 2:00:15 PM
     Author     : Erwin_Yoga
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Menu Management</title>
-    <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
-</head>
-<body>
-    <h1>Menu Management</h1>
+    <head>
+        <title>Menu Management</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
+    </head>
+    <body>
+        <h1>Menu Management</h1>
 
-    <!-- Add Menu Form -->
-    <!-- ... (previous code for adding, deleting, searching, and updating menus) ... -->
+        <!-- Add Menu Form -->
+        <!-- ... (previous code for adding, deleting, searching, and updating menus) ... -->
 
-    <!-- Display Published Menus Table -->
-    <h2>Published Menus</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Replace 'publishedMenus' with the list of already published menus from your database -->
-            <c:forEach var="menu" items="${publishedMenus}">
+        <!-- Display Published Menus Table -->
+        <h2>Published Menus</h2>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td>${menu.menuId}</td>
-                    <td>${menu.itemName}</td>
-                    <td>${menu.price}</td>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
                 </tr>
-            </c:forEach>
+            </thead>
+            <tbody>
+                <!-- Replace 'publishedMenus' with the list of already published menus from your database -->
+                <c:forEach var="menus" items="${menus}">
+                    <tr>
+                        <td>${menus.id}</td>
+                        <td>${menus.itemname}</td>
+                        <td>${menus.price}</td>
+                    </tr>
+                </c:forEach>
         </tbody>
     </table>
     <h2>Add Menu</h2>
-    <form action="AddMenuServlet" method="post">
+    <form action="AddMenu" method="post">
         <label for="menuName">Menu Name:</label>
         <input type="text" id="menuName" name="menuName" required><br><br>
         <label for="menuPrice">Menu Price:</label>
@@ -74,7 +75,7 @@
         <input type="text" id="updatedMenuPrice" name="updatedMenuPrice" required><br><br>
         <input type="submit" value="Update Menu">
     </form>
-    
+
     <h2>Update Status</h2>
     <form action="UpdateMenuStatusServlet" method="post">
         <label for="menuIdToUpdateStatus">Menu ID to Update Status:</label>

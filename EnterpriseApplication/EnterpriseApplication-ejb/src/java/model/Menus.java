@@ -10,12 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Erwin_Yoga
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "menu.details",query = "SELECT m FROM Menus m WHERE m.stallname = :stallName"),
+})
 public class Menus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +28,7 @@ public class Menus implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String itemname;
-    private String price;
+    private double price;
     private String modifyby;
     private String stallname;
     private String status;
@@ -31,13 +36,14 @@ public class Menus implements Serializable {
     public Menus() {
     }
 
-    public Menus(String itemname, String price, String modifyby, String stallname, String status) {
+    public Menus(String itemname, double price, String modifyby, String stallname, String status) {
         this.itemname = itemname;
         this.price = price;
         this.modifyby = modifyby;
         this.stallname = stallname;
         this.status = status;
     }
+
 
     public String getStatus() {
         return status;
@@ -56,11 +62,11 @@ public class Menus implements Serializable {
         this.itemname = itemname;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

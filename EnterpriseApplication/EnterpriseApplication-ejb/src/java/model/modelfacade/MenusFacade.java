@@ -5,9 +5,11 @@
  */
 package model.modelfacade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Menus;
 
 /**
@@ -28,5 +30,12 @@ public class MenusFacade extends AbstractFacade<Menus> {
     public MenusFacade() {
         super(Menus.class);
     }
+
+    public List<Menus> findsMenu(String stallName) {
+        Query query = em.createNamedQuery("menu.details");
+        query.setParameter("stallName", stallName);
+        return query.getResultList();
+    }
+
     
 }
