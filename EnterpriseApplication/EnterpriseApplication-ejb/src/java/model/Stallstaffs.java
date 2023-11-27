@@ -34,18 +34,38 @@ public class Stallstaffs implements Serializable {
     private String hp;
     private String address;
     private String gender;
+    private String stallname;
 
     public Stallstaffs() {
     }
 
-    public Stallstaffs(String username, String email, String hp, String address, String gender) {
+    public Stallstaffs(Long id, String username, String email, String hp, String address, String gender, String stallname) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.hp = hp;
         this.address = address;
         this.gender = gender;
+        this.stallname = stallname;
     }
 
+    public Stallstaffs(String username, String email, String hp, String address, String gender, String stallname) {
+        this.username = username;
+        this.email = email;
+        this.hp = hp;
+        this.address = address;
+        this.gender = gender;
+        this.stallname = stallname;
+    }
+
+    public String getStallname() {
+        return stallname;
+    }
+
+    public void setStallname(String stallname) {
+        this.stallname = stallname;
+    }
+    
     public String getGender() {
         return gender;
     }

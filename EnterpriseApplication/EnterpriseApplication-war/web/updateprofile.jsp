@@ -36,21 +36,21 @@
         %>
         <a href="<%= backUrl %>" class="back-button">Back</a><br><br>
         <table border="1">
-        <tr>
-            <th>Original Password</th>
-            <th>Original Email</th>
-            <th>Original Address</th>
-            <th>Original Phone Number</th>
-            <th>Original Gender</th>
-        </tr>
-        <tr>
-            <td><%= password %></td>
-            <td><%= email %></td>
-            <td><%= address %></td>
-            <td><%= hp %></td>
-            <td><%= gender %></td>
-        </tr>
-    </table>
+            <tr>
+                <th>Original Password</th>
+                <th>Original Email</th>
+                <th>Original Address</th>
+                <th>Original Phone Number</th>
+                <th>Original Gender</th>
+            </tr>
+            <tr>
+                <td><%= password %></td>
+                <td><%= email %></td>
+                <td><%= address %></td>
+                <td><%= hp %></td>
+                <td><%= gender %></td>
+            </tr>
+        </table>
 
         <!-- Assuming you have a servlet that handles the update profile request -->
         <form action="UpdateProfile" method="POST">

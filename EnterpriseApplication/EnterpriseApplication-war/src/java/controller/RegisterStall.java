@@ -14,28 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Stalls;
-import model.Stallstaffs;
-import model.Users;
 import model.modelfacade.StallsFacade;
-import model.modelfacade.StallstaffsFacade;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "StallStaffsRegister", urlPatterns = {"/StallStaffsRegister"})
-public class StallStaffsRegister extends HttpServlet {
+@WebServlet(name = "RegisterStall", urlPatterns = {"/RegisterStall"})
+public class RegisterStall extends HttpServlet {
 
     @EJB
     private StallsFacade stallsFacade;
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
-
-    @EJB
-    private UsersFacade usersFacade;
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,38 +39,31 @@ public class StallStaffsRegister extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try 
-            {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String hp = request.getParameter("phone");
-                String gender = request.getParameter("gender");
-                String stallname = request.getParameter("stallname");
-                String status = "pending";
-                String role = "Stallstaff";
+            try
+            {  
+                String stallname = request.getParameter("stallName");
+                String category = request.getParameter("category");
+                String status = ("pending");
+                System.out.println("step 1");
 
-                if (usersFacade.find(username) != null) {
+
+                if (stallsFacade.find(stallname) != null) 
+                {
                     throw new Exception();
                 }
-               
-                Users newUser = new Users(username,password, role, status);
-                usersFacade.create(newUser);
                 
-                Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address, gender, stallname);
-                stallstaffsFacade.create(newStallstaff);
-
-                // Find the existing stall by name (you might want to add error handling if it doesn't exist)
-                Stalls existingStall = stallsFacade.find(stallname);
-
-                // Add the new stall staff to the stall
-                existingStall.getStallstaffs().add(newStallstaff);
-                stallsFacade.edit(existingStall);
+                System.out.println("step 2");
+                Stalls newStall = new Stalls(stallname, category, status);
+                stallsFacade.create(newStall);
                 
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
+                
+                
+                request.getRequestDispatcher("LoadStallstaffRegister").include(request, response);
                 out.println("<br><br><br>Registration Completed!");
+                
             } catch (Exception e) {
+                // Forward back to the registration page with an error message
+                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
                 out.println("<br><br><br>Wrong input!");
             }

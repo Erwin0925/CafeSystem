@@ -4,6 +4,7 @@
     Author     : Erwin_Yoga
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,8 +22,24 @@
                 <a href="stallstaffsregister.jsp" class="register-button-group button active">Stall Staff Registration</a>
                 <br><br><br>
             </div>
+            <br><a href="stallsregister.jsp" class="register-button-group button inactive">Stall Registration</a>
             <table>
-                <!-- Stall staff specific registration fields -->
+                <br><br>
+                <tr>
+                    <td>Select Stall:</td>
+                    <td>
+                        <select name="stallname">
+                            <%
+                                List<String> stallNames = (List<String>) session.getAttribute("stallNames");
+                                for (String name : stallNames) {
+                            %>
+                            <option value="<%= name %>"><%= name %></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td>Username: </td><td><input type="text" name="username" size="20"></td>
                 </tr>
@@ -46,13 +63,13 @@
                         <input type="radio" id="female" name="gender" value="Female">
                         <label for="female">Female</label>
                     </td>
-                </tr>
+                </tr> 
             </table>
             <div class="inline-button-group">
                 <br><br><br>
                 <a href="login.jsp"><input type="button" value="Login" class="register-button-group"></a>
                 <input type="submit" value="Register" class="register-button-group">
             </div>
-        </form>
+        </form> 
     </body>
 </html>
