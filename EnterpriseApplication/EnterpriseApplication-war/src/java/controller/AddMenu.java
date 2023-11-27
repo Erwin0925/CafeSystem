@@ -13,24 +13,35 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Customers;
-import model.modelfacade.CustomersFacade;
+import javax.servlet.http.HttpSession;
+import model.Menus;
+import model.Stalls;
+import model.Stallstaffs;
 import model.Users;
+import model.modelfacade.MenusFacade;
+import model.modelfacade.StallsFacade;
+import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "CustomersRegister", urlPatterns = {"/CustomersRegister"})
-public class CustomersRegister extends HttpServlet {
+@WebServlet(name = "AddMenu", urlPatterns = {"/AddMenu"})
+public class AddMenu extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
 
     @EJB
-    private CustomersFacade customersFacade;
-    
+    private StallstaffsFacade stallstaffsFacade;
+
+    @EJB
+    private StallsFacade stallsFacade;
+
+    @EJB
+    private MenusFacade menusFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,45 +54,33 @@ public class CustomersRegister extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession s = request.getSession(false);
+        Users loginUser = (Users)s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();
+        
         try (PrintWriter out = response.getWriter()) {
-            try 
-            {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String hp = request.getParameter("hp");
-                String gender = request.getParameter("gender");
-                String status = "approved";
-                String role = "Customer";
+            
+            Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+            String stallname = profile.getStallname();
+            String menuName = request.getParameter("menuName");
+            double menuPrice = Double.parseDouble(request.getParameter("menuPrice"));
+            String modify = userName;
+            String status = "In Stock";
 
-                if (usersFacade.find(username) != null) {
-                    throw new Exception();
-                }
-               
-                Users newUser = new Users(username,password, role, status);
-                usersFacade.create(newUser);
-                
-                
-                
+            Menus menuProf = new Menus(menuName, menuPrice, modify, stallname, status);
+            menusFacade.create(menuProf);
 
-                Customers newCustomer = new Customers(username, email, hp, address, gender);
-                // Create and persist the new user entity
-                customersFacade.create(newCustomer);
-                
-                
-                
+            // Find the existing stall by name (you might want to add error handling if it doesn't exist)
+            Stalls existingStall = stallsFacade.find(stallname);
 
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
-            } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("customersregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
-            }
+            existingStall.getMenus().add(menuProf);
+            stallsFacade.edit(existingStall);
+
+            request.getRequestDispatcher("LoadStallstaffMenu").include(request, response);
+            //request.getRequestDispatcher("LoadStallstaffMenu").include(request, response);
+            out.println("<br><br><br>Registration Completed!");
+            
         }
     }
 

@@ -7,30 +7,34 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Customers;
-import model.modelfacade.CustomersFacade;
+import javax.servlet.http.HttpSession;
+import model.Menus;
+import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.UsersFacade;
+import model.modelfacade.MenusFacade;
+import model.modelfacade.StallstaffsFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "CustomersRegister", urlPatterns = {"/CustomersRegister"})
-public class CustomersRegister extends HttpServlet {
+@WebServlet(name = "LoadStallstaffMenu", urlPatterns = {"/LoadStallstaffMenu"})
+public class LoadStallstaffMenu extends HttpServlet {
 
     @EJB
-    private UsersFacade usersFacade;
-
-    @EJB
-    private CustomersFacade customersFacade;
+    private StallstaffsFacade stallstaffsFacade;
     
+    @EJB
+    private MenusFacade menusFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,46 +47,20 @@ public class CustomersRegister extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            try 
-            {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String hp = request.getParameter("hp");
-                String gender = request.getParameter("gender");
-                String status = "approved";
-                String role = "Customer";
+        
+        HttpSession s = request.getSession(false);
+        Users loginUser = (Users) s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();
+        
+        Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+        
+        String stallname = profile.getStallname();
 
-                if (usersFacade.find(username) != null) {
-                    throw new Exception();
-                }
-               
-                Users newUser = new Users(username,password, role, status);
-                usersFacade.create(newUser);
-                
-                
-                
-
-                Customers newCustomer = new Customers(username, email, hp, address, gender);
-                // Create and persist the new user entity
-                customersFacade.create(newCustomer);
-                
-                
-                
-
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
-            } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("customersregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
-            }
-        }
+        List<Menus> menus = menusFacade.findsMenu(stallname);
+        request.setAttribute("menus", menus);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("menumanagement.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,6 +76,7 @@ public class CustomersRegister extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**

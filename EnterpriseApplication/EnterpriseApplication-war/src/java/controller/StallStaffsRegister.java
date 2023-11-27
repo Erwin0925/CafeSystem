@@ -79,7 +79,7 @@ public class StallStaffsRegister extends HttpServlet {
                 existingStall.getStallstaffs().add(newStallstaff);
                 stallsFacade.edit(existingStall);
                 
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
+                request.getRequestDispatcher("login.jsp").include(request, response);
                 out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);

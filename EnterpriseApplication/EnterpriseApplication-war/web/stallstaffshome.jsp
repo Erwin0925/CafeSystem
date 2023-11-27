@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Stallstaff Dashboard</title>
-    <!-- Add your CSS file link here -->
+    <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
 </head>
     <body>
         <header>
@@ -23,7 +23,7 @@
         <nav>
             <ul>
                 <a href="LoadProfile">Edit Profile</a><br><br>
-                <a href="menuManagement.jsp">Menu Management</a><br><br>
+                <a href="LoadStallstaffMenu">Menu Management</a><br><br>
                 <a href="salesRecords.jsp">Sales Records</a><br><br>
                 <a href="viewRatings.jsp">View Ratings</a><br><br>
                 <a href="reporting.jsp">Reporting</a><br><br>

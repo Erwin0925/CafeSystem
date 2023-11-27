@@ -13,24 +13,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Customers;
-import model.modelfacade.CustomersFacade;
+import javax.servlet.http.HttpSession;
+import model.Menus;
+import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.UsersFacade;
+import model.modelfacade.MenusFacade;
+import model.modelfacade.StallstaffsFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "CustomersRegister", urlPatterns = {"/CustomersRegister"})
-public class CustomersRegister extends HttpServlet {
+@WebServlet(name = "UpdateMenuStatus", urlPatterns = {"/UpdateMenuStatus"})
+public class UpdateMenuStatus extends HttpServlet {
 
     @EJB
-    private UsersFacade usersFacade;
+    private MenusFacade menusFacade;
 
     @EJB
-    private CustomersFacade customersFacade;
-    
+    private StallstaffsFacade stallstaffsFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,45 +45,32 @@ public class CustomersRegister extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession s = request.getSession(false);
+        Users loginUser = (Users)s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();  
+        
         try (PrintWriter out = response.getWriter()) {
-            try 
-            {
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String hp = request.getParameter("hp");
-                String gender = request.getParameter("gender");
-                String status = "approved";
-                String role = "Customer";
-
-                if (usersFacade.find(username) != null) {
-                    throw new Exception();
-                }
-               
-                Users newUser = new Users(username,password, role, status);
-                usersFacade.create(newUser);
-                
-                
-                
-
-                Customers newCustomer = new Customers(username, email, hp, address, gender);
-                // Create and persist the new user entity
-                customersFacade.create(newCustomer);
-                
-                
-                
-
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
-            } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("customersregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
+            
+            Long id = Long.parseLong(request.getParameter("menuIdToUpdateStatus"));
+            String newStatus = request.getParameter("status");
+            
+            Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+            String stallname = profile.getStallname();
+            
+            Menus menuProfile = menusFacade.findSpecificMenu(id);
+            String stallname2 = menuProfile.getStallname();
+            if(stallname.equals(stallname2)){
+                menuProfile.setStatus(newStatus);
+                menusFacade.edit(menuProfile);
             }
+            request.getRequestDispatcher("LoadStallstaffMenu").forward(request, response);
+
+
+            
+            
+  
+
         }
     }
 
