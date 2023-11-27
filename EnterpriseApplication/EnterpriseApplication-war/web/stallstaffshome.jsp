@@ -37,7 +37,7 @@
             </section>
 
             <section id="menu-management">
-                <h2>Menu Management</h2>
+                <h2>Menu Managements</h2>
                 <!-- Quick links for menu management -->
             </section>
 
