@@ -74,7 +74,7 @@ public class CustomersRegister extends HttpServlet {
 
                 // Forward to the registration page with a success message
                 //request.setAttribute("successMessage", "Registration Completed!");
-                request.getRequestDispatcher("customersregister.jsp").include(request, response);
+                request.getRequestDispatcher("login.jsp").include(request, response);
                 out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
                 // Forward back to the registration page with an error message
