@@ -7,9 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,14 +24,14 @@ import model.modelfacade.StallstaffsFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadStallstaffMenu", urlPatterns = {"/LoadStallstaffMenu"})
-public class LoadStallstaffMenu extends HttpServlet {
+@WebServlet(name = "UpdateMenuStatus", urlPatterns = {"/UpdateMenuStatus"})
+public class UpdateMenuStatus extends HttpServlet {
+
+    @EJB
+    private MenusFacade menusFacade;
 
     @EJB
     private StallstaffsFacade stallstaffsFacade;
-    
-    @EJB
-    private MenusFacade menusFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,18 +47,31 @@ public class LoadStallstaffMenu extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession s = request.getSession(false);
-        Users loginUser = (Users) s.getAttribute("loginUser");
-        String userName = loginUser.getUsername();
+        Users loginUser = (Users)s.getAttribute("loginUser");
+        String userName = loginUser.getUsername();  
         
-        Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
-        
-        String stallname = profile.getStallname();
+        try (PrintWriter out = response.getWriter()) {
+            
+            Long id = Long.parseLong(request.getParameter("menuIdToUpdateStatus"));
+            String newStatus = request.getParameter("status");
+            
+            Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
+            String stallname = profile.getStallname();
+            
+            Menus menuProfile = menusFacade.findSpecificMenu(id);
+            String stallname2 = menuProfile.getStallname();
+            if(stallname.equals(stallname2)){
+                menuProfile.setStatus(newStatus);
+                menusFacade.edit(menuProfile);
+            }
+            request.getRequestDispatcher("LoadStallstaffMenu").forward(request, response);
 
-        List<Menus> menus = menusFacade.findsMenu(stallname);
-        request.setAttribute("menus", menus);
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("menumanagement.jsp");
-        dispatcher.forward(request, response);
+
+            
+            
+  
+
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,7 +87,6 @@ public class LoadStallstaffMenu extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

@@ -26,6 +26,7 @@
                     <th>ID</th>
                     <th>Item Name</th>
                     <th>Price</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                         <td>${menus.id}</td>
                         <td>${menus.itemname}</td>
                         <td>${menus.price}</td>
+                        <td>${menus.status}</td>
                     </tr>
                 </c:forEach>
         </tbody>
@@ -77,13 +79,13 @@
     </form>
 
     <h2>Update Status</h2>
-    <form action="UpdateMenuStatusServlet" method="post">
+    <form action="UpdateMenuStatus" method="post">
         <label for="menuIdToUpdateStatus">Menu ID to Update Status:</label>
         <input type="text" id="menuIdToUpdateStatus" name="menuIdToUpdateStatus" required><br><br>
         <label>Status:</label>
-        <input type="radio" id="inStock" name="status" value="inStock" required>
+        <input type="radio" id="inStock" name="status" value="In Stock" required>
         <label for="inStock">In Stock</label>
-        <input type="radio" id="outOfStock" name="status" value="outOfStock" required>
+        <input type="radio" id="outOfStock" name="status" value="Out Of Stock" required>
         <label for="outOfStock">Out of Stock</label><br><br>
         <input type="submit" value="Update Status">
     </form>

@@ -36,6 +36,16 @@ public class MenusFacade extends AbstractFacade<Menus> {
         query.setParameter("stallName", stallName);
         return query.getResultList();
     }
+    
+        public Menus findSpecificMenu(Long stallId) {
+        Query query = em.createNamedQuery("specificmenu.details");
+        query.setParameter("stallId", stallId);
+        List<Menus> result = query.getResultList();
+        if(result.size()>0){
+            return result.get(0);
+        }
+        return null;
+    }
 
     
 }

@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "menu.details",query = "SELECT m FROM Menus m WHERE m.stallname = :stallName"),
+    @NamedQuery(name = "specificmenu.details",query = "SELECT m FROM Menus m WHERE m.id = :stallId"),
 })
 public class Menus implements Serializable {
 
