@@ -57,10 +57,10 @@ public class SearchMenu extends HttpServlet {
             
             String name = request.getParameter("menuNameToSearch");
             Menus result = menusFacade.findwithName(name,stallname);
-            System.out.println(result);
+
             
             if (result == null) {
-                request.setAttribute("noResultsFound", true);
+                request.setAttribute("errorMessage2", "Wrong Name");
             } else {
                 request.setAttribute("searchResult", result);
             }

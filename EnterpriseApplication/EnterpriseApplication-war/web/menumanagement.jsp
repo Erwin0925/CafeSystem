@@ -68,23 +68,17 @@
         <input type="text" id="menuNameToSearch" name="menuNameToSearch" required><br><br>
         <input type="submit" value="Search Menu">
     </form>
-    <c:choose>
-        <c:when test="${not empty searchResult}">
+        <% 
+            if (request.getAttribute("errorMessage2") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("errorMessage2") %></p>
+        <% } else if (request.getAttribute("searchResult") != null) { %>
             <div id="searchResults">
-                <!-- If searchResult is a single object -->
                 <div>
                     <span>${searchResult.itemname}</span>
-                    <!-- Other details -->
                 </div>
             </div>
-        </c:when>
-        <c:otherwise>
-            <div id="noResults">
-                No menu with this name.
-            </div>
-        </c:otherwise>
-    </c:choose>
-
+        <% } 
+        %>        
     <!-- Update Menu Form -->
     <h2>Update Menu</h2>
     <form action="UpdateMenu" method="post">
