@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Stall.findAllNames", query = "SELECT s.stallname FROM Stalls s"),
+    @NamedQuery(name = "Stall.findAllNames", query = "SELECT s.stallname FROM Stalls s WHERE s.status = 'approved'"),
 })
 
 public class Stalls implements Serializable {
@@ -34,11 +34,21 @@ public class Stalls implements Serializable {
     private String status;
     @OneToMany
     private ArrayList<Stallstaffs> Stallstaffs = new ArrayList<Stallstaffs>();
-
+    @OneToMany
+    private ArrayList<Menus> Menus = new ArrayList<Menus>();
+    
     public Stalls(String stallname, String Category, String status) {
         this.stallname = stallname;
         this.Category = Category;
         this.status = status;
+    }
+
+    public ArrayList<Menus> getMenus() {
+        return Menus;
+    }
+
+    public void setMenus(ArrayList<Menus> Menus) {
+        this.Menus = Menus;
     }
 
     public Stalls(String stallname) {
