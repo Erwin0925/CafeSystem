@@ -52,7 +52,7 @@
 
     <!-- Delete Menu Form -->
     <h2>Delete Menu</h2>
-    <form action="DeleteMenuServlet" method="post">
+    <form action="DeleteMenu" method="post">
         <label for="menuIdToDelete">Menu ID to Delete:</label>
         <input type="text" id="menuIdToDelete" name="menuIdToDelete" required><br><br>
         <input type="submit" value="Delete Menu">
@@ -68,7 +68,7 @@
 
     <!-- Update Menu Form -->
     <h2>Update Menu</h2>
-    <form action="UpdateMenuServlet" method="post">
+    <form action="UpdateMenu" method="post">
         <label for="menuIdToUpdate">Menu ID to Update:</label>
         <input type="text" id="menuIdToUpdate" name="menuIdToUpdate" required><br><br>
         <label for="updatedMenuName">Updated Menu Name:</label>
