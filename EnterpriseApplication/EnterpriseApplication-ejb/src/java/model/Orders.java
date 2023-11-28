@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Orders.findByUsername", query = "SELECT o FROM Orders o WHERE o.username = :username"),
+    @NamedQuery(name = "Orders.findByUsername2", query = "SELECT o FROM Orders o WHERE o.stallstaffusername = :username"),
     @NamedQuery(name = "Orders.findByUsernameAndStatusNew", query = "SELECT o FROM Orders o WHERE o.username = :username AND o.status2 = 'new'"),
 })
 public class Orders implements Serializable {

@@ -46,6 +46,12 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         query.setParameter("username", username);
         return query.getResultList();
     }
+    
+    public List<Orders> findByUsername2(String username) {
+        Query query = em.createNamedQuery("Orders.findByUsername2");
+        query.setParameter("username", username);
+        return query.getResultList();
+    }
 
 
 }

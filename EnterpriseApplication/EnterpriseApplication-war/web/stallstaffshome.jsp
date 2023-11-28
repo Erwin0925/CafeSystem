@@ -25,35 +25,17 @@
                 <a href="LoadProfile">Edit Profile</a><br><br>
                 <a href="LoadStallstaffMenu">Menu Management</a><br><br>
                 <a href="managepayment.jsp">Manage Customer Payment</a><br><br>
-                <a href="viewRatings.jsp">View Ratings</a><br><br>
-                <a href="reporting.jsp">Reporting</a><br><br>
+                <a href="LoadViewStallstaffSales">View Ratings</a><br><br>
             </ul>
         </nav>
-
-        <main>
-            <section id="profile-overview">
-                <h2>Your Profile</h2>
-                <!-- Profile overview goes here -->
-            </section>
-
-            <section id="menu-management">
-                <h2>Menu Managements</h2>
-                <!-- Quick links for menu management -->
-            </section>
-
-            <section id="sales-and-ratings">
-                <h2>Sales and Ratings Overview</h2>
-                <!-- Summary of sales records and ratings -->
-            </section>
-
             <section id="reports">
                 <h2>Analyzed Reports</h2>
                 <ul>
-                    <li><a href="menuManagementReport.jsp">Menu Management Report</a></li>
-                    <li><a href="customerEngagementReport.jsp">Personal Customer Engagement Report</a></li>
-                    <li><a href="profileUpdatesReport.jsp">Personal Profile Updates Report</a></li>
-                    <li><a href="dailyOperationsSummary.jsp">Daily Operations Summary</a></li>
-                    <li><a href="monthlySalesReport.jsp">Monthly Sales Report</a></li>
+                    <a href="menuManagementReport.jsp">Menu Management Report</a><br><br>
+                    <a href="customerEngagementReport.jsp">Personal Customer Engagement Report</a><br><br>
+                    <a href="profileUpdatesReport.jsp">Personal Profile Updates Report</a><br><br>
+                    <a href="dailyOperationsSummary.jsp">Daily Operations Summary</a><br><br>
+                    <a href="monthlySalesReport.jsp">Monthly Sales Report</a><br><br>
                 </ul>
             </section>
         </main>
