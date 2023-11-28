@@ -65,17 +65,20 @@
                 </c:forEach>
             </table>
         </body>
-        <h3>Give Rating and Feedback</h3>
-        <form action="YourServletURL" method="post">
+        <h3>Provide Rating and Feedback</h3>
+        <form action="AddRatingFeedback" method="post">
             <label>Order ID :</label>
             <input type="text" name="orderId" required><br><br>
-            <label>Feedback :</label>
-            <input type="text" name="feedback" required><br><br>
             <label>Rating :</label>
             <input type="range" name="rating" min="1" max="10" oninput="this.nextElementSibling.value = this.value">
             <output>5</output> <!-- Default value --><br><br>
+            <label>Feedback :</label>
+            <input type="text" name="feedback" required><br><br>
             <input type="submit" value="Submit Rating and Feedback">
         </form>
+        <% if (request.getAttribute("error") != null) { %>
+        <p style="color: red;"><%= request.getAttribute("error") %></p>
+        <% } %>
         
     </body>
 </html>
