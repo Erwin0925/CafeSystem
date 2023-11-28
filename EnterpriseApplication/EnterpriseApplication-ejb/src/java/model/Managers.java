@@ -26,17 +26,28 @@ public class Managers implements Serializable {
     private String email;
     private String hp;
     private String address;
+    private String gender;
 
     public Managers() {
     }
-    
 
-    public Managers(String username, String email, String hp, String address) {
+    public Managers(String username, String email, String hp, String address, String gender) {
         this.username = username;
         this.email = email;
         this.hp = hp;
         this.address = address;
+        this.gender = gender;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+
 
     public String getUsername() {
         return username;
