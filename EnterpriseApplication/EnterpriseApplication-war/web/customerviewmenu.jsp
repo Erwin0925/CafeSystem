@@ -83,7 +83,10 @@
         </c:forEach>
     </table>
     
-    <form action="LoadPayment" method="post">
+    <form action="CreateOrderDetails" method="post">
         <br><input type="submit" value="Proceed to Payment" />
-    </form>   
+    </form> 
+    <% if (request.getAttribute("SM") != null) { %>
+        <p style="color: green;"><%= request.getAttribute("SM") %></p>
+    <% } %>
 </html>

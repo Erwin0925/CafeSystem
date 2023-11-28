@@ -15,19 +15,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Carts;
+import model.OrderDetails;
 import model.Users;
-import model.modelfacade.CartsFacade;
+import model.modelfacade.OrderDetailsFacade;
+import model.modelfacade.OrdersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadPayment", urlPatterns = {"/LoadPayment"})
-public class LoadPayment extends HttpServlet {
+@WebServlet(name = "ManagePayment", urlPatterns = {"/ManagePayment"})
+public class ManagePayment extends HttpServlet {
 
     @EJB
-    private CartsFacade cartsFacade;
+    private OrdersFacade ordersFacade;
+
+    @EJB
+    private OrderDetailsFacade orderDetailsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,21 +48,23 @@ public class LoadPayment extends HttpServlet {
         
         HttpSession s = request.getSession(false);
         Users loginUser = (Users)s.getAttribute("loginUser");
-        String userName = loginUser.getUsername();
+        String stallstaffUserName = loginUser.getUsername();
+        String cusUsername = request.getParameter("cusUsername");
+        
         
         try (PrintWriter out = response.getWriter()) {
             
-            System.out.println(userName);
-            List<Carts> cartsList = cartsFacade.findByUsername(userName);
-            request.setAttribute("cartsList", cartsList);
+            List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
+            request.setAttribute("orderdetailList", orderdetailList);
             
             double totalAmount = 0.0;
-            for (Carts cart : cartsList) {
-                totalAmount += cart.getPrice(); 
+            for (OrderDetails orderdetails : orderdetailList) {
+                totalAmount += orderdetails.getPrice(); 
             }
             request.setAttribute("totalAmount", totalAmount);
+            request.setAttribute("cusUsername", cusUsername);
             
-            request.getRequestDispatcher("payment.jsp").forward(request, response);
+            request.getRequestDispatcher("managepayment.jsp").forward(request, response);
 
         }
     }
