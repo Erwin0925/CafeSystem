@@ -22,48 +22,51 @@
         </form>
         
         <h3>Customer's Oder Details</h3>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="orderdetailList" items="${orderdetailList}">
+        <table border="1">
+            <thead>
                 <tr>
-                    <td>${orderdetailList.name}</td>
-                    <td>${orderdetailList.price}</td>
+                    <th>Item Name</th>
+                    <th>Price</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <c:forEach var="orderdetailList" items="${orderdetailList}">
+                    <tr>
+                        <td>${orderdetailList.name}</td>
+                        <td>${orderdetailList.price}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     
-    <form action="ProcessPayment" method="post">
-        <div>
-            <h3>Total Amount: RM${totalAmount}</h3>
-            <input type="hidden" name="totalAmount" value="${totalAmount}" />
-            <p>Customer's Username: ${cusUsername}</p>
-            <input type="hidden" name="cusUsername" value="${cusUsername}" />
-            <label for="cardNumber">Card Number:</label>
-            <input type="text" id="cardNumber" name="cardNumber" required><br><br>
-        </div>
-        <div>
-            <label for="csv">CSV:</label>
-            <input type="text" id="csv" name="csv" required><br><br>
-        </div>
-        <div>
-            <label for="expiryDate">Expiry Date:</label>
-            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required><br><br>
-        </div>
-        <div>
-            <label for="holderName">Card Holder Name:</label>
-            <input type="text" id="holderName" name="holderName" required><br><br>
-        </div>
-        <div>
-            <input type="submit" value="Make Payment"><br><br>
-        </div>
-    </form>
+        <form action="ProcessPayment" method="post">
+            <div>
+                <h3>Total Amount: RM${totalAmount}</h3>
+                <input type="hidden" name="totalAmount" value="${totalAmount}" />
+                <p>Customer's Username: ${cusUsername}</p>
+                <input type="hidden" name="cusUsername" value="${cusUsername}" />
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" required><br><br>
+            </div>
+            <div>
+                <label for="csv">CSV:</label>
+                <input type="text" id="csv" name="csv" required><br><br>
+            </div>
+            <div>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required><br><br>
+            </div>
+            <div>
+                <label for="holderName">Card Holder Name:</label>
+                <input type="text" id="holderName" name="holderName" required><br><br>
+            </div>
+            <div>
+                <input type="submit" value="Make Payment"><br><br>
+            </div>
+        </form>
+        <% if (request.getAttribute("msg") != null) { %>
+        <p style="color: green;"><%= request.getAttribute("msg") %></p>
+        <% } %>
         
     </body>
 </html>

@@ -84,7 +84,7 @@
     </table>
     
     <form action="CreateOrderDetails" method="post">
-        <br><input type="submit" value="Proceed to Payment" />
+        <br><input type="submit" value="Make Order" />
     </form> 
     <% if (request.getAttribute("SM") != null) { %>
         <p style="color: green;"><%= request.getAttribute("SM") %></p>

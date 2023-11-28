@@ -40,13 +40,14 @@ public class Orders implements Serializable {
     private String status;
     private String status2;
     private String stallstaffusername;
+    private Long cardno;
     @OneToMany
     private ArrayList<OrderDetails> OrderDetails = new ArrayList<OrderDetails>();
 
     public Orders() {
     }
 
-    public Orders(LocalDate mydate, int rating, String Feedback, String username, double totalprice, String status, String status2, String stallstaffusername) {
+    public Orders(LocalDate mydate, int rating, String Feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno) {
         this.mydate = mydate;
         this.rating = rating;
         this.Feedback = Feedback;
@@ -55,6 +56,15 @@ public class Orders implements Serializable {
         this.status = status;
         this.status2 = status2;
         this.stallstaffusername = stallstaffusername;
+        this.cardno = cardno;
+    }
+
+    public Long getCardno() {
+        return cardno;
+    }
+
+    public void setCardno(Long cardno) {
+        this.cardno = cardno;
     }
 
     public String getStatus2() {

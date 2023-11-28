@@ -54,6 +54,7 @@ public class ProcessPayment extends HttpServlet {
         Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
         String cusUsername = request.getParameter("cusUsername");
+        Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
         System.out.println(cusUsername);
         System.out.println(request.getParameter("totalAmount"));
         double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
@@ -68,7 +69,7 @@ public class ProcessPayment extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName);
+            Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo);
             ordersFacade.create(orderProf);
             
             Orders existingOrder = ordersFacade.findByUsernameAndStatusNew(cusUsername);
@@ -84,7 +85,8 @@ public class ProcessPayment extends HttpServlet {
                 orderdetails.setStatus("red");
                 orderDetailsFacade.edit(orderdetails);
             }
-
+            request.setAttribute("msg", "Successfully Pay");
+            
             request.getRequestDispatcher("managepayment.jsp").include(request, response);
             
             
