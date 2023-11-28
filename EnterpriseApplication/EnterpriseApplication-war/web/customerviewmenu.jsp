@@ -37,8 +37,8 @@
             <c:forEach var="menu" items="${menuList}">
                 <tr>
                     <td>${menu.id}</td>
+                    <td>${menu.itemname}</td>
                     <td>${menu.price}</td>
-                    <td>${menu.modifyby}</td>
                     <td>${menu.status}</td>
                 </tr>
             </c:forEach>

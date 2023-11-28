@@ -19,7 +19,7 @@
     <body>
         <a href="customershome.jsp" class="back-button">Back</a><br><br>
         <h2>Order History</h2>
-        <form id="orderForm" action="YourServletURL" method="post"> <!-- Replace with your servlet URL -->
+        <form id="orderForm" action="LoadOrderDetails" method="post"> <!-- Replace with your servlet URL -->
             <table border="1">
                 <tr>
                     <th>Select</th>
@@ -57,10 +57,10 @@
                     <th>Price</th>
                 </tr>
                 <%-- Assuming productList is a List of product objects --%>
-                <c:forEach items="${productList}" var="product">
+                <c:forEach items="${odprof}" var="od">
                     <tr>
-                        <td>${product.name}</td>
-                        <td>${product.price}</td>
+                        <td>${od.name}</td>
+                        <td>${od.price}</td>
                     </tr>
                 </c:forEach>
             </table>
