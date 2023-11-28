@@ -40,5 +40,12 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         }
         return null;
     }
+    
+    public List<Orders> findByUsername(String username) {
+        Query query = em.createNamedQuery("Orders.findByUsername");
+        query.setParameter("username", username);
+        return query.getResultList();
+    }
+
 
 }

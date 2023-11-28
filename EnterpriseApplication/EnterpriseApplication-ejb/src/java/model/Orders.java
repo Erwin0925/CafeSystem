@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "Orders.findByUsername", query = "SELECT o FROM Orders o WHERE o.username = :username"),
     @NamedQuery(name = "Orders.findByUsernameAndStatusNew", query = "SELECT o FROM Orders o WHERE o.username = :username AND o.status2 = 'new'"),
 })
 public class Orders implements Serializable {
@@ -34,7 +35,7 @@ public class Orders implements Serializable {
     private Long id;
     private LocalDate mydate;
     private int rating; 
-    private String Feedback;
+    private String feedback;
     private String username;
     private double totalprice;
     private String status;
@@ -47,10 +48,10 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Orders(LocalDate mydate, int rating, String Feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno) {
+    public Orders(LocalDate mydate, int rating, String feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno) {
         this.mydate = mydate;
         this.rating = rating;
-        this.Feedback = Feedback;
+        this.feedback = feedback;
         this.username = username;
         this.totalprice = totalprice;
         this.status = status;
@@ -58,6 +59,8 @@ public class Orders implements Serializable {
         this.stallstaffusername = stallstaffusername;
         this.cardno = cardno;
     }
+
+
 
     public Long getCardno() {
         return cardno;
@@ -100,11 +103,11 @@ public class Orders implements Serializable {
     }
 
     public String getFeedback() {
-        return Feedback;
+        return feedback;
     }
 
-    public void setFeedback(String Feedback) {
-        this.Feedback = Feedback;
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     public String getUsername() {
