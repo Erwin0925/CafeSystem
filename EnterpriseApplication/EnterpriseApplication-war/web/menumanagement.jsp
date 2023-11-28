@@ -41,8 +41,8 @@
                         <td>${menus.status}</td>
                     </tr>
                 </c:forEach>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     <h2>Add Menu</h2>
     <form action="AddMenu" method="post">
         <label for="menuName">Menu Name:</label>

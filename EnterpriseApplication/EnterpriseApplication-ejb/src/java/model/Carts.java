@@ -19,44 +19,54 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "menu.details",query = "SELECT m FROM Menus m WHERE m.stallname = :stallName"),
-    @NamedQuery(name = "menu.details2",query = "SELECT m FROM Menus m WHERE m.stallname = :stallName AND m.status = 'In Stock'"),
-    @NamedQuery(name = "specificmenu.details",query = "SELECT m FROM Menus m WHERE m.id = :stallId"),
-    @NamedQuery(name = "Menus.findAllItemNames", query = "SELECT DISTINCT m.itemname FROM Menus m WHERE m.stallname = :stallName"),
-    @NamedQuery(name = "Menu.findByName", query = "SELECT m FROM Menus m WHERE m.itemname = :name AND m.stallname = :stallname"),
+    @NamedQuery(name = "Carts.findByUsername", query = "SELECT c FROM Carts c WHERE c.username = :username"),
 })
-public class Menus implements Serializable {
+public class Carts implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String itemname;
     private double price;
-    private String modifyby;
+    private Long menuid;
+    private String itemname; 
+    private String username;
     private String stallname;
-    private String status;
 
-    public Menus() {
+    public Carts() {
     }
 
-    public Menus(String itemname, double price, String modifyby, String stallname, String status) {
-        this.itemname = itemname;
+    public Carts(double price, Long menuid, String itemname, String username, String stallname) {
         this.price = price;
-        this.modifyby = modifyby;
+        this.menuid = menuid;
+        this.itemname = itemname;
+        this.username = username;
         this.stallname = stallname;
-        this.status = status;
     }
 
-
-    public String getStatus() {
-        return status;
+    public Long getMenuid() {
+        return menuid;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMenuid(Long menuid) {
+        this.menuid = menuid;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getStallname() {
+        return stallname;
+    }
+
+    public void setStallname(String stallname) {
+        this.stallname = stallname;
+    }
 
     public String getItemname() {
         return itemname;
@@ -72,22 +82,6 @@ public class Menus implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getModifyby() {
-        return modifyby;
-    }
-
-    public void setModifyby(String modifyby) {
-        this.modifyby = modifyby;
-    }
-
-    public String getStallname() {
-        return stallname;
-    }
-
-    public void setStallname(String stallname) {
-        this.stallname = stallname;
     }
 
     public Long getId() {
@@ -108,10 +102,10 @@ public class Menus implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Menus)) {
+        if (!(object instanceof Carts)) {
             return false;
         }
-        Menus other = (Menus) object;
+        Carts other = (Carts) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -120,7 +114,7 @@ public class Menus implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Menus[ id=" + id + " ]";
+        return "model.Carts[ id=" + id + " ]";
     }
     
 }

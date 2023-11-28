@@ -7,36 +7,26 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Carts;
 import model.Menus;
-import model.Stalls;
-import model.Stallstaffs;
 import model.Users;
+import model.modelfacade.CartsFacade;
 import model.modelfacade.MenusFacade;
 import model.modelfacade.StallsFacade;
-import model.modelfacade.StallstaffsFacade;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "AddMenu", urlPatterns = {"/AddMenu"})
-public class AddMenu extends HttpServlet {
-
-    @EJB
-    private UsersFacade usersFacade;
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
+@WebServlet(name = "AddToCart", urlPatterns = {"/AddToCart"})
+public class AddToCart extends HttpServlet {
 
     @EJB
     private StallsFacade stallsFacade;
@@ -44,6 +34,9 @@ public class AddMenu extends HttpServlet {
     @EJB
     private MenusFacade menusFacade;
 
+    @EJB
+    private CartsFacade cartsFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,32 +56,26 @@ public class AddMenu extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
-            String stallname = profile.getStallname();
-            String menuName = request.getParameter("menuName");
-            double menuPrice = Double.parseDouble(request.getParameter("menuPrice"));
-            String modify = userName;
-            String status = "In Stock";
+            System.out.println("testing");
+            Long menuid = Long.parseLong(request.getParameter("menuId"));
+            System.out.println(menuid);
+            Menus menuProf = menusFacade.find(menuid);
+            String itemName = menuProf.getItemname();
+            Double price = menuProf.getPrice();
+            String stallName = menuProf.getStallname();
+            String status = menuProf.getStatus();
+            System.out.println(status);
             
-            List<Menus> existingItemNames = menusFacade.findsMenuNames(stallname);
-            if (existingItemNames.contains(menuName)) {
-                request.setAttribute("errorMessage", "Name is already used");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("LoadStallstaffMenu");
-                dispatcher.forward(request, response);
-            } else {
-                Menus menuProf = new Menus(menuName, menuPrice, modify, stallname, status);
-                menusFacade.create(menuProf);
-
-                // Find the existing stall by name (you might want to add error handling if it doesn't exist)
-                Stalls existingStall = stallsFacade.find(stallname);
-
-                existingStall.getMenus().add(menuProf);
-                stallsFacade.edit(existingStall);
-
+            if ("Out Of Stock".equals(status)) {
+                request.setAttribute("errorMessage", "The item is currently out of stock");
+            } else if ("In Stock".equals(status)) {
+                Carts menu = new Carts(price, menuid, itemName, userName, stallName);
+                cartsFacade.create(menu);
+                System.out.println(price + itemName);
+                request.setAttribute("successMessage", "Successfully added into Cart");
                 
-                //request.getRequestDispatcher("LoadStallstaffMenu").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
             }
+            request.getRequestDispatcher("LoadCustomerMenu").include(request, response);
         }
     }
 

@@ -22,7 +22,7 @@
         <nav>
             <ul>
                 <a href="LoadProfile">View Profile</a> <br><br>
-                <a href="ViewMenu">View Menu</a><br><br>
+                <a href="LoadCustomerMenu">View Menu</a><br><br>
                 <a href="placeOrder.jsp">Place Order</a> <br><br>
                 <a href="giveFeedback.jsp">Give Feedback</a> <br><br>
                 <a href="orderHistory.jsp">Order History</a> <br><br>
