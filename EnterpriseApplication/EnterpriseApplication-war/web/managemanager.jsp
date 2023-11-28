@@ -34,7 +34,7 @@
                     <td>${manager.gender}</td>
                 </tr>
             </c:forEach>
-        </table>
+        </table><br><br>
         <hr>
         <!-- Add Manager Form -->
         <h3>Add Manager</h3>
@@ -58,21 +58,58 @@
             <p style="color: green;"><%= request.getAttribute("done") %></p>
         <% } %>
         
-        <hr>
-        <!-- Delete Manager Form -->
-        <h3>Delete Manager</h3>
-        <form action="DeleteManager" method="post">
-            Username: <input type="text" name="username"><br><br>
-            <input type="submit" value="Delete Manager">
-        </form>
-        <hr>
+        <br><br><hr>
         <!-- Search Manager Form -->
         <h3>Search Manager</h3>
         <form action="SearchManager" method="get">
             Username: <input type="text" name="username"><br><br>
             <input type="submit" value="Search Manager">
         </form>
-        <hr>
+        <c:choose>
+            <c:when test="${managerFound}">
+                <!-- Display the table if manager is found -->
+                <br><br>
+                <table border="1">
+                    <tr>
+                        <th>ManagerId</th>                
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>HP</th>
+                        <th>Gender</th>
+                    </tr>
+                    <tr>
+                        <td>${managerProf.id}</td>
+                        <td>${managerProf.username}</td>
+                        <td>${userProf.password}</td>
+                        <td>${managerProf.address}</td>
+                        <td>${managerProf.email}</td>
+                        <td>${managerProf.hp}</td>
+                        <td>${managerProf.gender}</td>
+                    </tr>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <% if (request.getAttribute("fail2") != null) { %>
+                    <p style="color: red;"><%= request.getAttribute("fail2") %></p>
+                <% } %>
+            </c:otherwise>
+        </c:choose>        
+        
+        
+        <br><br><hr>
+        <!-- Delete Manager Form -->
+        <h3>Delete Manager</h3>
+        <form action="DeleteManager" method="post">
+            ManagerId: <input type="text" name="managerId"><br><br>
+            <input type="submit" value="Delete Manager">
+        </form>
+        <% if (request.getAttribute("done2") != null) { %>
+            <p style="color: green;"><%= request.getAttribute("done2") %></p>
+        <% } %>
+        
+        <br><br><hr>
         <!-- Update Manager Form -->
         <h3>Update Manager Profile</h3>
         <form action="UpdateManagerProfile" method="post">
@@ -86,8 +123,15 @@
                 <label for="male">Male</label>
                 <input type="radio" id="female" name="gender" value="Female">
                 <label for="female">Female</label><br><br>
-                <input type="submit" value="Update Manager"><br><br><br><br><br><br><br><br>
+                <input type="submit" value="Update Manager">
         </form>
+        <% if (request.getAttribute("fail3") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("fail3") %></p>
+        <% } %>
+        <% if (request.getAttribute("done3") != null) { %>
+            <p style="color: green;"><%= request.getAttribute("done3") %></p>
+        <% } %>
+        <br><br><br><br><br><br><br><br>
 
     </body>
 </html>

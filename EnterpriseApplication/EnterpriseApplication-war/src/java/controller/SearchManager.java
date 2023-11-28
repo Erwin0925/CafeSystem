@@ -13,19 +13,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Carts;
-import model.modelfacade.CartsFacade;
+import model.Managers;
+import model.Users;
+import model.modelfacade.ManagersFacade;
+import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "DeletetoCart", urlPatterns = {"/DeletetoCart"})
-public class DeletetoCart extends HttpServlet {
+@WebServlet(name = "SearchManager", urlPatterns = {"/SearchManager"})
+public class SearchManager extends HttpServlet {
 
     @EJB
-    private CartsFacade cartsFacade;
-    
+    private ManagersFacade managersFacade;
+
+    @EJB
+    private UsersFacade usersFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,14 +44,24 @@ public class DeletetoCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
+            String userName = request.getParameter("username");
             
-            Long cartId = Long.parseLong(request.getParameter("cartId"));
+            Users userProf = usersFacade.find(userName);
             
-            Carts cartprof = cartsFacade.find(cartId);
-            cartsFacade.remove(cartprof);
-            request.getRequestDispatcher("LoadCustomerMenu").forward(request, response);
+            Managers managerProf = managersFacade.findmanagerdetails(userName);
+            
+            if (userProf != null) {
+                request.setAttribute("managerFound", true);
+                request.setAttribute("userProf", userProf);
+                request.setAttribute("managerProf", managerProf);
+            } else {
+                request.setAttribute("managerFound", false);
+                request.setAttribute("fail2", "Wrong Username");
+            }            
+            
+            request.getRequestDispatcher("LoadManageManager").include(request, response);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

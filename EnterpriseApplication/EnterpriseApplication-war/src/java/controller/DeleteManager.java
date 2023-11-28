@@ -13,19 +13,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Carts;
-import model.modelfacade.CartsFacade;
+import model.Managers;
+import model.Users;
+import model.modelfacade.ManagersFacade;
+import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "DeletetoCart", urlPatterns = {"/DeletetoCart"})
-public class DeletetoCart extends HttpServlet {
+@WebServlet(name = "DeleteManager", urlPatterns = {"/DeleteManager"})
+public class DeleteManager extends HttpServlet {
 
     @EJB
-    private CartsFacade cartsFacade;
-    
+    private ManagersFacade managersFacade;
+
+    @EJB
+    private UsersFacade usersFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,13 +45,21 @@ public class DeletetoCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            Long cartId = Long.parseLong(request.getParameter("cartId"));
+            Long managerId = Long.parseLong(request.getParameter("managerId"));
+            Managers managerProf = managersFacade.find(managerId);
             
-            Carts cartprof = cartsFacade.find(cartId);
-            cartsFacade.remove(cartprof);
-            request.getRequestDispatcher("LoadCustomerMenu").forward(request, response);
+            String userName = managerProf.getUsername();
+            managersFacade.remove(managerProf);
+            
+            Users userProf = usersFacade.find(userName);
+            usersFacade.remove(userProf);
+            
+            request.setAttribute("done2", "Successfully Delete");
+            request.getRequestDispatcher("LoadManageManager").include(request, response);
+            
+            
+            
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
