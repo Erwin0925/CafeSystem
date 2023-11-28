@@ -9,20 +9,21 @@
 <html>
     <head>
         <title>Customer Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
         <header>
-            <h1>Welcome to Our Food Service Customer Home Page</h1>
-            <p>Hello, | <a href="login.jsp">Logout</a></p>
+            <h1>Customer Home Page</h1>
+            <form action = "Logout" method = "Post">
+                <p>Welcome | <input type="submit" value="Logout"></p>
+            </form>
         </header>
 
         <nav>
             <ul>
-                <li><a href="LoadProfile">View Profile</a></li> <br><br>
-                <li><a href="viewMenu.jsp">View Menu</a></li> <br><br>
-                <li><a href="placeOrder.jsp">Place Order</a></li> <br><br>
-                <li><a href="giveFeedback.jsp">Give Feedback</a></li> <br><br>
-                <li><a href="orderHistory.jsp">Order History</a></li> <br><br>
+                <a href="LoadProfile">View Profile</a> <br><br>
+                <a href="LoadCustomerMenu">View Menu</a><br><br>
+                <a href="LoadOrderHistory">Order History</a> <br><br>
             </ul>
         </nav>
 

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,23 +22,19 @@ import model.Users;
 import model.modelfacade.MenusFacade;
 import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "AddMenu", urlPatterns = {"/AddMenu"})
-public class AddMenu extends HttpServlet {
-
-    @EJB
-    private UsersFacade usersFacade;
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
+@WebServlet(name = "DeleteMenu", urlPatterns = {"/DeleteMenu"})
+public class DeleteMenu extends HttpServlet {
 
     @EJB
     private StallsFacade stallsFacade;
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
 
     @EJB
     private MenusFacade menusFacade;
@@ -59,36 +54,24 @@ public class AddMenu extends HttpServlet {
         
         HttpSession s = request.getSession(false);
         Users loginUser = (Users)s.getAttribute("loginUser");
-        String userName = loginUser.getUsername();
+        String userName = loginUser.getUsername(); 
         
         try (PrintWriter out = response.getWriter()) {
+            Long id = Long.parseLong(request.getParameter("menuIdToDelete"));
             
             Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
             String stallname = profile.getStallname();
-            String menuName = request.getParameter("menuName");
-            double menuPrice = Double.parseDouble(request.getParameter("menuPrice"));
-            String modify = userName;
-            String status = "In Stock";
             
-            List<Menus> existingItemNames = menusFacade.findsMenuNames(stallname);
-            if (existingItemNames.contains(menuName)) {
-                request.setAttribute("errorMessage", "Name is already used");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("LoadStallstaffMenu");
-                dispatcher.forward(request, response);
-            } else {
-                Menus menuProf = new Menus(menuName, menuPrice, modify, stallname, status);
-                menusFacade.create(menuProf);
+            Menus menuProfile = menusFacade.findSpecificMenu(id);
+            String stallname2 = menuProfile.getStallname();
+            if(stallname.equals(stallname2)){
 
-                // Find the existing stall by name (you might want to add error handling if it doesn't exist)
                 Stalls existingStall = stallsFacade.find(stallname);
-
-                existingStall.getMenus().add(menuProf);
+                existingStall.getMenus().remove(menuProfile);
                 stallsFacade.edit(existingStall);
-
-                
-                request.getRequestDispatcher("LoadStallstaffMenu").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
+                menusFacade.remove(menuProfile);              
             }
+            request.getRequestDispatcher("LoadStallstaffMenu").forward(request, response);
         }
     }
 

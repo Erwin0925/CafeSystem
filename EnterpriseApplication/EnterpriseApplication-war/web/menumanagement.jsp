@@ -13,7 +13,9 @@
         <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
     </head>
     <body>
+        <a href="stallstaffshome.jsp" class="back-button">Back</a><br><br>
         <h1>Menu Management</h1>
+        
 
         <!-- Add Menu Form -->
         <!-- ... (previous code for adding, deleting, searching, and updating menus) ... -->
@@ -39,8 +41,8 @@
                         <td>${menus.status}</td>
                     </tr>
                 </c:forEach>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     <h2>Add Menu</h2>
     <form action="AddMenu" method="post">
         <label for="menuName">Menu Name:</label>
@@ -49,10 +51,13 @@
         <input type="text" id="menuPrice" name="menuPrice" required><br><br>
         <input type="submit" value="Add Menu">
     </form>
+    <% if (request.getAttribute("errorMessage") != null) { %>
+    <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+    <% } %>
 
     <!-- Delete Menu Form -->
     <h2>Delete Menu</h2>
-    <form action="DeleteMenuServlet" method="post">
+    <form action="DeleteMenu" method="post">
         <label for="menuIdToDelete">Menu ID to Delete:</label>
         <input type="text" id="menuIdToDelete" name="menuIdToDelete" required><br><br>
         <input type="submit" value="Delete Menu">
@@ -60,15 +65,25 @@
 
     <!-- Search Menu Form -->
     <h2>Search Menu</h2>
-    <form action="SearchMenuServlet" method="post">
+    <form action="SearchMenu" method="post">
         <label for="menuNameToSearch">Menu Name to Search:</label>
         <input type="text" id="menuNameToSearch" name="menuNameToSearch" required><br><br>
         <input type="submit" value="Search Menu">
     </form>
-
+        <% 
+            if (request.getAttribute("errorMessage2") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("errorMessage2") %></p>
+        <% } else if (request.getAttribute("searchResult") != null) { %>
+            <div id="searchResults">
+                <div>
+                    <span>${searchResult.itemname}</span>
+                </div>
+            </div>
+        <% } 
+        %>        
     <!-- Update Menu Form -->
     <h2>Update Menu</h2>
-    <form action="UpdateMenuServlet" method="post">
+    <form action="UpdateMenu" method="post">
         <label for="menuIdToUpdate">Menu ID to Update:</label>
         <input type="text" id="menuIdToUpdate" name="menuIdToUpdate" required><br><br>
         <label for="updatedMenuName">Updated Menu Name:</label>

@@ -62,6 +62,7 @@ public class UpdateMenuStatus extends HttpServlet {
             String stallname2 = menuProfile.getStallname();
             if(stallname.equals(stallname2)){
                 menuProfile.setStatus(newStatus);
+                menuProfile.setModifyby(userName);
                 menusFacade.edit(menuProfile);
             }
             request.getRequestDispatcher("LoadStallstaffMenu").forward(request, response);
