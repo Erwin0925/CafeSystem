@@ -22,7 +22,7 @@
         <nav>
             <ul>
                 <a href="LoadManageManager">Manage Manager</a><br><br>
-                <a href="approveStallStaff.jsp">Approve Stall Staff</a><br><br>
+                <a href="LoadManageStallstaff">Manage Stall Staff</a><br><br>
                 <a href="customerManagement.jsp">Customer Management</a><br><br>
                 <a href="feedbackAnalysis.jsp">Feedback Analysis</a><br><br>
                 <a href="reporting.jsp">Reporting</a><br><br>

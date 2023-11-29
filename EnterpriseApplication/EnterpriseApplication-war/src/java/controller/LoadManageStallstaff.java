@@ -8,27 +8,36 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Stalls;
+import model.modelfacade.ManagersFacade;
 import model.modelfacade.StallsFacade;
+import model.modelfacade.StallstaffsFacade;
+import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadStallstaffRegister", urlPatterns = {"/LoadStallstaffRegister"})
-public class LoadStallstaffRegister extends HttpServlet {
+@WebServlet(name = "LoadManageStallstaff", urlPatterns = {"/LoadManageStallstaff"})
+public class LoadManageStallstaff extends HttpServlet {
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
+
+    @EJB
+    private UsersFacade usersFacade;
 
     @EJB
     private StallsFacade stallsFacade;
 
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,17 +50,14 @@ public class LoadStallstaffRegister extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession s = request.getSession(false);
-        
         try (PrintWriter out = response.getWriter()) {
-            List<Stalls> stallNames = stallsFacade.findAllStallNames(); 
-            s.setAttribute("stallNames2", "2");
-            s.setAttribute("stallNames", stallNames);
-            request.getRequestDispatcher("stallstaffsregister.jsp").forward(request, response);
             
+            List<Stalls> stallList = stallsFacade.findAllStallNames2();
+            request.setAttribute("stallList",stallList);
+            
+            
+            request.getRequestDispatcher("managerstallstaff.jsp").include(request, response);
         }
-
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -40,4 +40,16 @@ public class StallstaffsFacade extends AbstractFacade<Stallstaffs> {
         }
         return null;
     }
+    
+    public List<Stallstaffs> findstallstaffdetails2(Long id) {
+        Query query = em.createNamedQuery("stallstaff2.details");
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+    
+    public List<Stallstaffs> findstallstaffdetails3(String username) {
+        Query query = em.createNamedQuery("stallstaff.details");
+        query.setParameter("username", username);
+        return query.getResultList();
+    }
 }

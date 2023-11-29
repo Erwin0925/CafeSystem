@@ -4,7 +4,8 @@
     Author     : Erwin_Yoga
 --%>
 
-<%@page import="java.util.List"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,15 +29,10 @@
                 <tr>
                     <td>Select Stall:</td>
                     <td>
-                        <select name="stallname">
-                            <%
-                                List<String> stallNames = (List<String>) session.getAttribute("stallNames");
-                                for (String name : stallNames) {
-                            %>
-                            <option value="<%= name %>"><%= name %></option>
-                            <%
-                                }
-                            %>
+                        <select name="stallname" required>
+                            <c:forEach items="${stallNames}" var="name">
+                                <option value="${name}">${name}</option>
+                            </c:forEach>
                         </select>
                     </td>
                 </tr>

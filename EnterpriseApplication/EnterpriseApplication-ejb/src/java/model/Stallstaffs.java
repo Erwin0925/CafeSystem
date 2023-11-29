@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "stallstaff.details",query = "SELECT u FROM Stallstaffs u WHERE u.username = :username"),
+    @NamedQuery(name = "stallstaff.details2",query = "SELECT u FROM Stallstaffs u WHERE u.id = :id"),
 })
 
 

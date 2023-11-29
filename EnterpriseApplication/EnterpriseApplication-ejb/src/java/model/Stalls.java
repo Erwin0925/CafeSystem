@@ -22,6 +22,8 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Stall.findAllNames", query = "SELECT s.stallname FROM Stalls s WHERE s.status = 'approved'"),
+    @NamedQuery(name = "Stall.findAllNames2", query = "SELECT s FROM Stalls s "),
+    @NamedQuery(name = "Stall.findNames3", query = "SELECT s FROM Stalls s WHERE s.stallname = :stallname"),
 })
 
 public class Stalls implements Serializable {
@@ -30,16 +32,16 @@ public class Stalls implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String stallname;
-    private String Category ;
+    private String category ;
     private String status;
     @OneToMany
     private ArrayList<Stallstaffs> Stallstaffs = new ArrayList<Stallstaffs>();
     @OneToMany
     private ArrayList<Menus> Menus = new ArrayList<Menus>();
     
-    public Stalls(String stallname, String Category, String status) {
+    public Stalls(String stallname, String category, String status) {
         this.stallname = stallname;
-        this.Category = Category;
+        this.category = category;
         this.status = status;
     }
 
@@ -64,11 +66,11 @@ public class Stalls implements Serializable {
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
-    public void setCategory(String Category) {
-        this.Category = Category;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getStatus() {
