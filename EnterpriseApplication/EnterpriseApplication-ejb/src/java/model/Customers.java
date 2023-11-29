@@ -20,6 +20,9 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "customer.details",query = "SELECT u FROM Customers u WHERE u.username = :username"),
+    @NamedQuery(name = "Customer.countTotal", query = "SELECT COUNT(c) FROM Customers c"),
+    @NamedQuery(name = "Customer.countByGender", query = "SELECT c.gender, COUNT(c) FROM Customers c GROUP BY c.gender"),
+    @NamedQuery(name = "Customer.countByAddress", query = "SELECT c.address, COUNT(c) FROM Customers c GROUP BY c.address"),    
 })
 public class Customers implements Serializable {
 

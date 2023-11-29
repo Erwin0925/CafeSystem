@@ -1,6 +1,6 @@
 <%-- 
-    Document   : stallstaffreport
-    Created on : Nov 29, 2023, 6:08:12 PM
+    Document   : customerreport
+    Created on : Nov 29, 2023, 6:29:02 PM
     Author     : Erwin_Yoga
 --%>
 
@@ -9,13 +9,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Stallstaff Report</title>
+        <title>Customer Report</title>
         <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
         <a href="managershome.jsp" class="back-button">Back</a><br><br>
-        <h1>Stallstaff Report</h1>
-        <p>Total Stallstaff: ${totalStallstaff}</p>
+        <h1>Customer Report</h1>
+        <p>Total Customers: ${totalCustomer}</p>
 
         <!-- Gender Distribution -->
         <h2>Gender Distribution</h2>
