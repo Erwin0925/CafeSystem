@@ -31,7 +31,7 @@
             <section id="reports">
                 <h2>Analyzed Reports</h2>
                 <ul>
-                    <a href="menuManagementReport.jsp">Menu Management Report</a><br><br>
+                    <a href="LoadBusinessReport">Business Report</a><br><br>
                     <a href="customerEngagementReport.jsp">Personal Customer Engagement Report</a><br><br>
                     <a href="profileUpdatesReport.jsp">Personal Profile Updates Report</a><br><br>
                     <a href="dailyOperationsSummary.jsp">Daily Operations Summary</a><br><br>

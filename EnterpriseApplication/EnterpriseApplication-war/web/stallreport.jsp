@@ -14,6 +14,7 @@
         <title>Stall Report</title>
     </head>
     <body>
+        <a href="managershome.jsp" class="back-button">Back</a><br><br>
         <h1>Stall Report</h1>
         <!-- Total Number of Stalls -->
         <p>Total Number of Stalls: ${totalStall}</p>

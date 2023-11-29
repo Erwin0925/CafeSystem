@@ -5,7 +5,10 @@
  */
 package model.modelfacade;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,5 +84,36 @@ public class OrdersFacade extends AbstractFacade<Orders> {
 
     public List<Object[]> countOrdersByStall() {
         return em.createNamedQuery("Orders.countOrdersByStall", Object[].class).getResultList();
+    }
+    
+    public List<Object[]> getDailyReport(String stallName, Date date) {
+        return em.createNamedQuery("Orders.dailyReport", Object[].class)
+                 .setParameter("stallName", stallName)
+                 .setParameter("date", date)
+                 .getResultList();
+    }
+    public List<Object[]> getWeeklyReport(String stallName, Date date) {
+        
+        Date mydate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mydate);
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
+        Date sevenDaysBefore = calendar.getTime();
+        return em.createNamedQuery("Orders.weeklyReport", Object[].class)
+                 .setParameter("stallName", stallName)
+                 .setParameter("startDate", sevenDaysBefore)
+                 .getResultList();
+    }
+    
+    public List<Object[]> getMonthlyReport(String stallName, Date date) {
+        Date mydate2 = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mydate2);
+        calendar.add(Calendar.DAY_OF_MONTH, -30);
+        Date thirtyDaysBefore = calendar.getTime();
+        return em.createNamedQuery("Orders.monthlyReport", Object[].class)
+                 .setParameter("stallName", stallName)
+                 .setParameter("startDate", thirtyDaysBefore)
+                 .getResultList();
     }
 }

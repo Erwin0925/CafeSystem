@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
+        <a href="managershome.jsp" class="back-button">Back</a><br><br>
         <h1>Total item sold by a Store</h1>
         <h2>Stall Order Counts</h2>
         <table border="1">
