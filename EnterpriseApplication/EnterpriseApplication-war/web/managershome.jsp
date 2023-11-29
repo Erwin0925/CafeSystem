@@ -35,8 +35,8 @@
                     <a href="LoadManagerReport">Manager Information Report</a><br><br>
                     <a href="LoadStallstaffReport">Stallstaff Information Report</a><br><br>
                     <a href="LoadCustomerReport">Customer Information Report</a><br><br>
-                    <a href="ratingFeedbackReport.jsp">Rating and Feedback Analysis Report</a><br><br>
-                    <a href="stallSellingReport.jsp">Stall Selling Report</a><br><br>
+                    <a href="LoadStallReport">Stall Information Report</a><br><br>
+                    <a href="LoadStallEarningReport">Stall Selling Report</a><br><br>
                 </ul>
             </section>
         </main>

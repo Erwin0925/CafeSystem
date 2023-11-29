@@ -79,5 +79,7 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         return averageRatings;
     }    
 
-
+    public List<Object[]> countOrdersByStall() {
+        return em.createNamedQuery("Orders.countOrdersByStall", Object[].class).getResultList();
+    }
 }

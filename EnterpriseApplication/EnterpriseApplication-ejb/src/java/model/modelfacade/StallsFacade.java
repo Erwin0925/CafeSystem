@@ -52,4 +52,11 @@ public class StallsFacade extends AbstractFacade<Stalls> {
         return query.getResultList();
     }
     
+    public Long countTotalStalls() {
+        return em.createNamedQuery("Stalls.countTotal", Long.class).getSingleResult();
+    }
+
+    public List<Object[]> countByCategory() {
+        return em.createNamedQuery("Stalls.countByCategory", Object[].class).getResultList();
+    }  
 }

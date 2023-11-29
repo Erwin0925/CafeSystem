@@ -29,6 +29,7 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "Orders.findBystall", query = "SELECT o FROM Orders o WHERE o.stallname = :stall"),
     @NamedQuery(name = "Orders.findByUsernameAndStatusNew", query = "SELECT o FROM Orders o WHERE o.username = :username AND o.status2 = 'new'"),
     @NamedQuery(name = "Order.findFilledOrders", query = "SELECT o FROM Orders o WHERE o.status = 'filled'"),
+     @NamedQuery(name = "Orders.countOrdersByStall", query = "SELECT o.stallname, COUNT(o) FROM Orders o GROUP BY o.stallname ORDER BY COUNT(o) DESC"),
 })
 public class Orders implements Serializable {
 

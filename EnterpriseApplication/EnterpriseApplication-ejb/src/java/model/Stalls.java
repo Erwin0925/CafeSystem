@@ -25,6 +25,9 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "Stall.findAllNames2", query = "SELECT s FROM Stalls s "),
     @NamedQuery(name = "Stall.findNames3", query = "SELECT s FROM Stalls s WHERE s.stallname = :stallname"),
     @NamedQuery(name = "Stall.findAllNames4", query = "SELECT s.stallname FROM Stalls s "),
+    @NamedQuery(name = "Stalls.countTotal", query = "SELECT COUNT(s) FROM Stalls s"),
+    @NamedQuery(name = "Stalls.countByCategory", query = "SELECT s.category, COUNT(s) FROM Stalls s GROUP BY s.category"),    
+    
 })
 
 public class Stalls implements Serializable {
