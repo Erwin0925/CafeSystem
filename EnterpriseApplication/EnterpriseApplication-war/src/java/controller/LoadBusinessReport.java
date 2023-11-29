@@ -68,6 +68,12 @@ public class LoadBusinessReport extends HttpServlet {
 
             List<Object[]> reportData = ordersFacade.getDailyReport(stallName, midnightDate);
             request.setAttribute("reportData", reportData);
+            
+            double total = 0.0;
+            for (Object[] row : reportData) {
+                total += ((Number) row[2]).doubleValue(); 
+            }            
+            request.setAttribute("reportDataTotal", total);
             RequestDispatcher dispatcher = request.getRequestDispatcher("businessreport.jsp");
             dispatcher.forward(request, response);
         }

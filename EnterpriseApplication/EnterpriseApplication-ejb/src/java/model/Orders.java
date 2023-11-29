@@ -31,9 +31,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Orders.findByUsernameAndStatusNew", query = "SELECT o FROM Orders o WHERE o.username = :username AND o.status2 = 'new'"),
     @NamedQuery(name = "Order.findFilledOrders", query = "SELECT o FROM Orders o WHERE o.status = 'filled'"),
     @NamedQuery(name = "Orders.countOrdersByStall", query = "SELECT o.stallname, COUNT(o) FROM Orders o GROUP BY o.stallname ORDER BY COUNT(o) DESC"),
-    @NamedQuery(name = "Orders.dailyReport", query = "SELECT o.id, o.mydate FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :date"),
-    @NamedQuery(name = "Orders.weeklyReport", query = "SELECT o.id, o.mydate FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
-    @NamedQuery(name = "Orders.monthlyReport",query = "SELECT o.id, o.mydate FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
+    @NamedQuery(name = "Orders.dailyReport", query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :date"),
+    @NamedQuery(name = "Orders.weeklyReport", query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
+    @NamedQuery(name = "Orders.monthlyReport",query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
     
 })
 public class Orders implements Serializable {

@@ -20,14 +20,17 @@
             <tr>
                 <th>Order ID</th>
                 <th>Day Sold</th>
+                <th>Total Earn</th>
             </tr>
             <c:forEach var="row" items="${reportData}">
                 <tr>
                     <td><c:out value="${row[0]}" /></td>
                     <td><fmt:formatDate value="${row[1]}" pattern="yyyy-MM-dd" /></td>
+                    <td><c:out value="RM${row[2]}" /></td>
                 </tr>
             </c:forEach>
-        </table><br><br>
+        </table>
+        <h3>Total Earning = RM${reportDataTotal}</h3>
         <form action="BusinessReport" method="get">
             <select name="reportType">
                 <option value="today">Today</option>
