@@ -105,9 +105,27 @@
                     <option value="${usernameObject.username}">${usernameObject.username}</option>
                 </c:forEach>
             </select><br><br>
-
             Password: <input type="password" name="password"><br><br>
-            Address: <input type="text" name="address"><br><br>
+                        Origin State:<select name="address" required>
+                            <option value="">Select a State</option>
+                            <option value="johor">Johor</option>
+                            <option value="kedah">Kedah</option>
+                            <option value="kelantan">Kelantan</option>
+                            <option value="kuala lumpur">Kuala Lumpur</option>
+                            <option value="labuan">Labuan</option>
+                            <option value="melaka">Melaka</option>
+                            <option value="negeri sembilan">Negeri Sembilan</option>
+                            <option value="pahang">Pahang</option>
+                            <option value="penang">Penang</option>
+                            <option value="perak">Perak</option>
+                            <option value="perlis">Perlis</option>
+                            <option value="putrajaya">Putrajaya</option>
+                            <option value="sabah">Sabah</option>
+                            <option value="sarawak">Sarawak</option>
+                            <option value="selangor">Selangor</option>
+                            <option value="terengganu">Terengganu</option>
+                            <option value="other">Other Country</option>
+                        </select><br><br>
             Email: <input type="email" name="email"><br><br>
             HP: <input type="text" name="hp"><br><br>
             Gender:
