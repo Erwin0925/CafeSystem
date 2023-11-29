@@ -7,8 +7,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Stalls;
+import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.ManagersFacade;
 import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
@@ -26,18 +24,17 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadManageStallstaff", urlPatterns = {"/LoadManageStallstaff"})
-public class LoadManageStallstaff extends HttpServlet {
+@WebServlet(name = "StallstaffDelete", urlPatterns = {"/StallstaffDelete"})
+public class StallstaffDelete extends HttpServlet {
+
+    @EJB
+    private StallsFacade stallsFacade;
 
     @EJB
     private StallstaffsFacade stallstaffsFacade;
 
     @EJB
     private UsersFacade usersFacade;
-
-    @EJB
-    private StallsFacade stallsFacade;
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,18 +49,28 @@ public class LoadManageStallstaff extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
             
-            List<Stalls> stallList = stallsFacade.findAllStallNames2();
-            request.setAttribute("stallList",stallList);
-            
-            List<Stalls> stallNames = stallsFacade.findAllStallNames4(); 
-            request.setAttribute("stallNames", stallNames);
-            
-            List<Users> allstallstaff = usersFacade.findUsersByRole("Stallstaff");
-            request.setAttribute("allstallstaff", allstallstaff);
+            String stallstaffName = request.getParameter("stallUsername");
+            String status = request.getParameter("status2");
+
+            Users userdetails = usersFacade.find(stallstaffName); //ggh
             
             
-            request.getRequestDispatcher("managerstallstaff.jsp").include(request, response);
+            Stallstaffs ssdetails = stallstaffsFacade.findstallstaffdetails(stallstaffName);
+            String stallname = ssdetails.getStallname();
+
+            
+
+            Stalls existingStall = stallsFacade.find(stallname);
+            
+            existingStall.getStallstaffs().remove(ssdetails);
+            stallsFacade.edit(existingStall);
+            stallstaffsFacade.remove(ssdetails);
+            
+            usersFacade.remove(userdetails);
+            
+            request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
         }
     }
 

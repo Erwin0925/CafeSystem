@@ -101,14 +101,46 @@
             </select><br><br>
 
             <label>Status:</label>
-            <input type="radio" id="approved" name="status" value="Approved">
+            <input type="radio" id="approved" name="status" value="approved">
             <label for="approved">Approved</label>
-            <input type="radio" id="pending" name="status" value="Pending">
+            <input type="radio" id="pending" name="status" value="pending">
             <label for="pending">Pending</label><br><br>
 
             <input type="submit" value="Submit">
         </form>
-    <br><hr><br>
+    <br><hr>
+    
+    <h2>Stallstaff Approval</h2>
+    <form action="StallstaffApprove" method="post">
+        <label for="stallUsername">Stall Username:</label>
+        <select name="stallUsername" id="stallUsername">
+            <c:forEach items="${allstallstaff}" var="usernameObject">
+                <option value="${usernameObject.username}">${usernameObject.username}</option>
+            </c:forEach>
+        </select><br><br>
+
+        <label>Status:</label>
+        <input type="radio" id="approved" name="status2" value="approved">
+        <label for="approved">Approved</label>
+        <input type="radio" id="pending" name="status2" value="pending">
+        <label for="pending">Pending</label><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <br><hr>
+    
+    <h2>Stallstaff Deletion</h2>
+    <form action="StallstaffDelete" method="post">
+        <label for="stallUsername">Stall Username:</label>
+        <select name="stallUsername" id="stallUsername">
+            <c:forEach items="${allstallstaff}" var="usernameObject">
+                <option value="${usernameObject.username}">${usernameObject.username}</option>
+            </c:forEach>
+        </select><br><br>
+        
+        <input type="submit" value="Delete">
+    </form>
+    <br><hr>
     
     
     </body>

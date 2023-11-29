@@ -7,18 +7,13 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Stalls;
 import model.Users;
-import model.modelfacade.ManagersFacade;
-import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
@@ -26,18 +21,11 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadManageStallstaff", urlPatterns = {"/LoadManageStallstaff"})
-public class LoadManageStallstaff extends HttpServlet {
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
+@WebServlet(name = "StallstaffApprove", urlPatterns = {"/StallstaffApprove"})
+public class StallstaffApprove extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-
-    @EJB
-    private StallsFacade stallsFacade;
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,17 +41,15 @@ public class LoadManageStallstaff extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            List<Stalls> stallList = stallsFacade.findAllStallNames2();
-            request.setAttribute("stallList",stallList);
+            String stallstaffName = request.getParameter("stallUsername");
+            String status = request.getParameter("status2");
+
+            Users userdetails = usersFacade.find(stallstaffName);
+            userdetails.setStatus(status);
+            usersFacade.edit(userdetails);
             
-            List<Stalls> stallNames = stallsFacade.findAllStallNames4(); 
-            request.setAttribute("stallNames", stallNames);
+            request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
             
-            List<Users> allstallstaff = usersFacade.findUsersByRole("Stallstaff");
-            request.setAttribute("allstallstaff", allstallstaff);
-            
-            
-            request.getRequestDispatcher("managerstallstaff.jsp").include(request, response);
         }
     }
 
