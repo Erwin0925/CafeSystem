@@ -13,10 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Stalls;
 import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
@@ -24,11 +22,8 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "StallstaffDelete", urlPatterns = {"/StallstaffDelete"})
-public class StallstaffDelete extends HttpServlet {
-
-    @EJB
-    private StallsFacade stallsFacade;
+@WebServlet(name = "StallstaffUpdate", urlPatterns = {"/StallstaffUpdate"})
+public class StallstaffUpdate extends HttpServlet {
 
     @EJB
     private StallstaffsFacade stallstaffsFacade;
@@ -50,25 +45,27 @@ public class StallstaffDelete extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            String stallstaffName = request.getParameter("stallUsername4");
+            String newPassword = request.getParameter("password");
+            String newAddress = request.getParameter("address");
+            String newEmail = request.getParameter("email");
+            String newHp = request.getParameter("hp");
+            String newGender = request.getParameter("gender");  
             
-            String stallstaffName = request.getParameter("stallUsername2");
-            String status = request.getParameter("status2");
-
-            Users userdetails = usersFacade.find(stallstaffName); //ggh
+            Users userProf = usersFacade.find(stallstaffName);
+            Stallstaffs ssProf = stallstaffsFacade.findstallstaffdetails(stallstaffName);
             
+            userProf.setPassword(newPassword);
+            usersFacade.edit(userProf);
+            ssProf.setAddress(newAddress);
+            ssProf.setEmail(newEmail);
+            ssProf.setGender(newGender);
+            ssProf.setHp(newHp);
+            stallstaffsFacade.edit(ssProf);
+            request.setAttribute("done3", "Done Changes");
             
-            Stallstaffs ssdetails = stallstaffsFacade.findstallstaffdetails(stallstaffName);
-            String stallname = ssdetails.getStallname();
-
-            
-
-            Stalls existingStall = stallsFacade.find(stallname);
-            
-            existingStall.getStallstaffs().remove(ssdetails);
-            stallsFacade.edit(existingStall);
-            stallstaffsFacade.remove(ssdetails);
-            
-            usersFacade.remove(userdetails);
+            System.out.println(ssProf.getEmail());
+            System.out.println(userProf.getPassword());
             
             request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
         }

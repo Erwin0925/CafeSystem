@@ -13,10 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Stalls;
 import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.StallsFacade;
 import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
@@ -24,11 +22,8 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "StallstaffDelete", urlPatterns = {"/StallstaffDelete"})
-public class StallstaffDelete extends HttpServlet {
-
-    @EJB
-    private StallsFacade stallsFacade;
+@WebServlet(name = "StallStaffSearch", urlPatterns = {"/StallStaffSearch"})
+public class StallStaffSearch extends HttpServlet {
 
     @EJB
     private StallstaffsFacade stallstaffsFacade;
@@ -49,28 +44,24 @@ public class StallstaffDelete extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
             
-            String stallstaffName = request.getParameter("stallUsername2");
-            String status = request.getParameter("status2");
-
-            Users userdetails = usersFacade.find(stallstaffName); //ggh
+            String stallstaffName = request.getParameter("stallUsername3");
             
-            
+            Users userdetails = usersFacade.find(stallstaffName);
             Stallstaffs ssdetails = stallstaffsFacade.findstallstaffdetails(stallstaffName);
-            String stallname = ssdetails.getStallname();
-
             
-
-            Stalls existingStall = stallsFacade.find(stallname);
-            
-            existingStall.getStallstaffs().remove(ssdetails);
-            stallsFacade.edit(existingStall);
-            stallstaffsFacade.remove(ssdetails);
-            
-            usersFacade.remove(userdetails);
+            if (userdetails != null) {
+                request.setAttribute("managerFound", true);
+                request.setAttribute("userdetails2", userdetails);
+                request.setAttribute("ssdetails", ssdetails);
+            } else {
+                request.setAttribute("managerFound", false);
+                request.setAttribute("fail2", "No User Found");
+            }  
             
             request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
+            
+            
         }
     }
 
