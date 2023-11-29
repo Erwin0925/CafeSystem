@@ -26,7 +26,9 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "Orders.findByUsername", query = "SELECT o FROM Orders o WHERE o.username = :username"),
     @NamedQuery(name = "Orders.findByUsername2", query = "SELECT o FROM Orders o WHERE o.stallstaffusername = :username"),
+    @NamedQuery(name = "Orders.findBystall", query = "SELECT o FROM Orders o WHERE o.stallname = :stall"),
     @NamedQuery(name = "Orders.findByUsernameAndStatusNew", query = "SELECT o FROM Orders o WHERE o.username = :username AND o.status2 = 'new'"),
+    @NamedQuery(name = "Order.findFilledOrders", query = "SELECT o FROM Orders o WHERE o.status = 'filled'"),
 })
 public class Orders implements Serializable {
 
@@ -44,19 +46,12 @@ public class Orders implements Serializable {
     private String stallstaffusername;
     private Long cardno;
     private String stallname;
-
-    public String getStallname() {
-        return stallname;
-    }
-
-    public void setStallname(String stallname) {
-        this.stallname = stallname;
-    }
     @OneToMany
     private ArrayList<OrderDetails> OrderDetails = new ArrayList<OrderDetails>();
 
     public Orders() {
     }
+    
     public Orders(LocalDate mydate, int rating, String feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno, String stallname) {
         this.mydate = mydate;
         this.rating = rating;
@@ -70,6 +65,13 @@ public class Orders implements Serializable {
         this.stallname = stallname;
     }
 
+    public String getStallname() {
+        return stallname;
+    }
+
+    public void setStallname(String stallname) {
+        this.stallname = stallname;
+    }
 
 
     public Long getCardno() {

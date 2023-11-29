@@ -5,7 +5,10 @@
  */
 package model.modelfacade;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,6 +55,29 @@ public class OrdersFacade extends AbstractFacade<Orders> {
         query.setParameter("username", username);
         return query.getResultList();
     }
+    
+    public List<Orders> findByStall(String stall) {
+        Query query = em.createNamedQuery("Orders.findBystall");
+        query.setParameter("stall", stall);
+        return query.getResultList();
+    }
+    
+    public Map<String, Double> getAverageRatingsByStall() {
+        List<Orders> filledOrders = em.createNamedQuery("Order.findFilledOrders", Orders.class).getResultList();
+
+        Map<String, Double> averageRatings = new HashMap<>();
+        Map<String, List<Integer>> ratings = new HashMap<>();
+
+        for (Orders order : filledOrders) {
+            ratings.computeIfAbsent(order.getStallname(), k -> new ArrayList<>()).add(order.getRating());
+        }
+
+        for (Map.Entry<String, List<Integer>> entry : ratings.entrySet()) {
+            double average = entry.getValue().stream().mapToInt(Integer::intValue).average().orElse(0.0);
+            averageRatings.put(entry.getKey(), average);
+        }
+        return averageRatings;
+    }    
 
 
 }

@@ -10,21 +10,22 @@
 <html>
     <head>
         <title>Stall Feedback</title>
+        <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
         <h1>Stalls Feedback and Rating</h1>
-        <form action="YourServletURL" method="post">
+        <form action="AnalysisDetails" method="post">
             <table border="1">
                 <tr>
                     <th>Select</th>
                     <th>Stall</th>
                     <th>Average Rating</th>
                 </tr>
-                <c:forEach items="${stalls}" var="stall">
+                <c:forEach items="${stallRatings}" var="stall">
                     <tr>
-                        <td><input type="radio" name="selectedStall" value="${stall.id}"></td>
-                        <td>${stall.name}</td>
-                        <td>${stall.averageRating}</td>
+                        <td><input type="radio" name="selectedStall" value="${stall.key}"></td>
+                        <td>${stall.key}</td>
+                        <td>${stall.value}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -32,19 +33,30 @@
             <input type="submit" value="Show Feedback">
         </form>
 
-        <c:if test="${not empty feedbackList}">
+        <c:if test="${not empty orderdtl}">
             <h2>Feedback for Selected Stall</h2>
-            <table>
+            <table border="1">
                 <tr>
-                    <th>Customer</th>
+                    <th>Order Id</th>
                     <th>Rating</th>
-                    <th>Comment</th>
+                    <th>Feedback</th>
                 </tr>
-                <c:forEach items="${feedbackList}" var="feedback">
+                <c:forEach items="${orderdtl}" var="feedback">
                     <tr>
-                        <td>${feedback.customerName}</td>
-                        <td>${feedback.rating}</td>
-                        <td>${feedback.comment}</td>
+                        <td>${feedback.id}</td>
+                        <c:choose>
+                            <c:when test="${feedback.status == 'empty'}">
+                                <td>User not yet filled</td>
+                                <td>User not yet filled</td>
+                            </c:when>
+                            <c:when test="${feedback.status == 'filled'}">
+                                <td>${feedback.rating}</td>
+                                <td>${feedback.feedback}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>Unknown status</td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
                 </c:forEach>
             </table>

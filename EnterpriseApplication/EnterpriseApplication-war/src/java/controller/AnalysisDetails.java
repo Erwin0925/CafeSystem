@@ -8,7 +8,6 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +21,8 @@ import model.modelfacade.OrdersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadRatingFeedback", urlPatterns = {"/LoadRatingFeedback"})
-public class LoadRatingFeedback extends HttpServlet {
+@WebServlet(name = "AnalysisDetails", urlPatterns = {"/AnalysisDetails"})
+public class AnalysisDetails extends HttpServlet {
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -40,15 +39,14 @@ public class LoadRatingFeedback extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        
         try (PrintWriter out = response.getWriter()) {
-            
-            Map<String, Double> stallRatings = ordersFacade.getAverageRatingsByStall();
-            request.setAttribute("stallRatings",stallRatings);
 
-            request.getRequestDispatcher("ratingfeedbackanalysis.jsp").forward(request, response);
+            String stallname = request.getParameter("selectedStall");
+            
+            List<Orders> orderdtl = ordersFacade.findByStall(stallname);
+            request.setAttribute("orderdtl", orderdtl);
+                     
+            request.getRequestDispatcher("LoadRatingFeedback").forward(request, response);
 
         }
     }
