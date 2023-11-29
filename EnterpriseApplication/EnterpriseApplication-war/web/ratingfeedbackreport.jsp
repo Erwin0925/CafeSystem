@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="cssstyle.css">
 </head>
 <body>
+    <a href="stallstaffshome.jsp" class="back-button">Back</a><br><br>
     <h1>Rating Feedback Report</h1>
     
     <h3>Average Score: ${averageScore}</h3>
