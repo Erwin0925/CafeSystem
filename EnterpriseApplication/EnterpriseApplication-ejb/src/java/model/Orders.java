@@ -34,6 +34,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Orders.dailyReport", query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :date"),
     @NamedQuery(name = "Orders.weeklyReport", query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
     @NamedQuery(name = "Orders.monthlyReport",query = "SELECT o.id, o.mydate, o.totalprice FROM Orders o WHERE o.stallname = :stallName AND o.mydate >= :startDate"),
+    @NamedQuery(name = "Order.calculateAverageScore",query = "SELECT AVG(o.rating) FROM Orders o WHERE o.stallname = :stallName AND o.status = 'filled'"),
+    @NamedQuery(name = "Order.getOrdersWithCondition",query = "SELECT o FROM Orders o WHERE o.stallname = :stallName"),    
+    
     
 })
 public class Orders implements Serializable {

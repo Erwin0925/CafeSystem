@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import model.Orders;
 
 /**
@@ -116,4 +117,16 @@ public class OrdersFacade extends AbstractFacade<Orders> {
                  .setParameter("startDate", thirtyDaysBefore)
                  .getResultList();
     }
+    
+    public Double calculateAverageScore(String stallName) {
+        TypedQuery<Double> query = em.createNamedQuery("Order.calculateAverageScore", Double.class);
+        query.setParameter("stallName", stallName);
+        return query.getSingleResult();
+    }
+    
+    public List<Orders> getOrdersWithCondition(String stallName) {
+        Query query = em.createNamedQuery("Order.getOrdersWithCondition");
+        query.setParameter("stallName", stallName);
+        return query.getResultList();
+    } 
 }

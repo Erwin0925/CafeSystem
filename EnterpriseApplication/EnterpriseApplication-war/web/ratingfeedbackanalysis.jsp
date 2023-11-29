@@ -47,8 +47,8 @@
                         <td>${feedback.id}</td>
                         <c:choose>
                             <c:when test="${feedback.status == 'empty'}">
-                                <td>User not yet filled</td>
-                                <td>User not yet filled</td>
+                                <td>User not yet fill</td>
+                                <td>User not yet fill</td>
                             </c:when>
                             <c:when test="${feedback.status == 'filled'}">
                                 <td>${feedback.rating}</td>
