@@ -28,7 +28,17 @@
             <td>${order.id}</td>
             <td>${order.mydate}</td>
             <td>RM${order.totalprice}</td>
-            <td>${order.rating}</td>
+        <c:choose>
+            <c:when test="${order.status == 'empty'}">
+                <td>User not yet filled</td>
+            </c:when>
+            <c:when test="${order.status == 'filled'}">
+                <td>${order.rating}</td>
+            </c:when>
+            <c:otherwise>
+                <td>Unknown status</td>
+            </c:otherwise>
+        </c:choose>
         </tr>
     </c:forEach>
 </table>

@@ -75,9 +75,6 @@ public class ProcessPayment extends HttpServlet {
         String status2 = "new";
         LocalDate mydate = LocalDate.now();
         
-        
-        
-        
         try (PrintWriter out = response.getWriter()) {
             
             Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo, stallname);
@@ -86,8 +83,6 @@ public class ProcessPayment extends HttpServlet {
             Orders existingOrder = ordersFacade.findByUsernameAndStatusNew(cusUsername);
             existingOrder.setStatus2("old");
             ordersFacade.edit(existingOrder);
-            
-            
             
             List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
             for (OrderDetails orderdetails : orderdetailList) {
@@ -99,10 +94,6 @@ public class ProcessPayment extends HttpServlet {
             request.setAttribute("msg", "Successfully Pay");
             
             request.getRequestDispatcher("managepayment.jsp").include(request, response);
-            
-            
-            
-
         }
     }
 

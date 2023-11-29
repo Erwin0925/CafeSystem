@@ -50,9 +50,9 @@ public class LoadViewStallstaffSales extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             List<Orders> orderprof = ordersFacade.findByUsername2(userName);
-            request.setAttribute("orderprof",orderprof);
+            request.setAttribute("orderprof",orderprof);          
             request.setAttribute("userName",userName);
-            
+
             
             
             request.getRequestDispatcher("stallstaffviewsales.jsp").forward(request, response);
