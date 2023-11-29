@@ -47,4 +47,9 @@ public class StallsFacade extends AbstractFacade<Stalls> {
         return query.getResultList();
     }
     
+    public List<Stalls> findAllStallNames4() {
+        Query query = em.createNamedQuery("Stall.findAllNames4");
+        return query.getResultList();
+    }
+    
 }

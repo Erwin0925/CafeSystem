@@ -36,9 +36,9 @@
         <br><br><input type="submit" value="Select Stall">
     </form>
 
-    <h2>Stall Staff Details</h2>
     <!-- This section is only displayed if a stall is selected -->
     <c:if test="${not empty ssProf2}">
+        <h2>Stall Staff Details</h2>
         <form action="SelectUser" method="post">
             <table border="1">
                 <tr>
@@ -71,9 +71,9 @@
         </form>
     </c:if>
 
-    <h2>User Details</h2>
     <!-- This section is only displayed if a staff member is selected -->
     <c:if test="${not empty userProf}">
+        <h2>User Details</h2>
         <table border="1">
             <tr>
                 <th>Username</th>
@@ -89,6 +89,27 @@
             </tr>
         </table>
     </c:if>
+    
+    <br><hr>
+    <h2>Stall Approval</h2>
+        <form action="StallApprove" method="post">
+            <label for="stallname">Stall Name:</label>
+            <select name="stallname" required>
+                <c:forEach items="${stallNames}" var="name">
+                    <option value="${name}">${name}</option>
+                </c:forEach>
+            </select><br><br>
 
+            <label>Status:</label>
+            <input type="radio" id="approved" name="status" value="Approved">
+            <label for="approved">Approved</label>
+            <input type="radio" id="pending" name="status" value="Pending">
+            <label for="pending">Pending</label><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    <br><hr><br>
+    
+    
     </body>
 </html>

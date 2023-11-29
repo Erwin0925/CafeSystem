@@ -7,8 +7,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,27 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Stalls;
-import model.modelfacade.ManagersFacade;
 import model.modelfacade.StallsFacade;
-import model.modelfacade.StallstaffsFacade;
-import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadManageStallstaff", urlPatterns = {"/LoadManageStallstaff"})
-public class LoadManageStallstaff extends HttpServlet {
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
-
-    @EJB
-    private UsersFacade usersFacade;
+@WebServlet(name = "StallApprove", urlPatterns = {"/StallApprove"})
+public class StallApprove extends HttpServlet {
 
     @EJB
     private StallsFacade stallsFacade;
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,17 +38,21 @@ public class LoadManageStallstaff extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        
+        
         try (PrintWriter out = response.getWriter()) {
+
+            String stallName = request.getParameter("stallname");
+            String status = request.getParameter("status");
             
-            List<Stalls> stallList = stallsFacade.findAllStallNames2();
-            request.setAttribute("stallList",stallList);
+            Stalls stallProf = stallsFacade.find(stallName);
+            stallProf.setStatus(status);
+            stallsFacade.edit(stallProf);
             
-            List<Stalls> stallNames = stallsFacade.findAllStallNames4(); 
-            request.setAttribute("stallNames", stallNames);
+            request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
             
-            
-            
-            request.getRequestDispatcher("managerstallstaff.jsp").include(request, response);
+                    
         }
     }
 

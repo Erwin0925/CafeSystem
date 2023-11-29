@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "Stall.findAllNames", query = "SELECT s.stallname FROM Stalls s WHERE s.status = 'approved'"),
     @NamedQuery(name = "Stall.findAllNames2", query = "SELECT s FROM Stalls s "),
     @NamedQuery(name = "Stall.findNames3", query = "SELECT s FROM Stalls s WHERE s.stallname = :stallname"),
+    @NamedQuery(name = "Stall.findAllNames4", query = "SELECT s.stallname FROM Stalls s "),
 })
 
 public class Stalls implements Serializable {
