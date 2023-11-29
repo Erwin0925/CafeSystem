@@ -16,11 +16,10 @@
     <body>
         <a href="managershome.jsp" class="back-button">Back</a><br><br>
         <h1>Total item sold by a Store</h1>
-        <h2>Stall Order Counts</h2>
         <table border="1">
             <tr>
                 <th>Stall Name</th>
-                <th>Times got visited</th>
+                <th>Order Created</th>
             </tr>
             <c:forEach items="${stallOrderCounts}" var="entry">
                 <tr>
@@ -29,13 +28,5 @@
                 </tr>
             </c:forEach>
         </table><br><br>
-        <form action="EarningsReportServlet" method="post">
-            <select name="timeFrame">
-                <option value="today">Today</option>
-                <option value="week">In a Week</option>
-                <option value="month">In a Month</option>
-            </select>
-            <input type="submit" value="Show Report">
-        </form>
     </body>
 </html>
