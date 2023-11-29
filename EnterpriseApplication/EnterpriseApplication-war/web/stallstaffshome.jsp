@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Stallstaff Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="staffmenucss.css"> 
+    <link rel="stylesheet" type="text/css" href="staffdashboarddesign.css"> 
 </head>
 <body>
     <div id="dashboard-container">
