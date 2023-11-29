@@ -84,6 +84,18 @@
         </c:choose>
         <br><hr>
         
+        <h2>Customer Deletion</h2>
+        <form action="CustomerDelete" method="post">
+            <label>Customer Username:</label>
+            <select name="cusUsername2" id="stallUsername">
+                <c:forEach items="${allcustomer}" var="usernameObject">
+                    <option value="${usernameObject.username}">${usernameObject.username}</option>
+                </c:forEach>
+            </select><br><br>
+
+            <input type="submit" value="Delete">
+        </form>
+        <br><hr>        
         
     </body>
 </html>
