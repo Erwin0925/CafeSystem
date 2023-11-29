@@ -95,7 +95,33 @@
 
             <input type="submit" value="Delete">
         </form>
-        <br><hr>        
+        <br><hr>
+
+        <h2>Customer Update</h2>
+        <form action="CustomerUpdate" method="post">
+            <label>Customer Username:</label>
+            <select name="cusUsername3" id="stallUsername">
+                <c:forEach items="${allcustomer}" var="usernameObject">
+                    <option value="${usernameObject.username}">${usernameObject.username}</option>
+                </c:forEach>
+            </select><br><br>
+
+            Password: <input type="password" name="password"><br><br>
+            Address: <input type="text" name="address"><br><br>
+            Email: <input type="email" name="email"><br><br>
+            HP: <input type="text" name="hp"><br><br>
+            Gender:
+                <input type="radio" id="male" name="gender" value="Male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="Female">
+                <label for="female">Female</label><br><br>
+
+            <input type="submit" value="Change">
+        </form>
+        <% if (request.getAttribute("done3") != null) { %>
+            <p style="color: green;"><%= request.getAttribute("done3") %></p>
+        <% } %>
+        <br><hr>
         
     </body>
 </html>
