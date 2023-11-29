@@ -43,13 +43,21 @@ public class Orders implements Serializable {
     private String status2;
     private String stallstaffusername;
     private Long cardno;
+    private String stallname;
+
+    public String getStallname() {
+        return stallname;
+    }
+
+    public void setStallname(String stallname) {
+        this.stallname = stallname;
+    }
     @OneToMany
     private ArrayList<OrderDetails> OrderDetails = new ArrayList<OrderDetails>();
 
     public Orders() {
     }
-
-    public Orders(LocalDate mydate, int rating, String feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno) {
+    public Orders(LocalDate mydate, int rating, String feedback, String username, double totalprice, String status, String status2, String stallstaffusername, Long cardno, String stallname) {
         this.mydate = mydate;
         this.rating = rating;
         this.feedback = feedback;
@@ -59,6 +67,7 @@ public class Orders implements Serializable {
         this.status2 = status2;
         this.stallstaffusername = stallstaffusername;
         this.cardno = cardno;
+        this.stallname = stallname;
     }
 
 

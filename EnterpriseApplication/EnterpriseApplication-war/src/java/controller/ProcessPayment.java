@@ -20,9 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.OrderDetails;
 import model.Orders;
+import model.Stallstaffs;
 import model.Users;
 import model.modelfacade.OrderDetailsFacade;
 import model.modelfacade.OrdersFacade;
+import model.modelfacade.StallstaffsFacade;
 
 /**
  *
@@ -30,6 +32,9 @@ import model.modelfacade.OrdersFacade;
  */
 @WebServlet(name = "ProcessPayment", urlPatterns = {"/ProcessPayment"})
 public class ProcessPayment extends HttpServlet {
+
+    @EJB
+    private StallstaffsFacade stallstaffsFacade;
 
     @EJB
     private OrderDetailsFacade orderDetailsFacade;
@@ -50,9 +55,15 @@ public class ProcessPayment extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+
         HttpSession s = request.getSession(false);
         Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
+        
+        Stallstaffs sf = stallstaffsFacade.findstallstaffdetails(userName);
+        String stallname = sf.getStallname();
+        
+        
         String cusUsername = request.getParameter("cusUsername");
         Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
         System.out.println(cusUsername);
@@ -69,7 +80,7 @@ public class ProcessPayment extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo);
+            Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo, stallname);
             ordersFacade.create(orderProf);
             
             Orders existingOrder = ordersFacade.findByUsernameAndStatusNew(cusUsername);
