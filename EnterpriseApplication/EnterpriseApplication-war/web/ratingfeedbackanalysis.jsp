@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
+        <a href="managershome.jsp" class="back-button">Back</a><br><br>
         <h1>Stalls Feedback and Rating</h1>
         <form action="AnalysisDetails" method="post">
             <table border="1">

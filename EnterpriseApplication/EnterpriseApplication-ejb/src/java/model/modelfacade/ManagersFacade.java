@@ -41,4 +41,16 @@ public class ManagersFacade extends AbstractFacade<Managers> {
         return null;
     }
     
+    public long getTotalManagers() {
+        return (long) getEntityManager().createNamedQuery("Manager.totalCount").getSingleResult();
+    }
+
+    public List<Object[]> getGenderDistribution() {
+        return getEntityManager().createNamedQuery("Manager.countByGender").getResultList();
+    }
+
+    public List<Object[]> getAddressDistribution() {
+        return getEntityManager().createNamedQuery("Manager.countByAddress").getResultList();
+    }    
+    
 }
