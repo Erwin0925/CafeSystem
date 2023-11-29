@@ -192,7 +192,7 @@
     </c:choose>
     <br><hr>
     
-    <h2>Stallstaff Search</h2>
+    <h2>Stallstaff Update</h2>
     <form action="StallstaffUpdate" method="post">
         <label for="stallUsername">Stall Username:</label>
         <select name="stallUsername4" id="stallUsername">

@@ -7,7 +7,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +22,14 @@ import model.modelfacade.UsersFacade;
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadManageCustomer", urlPatterns = {"/LoadManageCustomer"})
-public class LoadManageCustomer extends HttpServlet {
-
-    @EJB
-    private UsersFacade usersFacade;
+@WebServlet(name = "CustomerSearch", urlPatterns = {"/CustomerSearch"})
+public class CustomerSearch extends HttpServlet {
 
     @EJB
     private CustomersFacade customersFacade;
+
+    @EJB
+    private UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,14 +44,22 @@ public class LoadManageCustomer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            List<Customers> cusProf = customersFacade.findAll();
-            request.setAttribute("cusProf",cusProf);
             
-            List<Users> allcustomer = usersFacade.findUsersByRole("Customer");
-            request.setAttribute("allcustomer", allcustomer);
+            String cusName = request.getParameter("cusUsername1");
             
+            Users userdetails = usersFacade.find(cusName);
+            Customers cusdetails = customersFacade.findcustomerdetails(cusName);
             
-            request.getRequestDispatcher("managecustomer.jsp").include(request, response);
+            if (userdetails != null) {
+                request.setAttribute("managerFound", true);
+                request.setAttribute("userdetails", userdetails);
+                request.setAttribute("cusdetails", cusdetails);
+            } else {
+                request.setAttribute("managerFound", false);
+                request.setAttribute("fail2", "No User Found");
+            }  
+            request.getRequestDispatcher("LoadManageCustomer").include(request, response);
+            
         }
     }
 

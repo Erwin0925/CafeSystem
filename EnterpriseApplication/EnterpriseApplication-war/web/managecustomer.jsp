@@ -34,5 +34,56 @@
                 </tr>
             </c:forEach>
         </table>
+        <br><hr>
+        
+        <h2>Customer Search</h2>
+        <form action="CustomerSearch" method="post">
+            <label>Customer Username:</label>
+            <select name="cusUsername1" id="stallUsername">
+                <c:forEach items="${allcustomer}" var="usernameObject">
+                    <option value="${usernameObject.username}">${usernameObject.username}</option>
+                </c:forEach>
+            </select><br><br>
+
+            <input type="submit" value="Search">
+        </form>
+        <c:choose>
+            <c:when test="${managerFound}">
+                <!-- Display the table if manager is found -->
+                <br><br>
+                <table border="1">
+                    <tr>
+                        <th>StaffId</th>                
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>HP</th>
+                        <th>Gender</th>
+                    </tr>
+                    <tr>
+                        <td>${cusdetails.id}</td>
+                        <td>${cusdetails.username}</td>
+                        <td>${userdetails.password}</td>
+                        <td>${userdetails.status}</td>
+                        <td>${userdetails.role}</td>
+                        <td>${cusdetails.address}</td>
+                        <td>${cusdetails.email}</td>
+                        <td>${cusdetails.hp}</td>
+                        <td>${cusdetails.gender}</td>
+                    </tr>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <% if (request.getAttribute("fail2") != null) { %>
+                    <p style="color: red;"><%= request.getAttribute("fail2") %></p>
+                <% } %>
+            </c:otherwise>
+        </c:choose>
+        <br><hr>
+        
+        
     </body>
 </html>
