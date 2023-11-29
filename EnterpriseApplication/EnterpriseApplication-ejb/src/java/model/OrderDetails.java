@@ -32,16 +32,26 @@ public class OrderDetails implements Serializable {
     private double price;
     private String username;
     private String status;
+    private String stallname;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(Long menuid, String name, double price, String username, String status) {
+    public OrderDetails(Long menuid, String name, double price, String username, String status, String stallname) {
         this.menuid = menuid;
         this.name = name;
         this.price = price;
         this.username = username;
         this.status = status;
+        this.stallname = stallname;
+    }
+
+    public String getStallname() {
+        return stallname;
+    }
+
+    public void setStallname(String stallname) {
+        this.stallname = stallname;
     }
 
     public String getStatus() {
