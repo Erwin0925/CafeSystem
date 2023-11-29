@@ -32,4 +32,9 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }    
     
+    public List<Users> findUsersByRole(String role) {
+        Query query = em.createNamedQuery("User.findByRole");
+        query.setParameter("role", role);
+        return query.getResultList();
+    }
 }

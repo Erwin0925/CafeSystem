@@ -44,15 +44,11 @@ public class LoadStallstaffRegister extends HttpServlet {
         HttpSession s = request.getSession(false);
         
         try (PrintWriter out = response.getWriter()) {
-            List<String> stallNames = stallsFacade.findAllStallNames(); 
+            List<Stalls> stallNames = stallsFacade.findAllStallNames(); 
             s.setAttribute("stallNames2", "2");
             s.setAttribute("stallNames", stallNames);
             request.getRequestDispatcher("stallstaffsregister.jsp").forward(request, response);
             
-            for (String item : stallNames) {
-            
-                System.out.println(item);
-            }
         }
 
 

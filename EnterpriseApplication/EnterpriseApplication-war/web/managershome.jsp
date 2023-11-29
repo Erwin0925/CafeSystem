@@ -9,44 +9,34 @@
 <html>
     <head>
         <title>Manager Dashboard</title>
-        <!-- Add your CSS file link here -->
+        <link rel="stylesheet" type="text/css" href="cssstyle.css">
     </head>
     <body>
         <header>
             <h1>Manager Dashboard</h1>
-            <p>Welcome, <%= request.getSession().getAttribute("managerName") %> | <a href="login.jsp">Logout</a></p>
+            <form action = "Logout" method = "Post">
+                <p>Welcome | <input type="submit" value="Logout"></p>
+            </form>
         </header>
 
         <nav>
             <ul>
-                <li><a href="manageStaff.jsp">Manage Staff</a></li>
-                <li><a href="approveStallStaff.jsp">Approve Stall Staff</a></li>
-                <li><a href="customerManagement.jsp">Customer Management</a></li>
-                <li><a href="feedbackAnalysis.jsp">Feedback Analysis</a></li>
-                <li><a href="reporting.jsp">Reporting</a></li>
+                <a href="LoadManageManager">Manage Manager</a><br><br>
+                <a href="LoadManageStallstaff">Manage Stall Staff</a><br><br>
+                <a href="LoadManageCustomer">Customer Management</a><br><br>
+                <a href="LoadRatingFeedback">Feedback Analysis</a><br><br>
             </ul>
         </nav>
 
         <main>
-            <section id="quick-actions">
-                <h2>Quick Actions</h2>
-                <!-- Buttons for add, delete, search, update staff -->
-            </section>
-
-            <section id="dashboard">
-                <h2>Dashboard</h2>
-                <!-- Display visual summaries here -->
-            </section>
-
             <section id="reports">
                 <h2>Reports</h2>
                 <ul>
-                    <li><a href="managerInfoReport.jsp">Manager Information Report</a></li>
-                    <li><a href="stallStaffInfoReport.jsp">Stallstaff Information Report</a></li>
-                    <li><a href="customerInfoReport.jsp">Customer Information Report</a></li>
-                    <li><a href="ratingFeedbackReport.jsp">Rating and Feedback Analysis Report</a></li>
-                    <li><a href="stallSellingReport.jsp">Stall Selling Report</a></li>
-                    <li><a href="bestSellingFoodReport.jsp">Best Selling Food Report</a></li>
+                    <a href="LoadManagerReport">Manager Information Report</a><br><br>
+                    <a href="LoadStallstaffReport">Stallstaff Information Report</a><br><br>
+                    <a href="LoadCustomerReport">Customer Information Report</a><br><br>
+                    <a href="LoadStallReport">Stall Information Report</a><br><br>
+                    <a href="LoadStallEarningReport">Stall Selling Report</a><br><br>
                 </ul>
             </section>
         </main>

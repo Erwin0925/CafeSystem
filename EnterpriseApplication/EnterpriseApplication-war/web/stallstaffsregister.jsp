@@ -4,7 +4,8 @@
     Author     : Erwin_Yoga
 --%>
 
-<%@page import="java.util.List"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,15 +29,10 @@
                 <tr>
                     <td>Select Stall:</td>
                     <td>
-                        <select name="stallname">
-                            <%
-                                List<String> stallNames = (List<String>) session.getAttribute("stallNames");
-                                for (String name : stallNames) {
-                            %>
-                            <option value="<%= name %>"><%= name %></option>
-                            <%
-                                }
-                            %>
+                        <select name="stallname" required>
+                            <c:forEach items="${stallNames}" var="name">
+                                <option value="${name}">${name}</option>
+                            </c:forEach>
                         </select>
                     </td>
                 </tr>
@@ -53,7 +49,29 @@
                     <td>Phone Number: </td><td><input type="text" name="phone" size="20"></td>
                 </tr>
                 <tr>
-                    <td>Origin State: </td><td><input type="text" name="address" size="20"></td>
+                    <td>Origin State: </td>
+                    <td>
+                        <select name="address" required>
+                            <option value="">Select a State</option>
+                            <option value="johor">Johor</option>
+                            <option value="kedah">Kedah</option>
+                            <option value="kelantan">Kelantan</option>
+                            <option value="kuala lumpur">Kuala Lumpur</option>
+                            <option value="labuan">Labuan</option>
+                            <option value="melaka">Melaka</option>
+                            <option value="negeri sembilan">Negeri Sembilan</option>
+                            <option value="pahang">Pahang</option>
+                            <option value="penang">Penang</option>
+                            <option value="perak">Perak</option>
+                            <option value="perlis">Perlis</option>
+                            <option value="putrajaya">Putrajaya</option>
+                            <option value="sabah">Sabah</option>
+                            <option value="sarawak">Sarawak</option>
+                            <option value="selangor">Selangor</option>
+                            <option value="terengganu">Terengganu</option>
+                            <option value="other">Other Country</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Gender: </td>

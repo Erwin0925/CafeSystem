@@ -5,9 +5,11 @@
  */
 package model.modelfacade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Managers;
 
 /**
@@ -28,5 +30,27 @@ public class ManagersFacade extends AbstractFacade<Managers> {
     public ManagersFacade() {
         super(Managers.class);
     }
+    
+    public Managers findmanagerdetails(String username) {
+        Query query = em.createNamedQuery("manager.details");
+        query.setParameter("username", username);
+        List<Managers> result = query.getResultList();
+        if(result.size()>0){
+            return result.get(0);
+        }
+        return null;
+    }
+    
+    public long getTotalManagers() {
+        return (long) getEntityManager().createNamedQuery("Manager.totalCount").getSingleResult();
+    }
+
+    public List<Object[]> getGenderDistribution() {
+        return getEntityManager().createNamedQuery("Manager.countByGender").getResultList();
+    }
+
+    public List<Object[]> getAddressDistribution() {
+        return getEntityManager().createNamedQuery("Manager.countByAddress").getResultList();
+    }    
     
 }

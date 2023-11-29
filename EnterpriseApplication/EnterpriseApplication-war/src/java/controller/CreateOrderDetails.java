@@ -63,8 +63,9 @@ public class CreateOrderDetails extends HttpServlet {
                 String itemName = cart.getItemname(); 
                 double price = cart.getPrice(); 
                 String username = cart.getUsername(); 
+                String stallname = cart.getStallname();
                 
-                OrderDetails od = new OrderDetails(menuId, itemName, price, username,"green");
+                OrderDetails od = new OrderDetails(menuId, itemName, price, username,"green",stallname);
                 orderDetailsFacade.create(od);
             }
             request.setAttribute("SM", "Successfully placed Order");

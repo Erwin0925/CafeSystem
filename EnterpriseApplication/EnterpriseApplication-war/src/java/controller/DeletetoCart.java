@@ -39,6 +39,7 @@ public class DeletetoCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
             Long cartId = Long.parseLong(request.getParameter("cartId"));
             
             Carts cartprof = cartsFacade.find(cartId);

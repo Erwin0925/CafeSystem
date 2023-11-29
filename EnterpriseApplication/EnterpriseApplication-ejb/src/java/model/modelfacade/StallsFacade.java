@@ -31,10 +31,32 @@ public class StallsFacade extends AbstractFacade<Stalls> {
         super(Stalls.class);
     }
     
-    public List<String> findAllStallNames() {
+    public List<Stalls> findAllStallNames() {
         Query query = em.createNamedQuery("Stall.findAllNames");
         return query.getResultList();
     }
-
     
+    public List<Stalls> findAllStallNames2() {
+        Query query = em.createNamedQuery("Stall.findAllNames2");
+        return query.getResultList();
+    }
+
+    public List<Stalls> findStallNames3(String stallname) {
+        Query query = em.createNamedQuery("Stall.findNames3");
+        query.setParameter("stallname", stallname);
+        return query.getResultList();
+    }
+    
+    public List<Stalls> findAllStallNames4() {
+        Query query = em.createNamedQuery("Stall.findAllNames4");
+        return query.getResultList();
+    }
+    
+    public Long countTotalStalls() {
+        return em.createNamedQuery("Stalls.countTotal", Long.class).getSingleResult();
+    }
+
+    public List<Object[]> countByCategory() {
+        return em.createNamedQuery("Stalls.countByCategory", Object[].class).getResultList();
+    }  
 }

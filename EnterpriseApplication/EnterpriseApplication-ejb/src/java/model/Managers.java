@@ -10,12 +10,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Erwin_Yoga
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "manager.details",query = "SELECT u FROM Managers u WHERE u.username = :username"),
+    @NamedQuery(name = "Manager.totalCount", query = "SELECT COUNT(m) FROM Managers m"),
+    @NamedQuery(name = "Manager.countByGender", query = "SELECT m.gender, COUNT(m) FROM Managers m GROUP BY m.gender"),
+    @NamedQuery(name = "Manager.countByAddress", query = "SELECT m.address, COUNT(m) FROM Managers m GROUP BY m.address"),
+})
 public class Managers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,17 +34,28 @@ public class Managers implements Serializable {
     private String email;
     private String hp;
     private String address;
+    private String gender;
 
     public Managers() {
     }
-    
 
-    public Managers(String username, String email, String hp, String address) {
+    public Managers(String username, String email, String hp, String address, String gender) {
         this.username = username;
         this.email = email;
         this.hp = hp;
         this.address = address;
+        this.gender = gender;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+
 
     public String getUsername() {
         return username;

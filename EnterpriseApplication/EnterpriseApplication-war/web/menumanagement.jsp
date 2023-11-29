@@ -76,7 +76,13 @@
         <% } else if (request.getAttribute("searchResult") != null) { %>
             <div id="searchResults">
                 <div>
-                    <span>${searchResult.itemname}</span>
+                    <br>
+                    <span>${searchResult.id} | </span>
+                    <span>${searchResult.itemname} | </span>
+                    <span>${searchResult.price} |</span>
+                    <span>${searchResult.modifyby} |</span>
+                    <span>${searchResult.stallname} |</span>
+                    <span>${searchResult.status} |</span>
                 </div>
             </div>
         <% } 

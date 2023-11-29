@@ -20,6 +20,10 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "stallstaff.details",query = "SELECT u FROM Stallstaffs u WHERE u.username = :username"),
+    @NamedQuery(name = "stallstaff.details2",query = "SELECT u FROM Stallstaffs u WHERE u.id = :id"),
+    @NamedQuery(name = "Stallstaff.countByGender", query = "SELECT s.gender, COUNT(s) FROM Stallstaffs s GROUP BY s.gender"),
+    @NamedQuery(name = "Stallstaff.countByAddress", query = "SELECT s.address, COUNT(s) FROM Stallstaffs s GROUP BY s.address"),
+    @NamedQuery(name = "Stallstaff.countTotal", query = "SELECT COUNT(c) FROM Stallstaffs c"),
 })
 
 

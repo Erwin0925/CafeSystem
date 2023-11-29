@@ -41,6 +41,16 @@ public class CustomersFacade extends AbstractFacade<Customers> {
         }
         return null;
     }
-
     
+    public long getTotalCustomer() {
+        return (long) getEntityManager().createNamedQuery("Customer.countTotal").getSingleResult();
+    }
+
+    public List<Object[]> countByGender() {
+        return em.createNamedQuery("Customer.countByGender", Object[].class).getResultList();
+    }
+
+    public List<Object[]> countByAddress() {
+        return em.createNamedQuery("Customer.countByAddress", Object[].class).getResultList();
+    }    
 }
