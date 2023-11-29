@@ -32,9 +32,8 @@
                 <h2>Analyzed Reports</h2>
                 <ul>
                     <a href="LoadBusinessReport">Business Report</a><br><br>
-                    <a href="LoadRatingFeedbackReport">Personal Customer Engagement Report</a><br><br>
-                    <a href="dailyOperationsSummary.jsp">Daily Operations Summary</a><br><br>
-                    <a href="monthlySalesReport.jsp">Monthly Sales Report</a><br><br>
+                    <a href="LoadRatingFeedbackReport">Rating and Feedback Report</a><br><br>
+                    <a href="LoadMenuSellingReport">Menu Selling Report</a><br><br>
                 </ul>
             </section>
         </main>

@@ -37,4 +37,9 @@ public class OrderDetailsFacade extends AbstractFacade<OrderDetails> {
         return query.getResultList();
     }
     
+    public List<Object[]> countMenuItemsByStallName(String stallName) {
+        return em.createNamedQuery("MenuItem.countByMenuId", Object[].class)
+                 .setParameter("stallname", stallName)
+                 .getResultList();
+    } 
 }
