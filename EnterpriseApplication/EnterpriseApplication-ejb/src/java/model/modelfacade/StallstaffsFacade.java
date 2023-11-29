@@ -52,4 +52,20 @@ public class StallstaffsFacade extends AbstractFacade<Stallstaffs> {
         query.setParameter("username", username);
         return query.getResultList();
     }
+    
+    public long getTotalStallstaff() {
+        return (long) getEntityManager().createNamedQuery("Stallstaff.countTotal").getSingleResult();
+    }
+    
+    public List<Object[]> countByGender() {
+        return em.createNamedQuery("Stallstaff.countByGender", Object[].class).getResultList();
+    }
+
+    public List<Object[]> countByAddress() {
+        return em.createNamedQuery("Stallstaff.countByAddress", Object[].class).getResultList();
+    }
+    
+    
+    
+    
 }

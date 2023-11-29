@@ -33,7 +33,7 @@
                 <h2>Reports</h2>
                 <ul>
                     <a href="LoadManagerReport">Manager Information Report</a><br><br>
-                    <a href="stallStaffInfoReport.jsp">Stallstaff Information Report</a><br><br>
+                    <a href="LoadStallstaffReport">Stallstaff Information Report</a><br><br>
                     <a href="customerInfoReport.jsp">Customer Information Report</a><br><br>
                     <a href="ratingFeedbackReport.jsp">Rating and Feedback Analysis Report</a><br><br>
                     <a href="stallSellingReport.jsp">Stall Selling Report</a><br><br>

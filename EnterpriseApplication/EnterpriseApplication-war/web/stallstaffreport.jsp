@@ -1,6 +1,6 @@
 <%-- 
-    Document   : managerreport
-    Created on : Nov 29, 2023, 5:49:18 PM
+    Document   : stallstaffreport
+    Created on : Nov 29, 2023, 6:08:12 PM
     Author     : Erwin_Yoga
 --%>
 
@@ -15,7 +15,7 @@
     <body>
         <a href="managershome.jsp" class="back-button">Back</a><br><br>
         <h1>Manager Report</h1>
-        <p>Total Managers: ${totalManagers}</p>
+        <p>Total Stallstaff: ${totalStallstaff}</p>
 
         <!-- Gender Distribution -->
         <h2>Gender Distribution</h2>
