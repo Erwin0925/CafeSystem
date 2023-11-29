@@ -1,0 +1,111 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 30, 2023, 12:11:49 AM
+    Author     : Erwin_Yoga
+*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#dashboard-container {
+    width: 60%; /* Adjust based on your preference */
+    margin: auto;
+    text-align: center;
+}
+
+#header {
+    margin-bottom: 20px;
+}
+
+#logoutForm {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#menu-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 0 auto 20px auto; /* Centers the grid and adds space below */
+    width: fit-content; /* Restricts the grid width to its content */
+}
+
+.menu-item {
+    background-color: #4CAF50;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s;
+}
+
+.menu-item a:hover {
+    color: #ddd;
+}
+
+#reports-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto; /* Centers the reports */
+    width: fit-content; /* Restricts the width to its content */
+}
+
+.report-item {
+    background-color: #4CAF50;
+    padding: 20px;
+    margin: 0 5px; /* Adjust spacing between report items */
+    color: white;
+    text-decoration: none;
+}
+
+.report-item a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s;
+}
+
+.report-item a:hover {
+    color: #ddd;
+}
+
+#footer {
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #d73833;
+}
