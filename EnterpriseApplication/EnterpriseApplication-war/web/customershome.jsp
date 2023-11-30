@@ -6,46 +6,31 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Customer Dashboard</title>
-        <link rel="stylesheet" type="text/css" href="cssstyle.css">
-    </head>
+<head>
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="customerdashboarddesign.css">
+</head>
     <body>
-        <header>
-            <h1>Customer Home Page</h1>
-            <form action = "Logout" method = "Post">
-                <p>Welcome | <input type="submit" value="Logout"></p>
-            </form>
-        </header>
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <h1>Customer Dashboard</h1>
+                <form action="Logout" method="Post" class="logout-form">
+                    <input type="submit" value="Logout" class="logout-button">
+                </form>
+            </header>
 
-        <nav>
-            <ul>
-                <a href="LoadProfile">View Profile</a> <br><br>
-                <a href="LoadCustomerMenu">View Menu</a><br><br>
-                <a href="LoadOrderHistory">Order History</a> <br><br>
-            </ul>
-        </nav>
+            <div class="dashboard-nav">
+                <a href="LoadProfile" class="dashboard-link">View Profile</a>
+                <a href="LoadCustomerMenu" class="dashboard-link">View Menu</a>
+                <a href="LoadOrderHistory" class="dashboard-link">Order History</a>
+            </div>
 
-        <main>
-            <section id="profile-summary">
-                <h2>Your Profile</h2>
-                <!-- Profile summary goes here -->
-            </section>
-
-            <section id="menu-overview">
-                <h2>Menu Overview</h2>
-                <!-- Menu items display here -->
-            </section>
-
-            <section id="recent-orders">
-                <h2>Recent Orders</h2>
-                <!-- Recent orders summary goes here -->
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2023 Food Service. All rights reserved.</p>
-        </footer>
+            <footer class="dashboard-footer">
+                <p>&copy; 2023 Food Service. All rights reserved.</p>
+            </footer>
+        </div>
     </body>
 </html>
+

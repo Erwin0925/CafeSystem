@@ -64,8 +64,6 @@ public class ProcessPayment extends HttpServlet {
         
         String cusUsername = request.getParameter("cusUsername");
         Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
-        System.out.println(cusUsername);
-        System.out.println(request.getParameter("totalAmount"));
         double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
         int rating = 0;
         String Feedback = "";
@@ -91,7 +89,11 @@ public class ProcessPayment extends HttpServlet {
                 orderDetailsFacade.edit(orderdetails);
             }
             request.setAttribute("msg", "Successfully Pay");
-            
+            request.setAttribute("mydate", mydate);
+            request.setAttribute("total", totalAmount);
+            request.setAttribute("stallname", stallname);
+            request.setAttribute("customername", cusUsername);
+            request.setAttribute("serveby", userName);
             request.getRequestDispatcher("managepayment.jsp").include(request, response);
         }
     }
