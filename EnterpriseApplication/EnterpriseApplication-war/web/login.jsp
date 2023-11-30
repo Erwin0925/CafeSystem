@@ -20,7 +20,7 @@
                 <form action="Login" method="POST">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
+                        <input type="text" name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
@@ -32,6 +32,12 @@
                     </div>
                 </form>
             </div>
+            <% if (request.getAttribute("fail") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("fail") %></p>
+            <% } %>
+            <% if (request.getAttribute("success") != null) { %>
+                <p style="color: green;"><%= request.getAttribute("success") %></p>
+            <% } %>
         </div>
     </body>
 </html>

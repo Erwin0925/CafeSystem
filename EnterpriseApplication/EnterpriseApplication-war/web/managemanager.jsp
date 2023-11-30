@@ -73,7 +73,7 @@
         <% if (request.getAttribute("fail") != null) { %>
             <p style="color: red;"><%= request.getAttribute("fail") %></p>
         <% } %>
-        <% if (request.getAttribute("done") != null) { %>
+        <% if (request.getAttribute("success") != null) { %>
             <p style="color: green;"><%= request.getAttribute("done") %></p>
         <% } %>
         

@@ -70,17 +70,12 @@ public class CustomersRegister extends HttpServlet {
                 customersFacade.create(newCustomer);
                 
                 
-                
-
-                // Forward to the registration page with a success message
-                //request.setAttribute("successMessage", "Registration Completed!");
+                request.setAttribute("success", "Registration Complete");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
-                // Forward back to the registration page with an error message
-                //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
+                request.setAttribute("fail", "Wrong Input/Username is in used");
                 request.getRequestDispatcher("customersregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
+
             }
         }
     }

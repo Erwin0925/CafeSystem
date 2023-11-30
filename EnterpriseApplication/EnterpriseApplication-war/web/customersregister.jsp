@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Registration</title>
-        <link rel="stylesheet" type="text/css" href="customersregister.css"> 
+        <link rel="stylesheet" type="text/css" href="register.css"> 
     </head>
     <body>
         <div class="registration-container">
@@ -20,6 +20,7 @@
                 <button class="tablinks" onclick="location.href='login.jsp'">Back to Login Page</button>
                 <button class="tablinks active">Customer Registration</button>
                 <button class="tablinks" onclick="location.href='LoadStallstaffRegister'">Stall Staff Registration</button>
+                <button class="tablinks" onclick="location.href='stallsregister.jsp'">Stall Registration</button>
             </div>
             <form action="CustomersRegister" method="POST" class="registration-form">
                 <input type="text" name="username" placeholder="USERNAME:" required>
@@ -56,6 +57,9 @@
                     <input type="submit" value="Register" class="btn-register">
                 </div>
             </form>
+            <% if (request.getAttribute("fail") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("fail") %></p>
+            <% } %>
         </div>
     </body>
 </html>

@@ -7,21 +7,32 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register New Stall</title>
-        <link rel="stylesheet" type="text/css" href="cssstyle.css">
+        <link rel="stylesheet" type="text/css" href="register.css"> 
     </head>
     <body>
-        <a href="stallstaffsregister.jsp" class="back-button">Back</a><br><br>
-        <h2>Register New Stall</h2>
-
-        <form action="RegisterStall" method="post"> <!-- Action points to a Servlet that handles the saving -->
-            <label for="stallName">Stall Name:</label>
-            <input type="text" name="stallName" required size="20"><br><br>
-
-            <label for="stallCategory">Stall Category:</label>
-            <input type="text" name="category" required size="20"><br><br>
-
-            <input type="submit" value="Register Stall">
-        </form>
+        <div class="registration-container">
+            <img src="Foods.jpg" alt="APU Cafeteria" class="registration-logo">
+            <h1>Customer Registration</h1>  
+            <div class="tab">
+                <button class="tablinks" onclick="location.href='login.jsp'">Back to Login Page</button>
+                <button class="tablinks" onclick="location.href='customersregister.jsp'">Customer Registration</button>
+                <button class="tablinks" onclick="location.href='LoadStallstaffRegister'">Stall Staff Registration</button>
+                <button class="tablinks active">Stall Staff Registration</button>
+            </div>  
+            <form action="RegisterStall" method="POST" class="registration-form">
+                <input type="text" name="stallName" placeholder="STALL NAME:" required>
+                <input type="text" name="category" placeholder="CATEGORY" required>
+                
+                <div class="form-actions">
+                    <input type="submit" value="Register Stall" class="btn-register">
+                </div>
+            </form>
+            <% if (request.getAttribute("fail") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("fail") %></p>
+            <% } %>
+        </div>
     </body>
 </html>
+

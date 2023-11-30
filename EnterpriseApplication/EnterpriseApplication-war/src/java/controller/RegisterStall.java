@@ -44,7 +44,6 @@ public class RegisterStall extends HttpServlet {
                 String stallname = request.getParameter("stallName");
                 String category = request.getParameter("category");
                 String status = ("pending");
-                System.out.println("step 1");
 
 
                 if (stallsFacade.find(stallname) != null) 
@@ -52,20 +51,18 @@ public class RegisterStall extends HttpServlet {
                     throw new Exception();
                 }
                 
-                System.out.println("step 2");
                 Stalls newStall = new Stalls(stallname, category, status);
                 stallsFacade.create(newStall);
+                request.setAttribute("success", "Stall Registration Complete");
                 
                 
                 
                 request.getRequestDispatcher("LoadStallstaffRegister").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
-                
             } catch (Exception e) {
                 // Forward back to the registration page with an error message
                 //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
+                request.setAttribute("fail", "Wrong Input/ Stallname is inused");
+                request.getRequestDispatcher("stallsregister.jsp").include(request, response);
             }
         }
     }

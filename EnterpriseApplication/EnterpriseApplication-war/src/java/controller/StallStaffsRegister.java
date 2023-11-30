@@ -78,12 +78,12 @@ public class StallStaffsRegister extends HttpServlet {
                 // Add the new stall staff to the stall
                 existingStall.getStallstaffs().add(newStallstaff);
                 stallsFacade.edit(existingStall);
-                
+                request.setAttribute("success", "Registration Complete");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Registration Completed!");
             } catch (Exception e) {
+                request.setAttribute("fail", "Wrong Input/Username is in used");
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-                out.println("<br><br><br>Wrong input!");
+
             }
         }
     }
