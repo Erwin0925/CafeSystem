@@ -66,6 +66,29 @@
         </form>
         <% if (request.getAttribute("msg") != null) { %>
         <p style="color: green;"><%= request.getAttribute("msg") %></p>
+        <h2>Receipt Details</h2>
+        <table>
+            <tr>
+                <td>Stall name:</td>
+                <td><%= request.getAttribute("stallname") %></td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td><%= request.getAttribute("mydate") %></td>
+            </tr>
+            <tr>
+                <td>Customer Name:</td>
+                <td><%= request.getAttribute("customername") %></td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td>RM<%= request.getAttribute("total") %></td>
+            </tr>
+            <tr>
+                <td>Serve By:</td>
+                <td><%= request.getAttribute("serveby") %></td>
+            </tr>
+        </table>
         <% } %>
         
     </body>
