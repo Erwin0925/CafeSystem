@@ -1,0 +1,79 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 1, 2023, 7:09:51 AM
+    Author     : Erwin_Yoga
+*/
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.dashboard-content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.info-table, .edit-table {
+    width: 100%;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+.info-table th, .info-table td, .edit-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.info-table th {
+    background-color: #27632a;
+    color: white;
+}
+
+.input-field, .select-field {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+.gender-radio {
+    margin-right: 20px;
+}
+
+.form-submit {
+    text-align: right;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #27632a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #1b4721;
+}
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        width: 95%;
+    }
+}

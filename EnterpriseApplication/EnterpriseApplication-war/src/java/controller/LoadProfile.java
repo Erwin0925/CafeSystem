@@ -74,6 +74,7 @@ public class LoadProfile extends HttpServlet {
                 s.setAttribute("gender", profile.getGender());
                 s.setAttribute("role",userType);
                 s.setAttribute("id",profile.getId());
+                request.getRequestDispatcher("updateprofile.jsp").forward(request, response); 
             }else if("Stallstaff".equalsIgnoreCase(userType)){
                 Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
                 s.setAttribute("address", profile.getAddress());
@@ -82,8 +83,8 @@ public class LoadProfile extends HttpServlet {
                 s.setAttribute("gender", profile.getGender());
                 s.setAttribute("role",userType);
                 s.setAttribute("id",profile.getId());
+                request.getRequestDispatcher("updatestallstaffsprofile.jsp").forward(request, response); 
             }
-            request.getRequestDispatcher("updateprofile.jsp").forward(request, response); 
         }
     }
 
