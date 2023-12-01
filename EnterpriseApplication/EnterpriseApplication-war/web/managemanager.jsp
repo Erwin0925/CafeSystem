@@ -54,7 +54,7 @@
                         <td>${manager.gender}</td>
                     </tr>
                 </c:forEach>
-            </table><br><br>
+            </table>
             <hr>
             <!-- Add Manager Form -->
             <h3>Add Manager</h3>

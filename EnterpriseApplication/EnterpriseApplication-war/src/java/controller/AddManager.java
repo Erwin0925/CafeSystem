@@ -44,8 +44,7 @@ public class AddManager extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            try{    
+            try {
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 String email = request.getParameter("email");
@@ -54,25 +53,31 @@ public class AddManager extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String status = "approved";
                 String role = "Manager";
-                
+
+                // Regular expression for phone number validation
+                String phoneRegex = "\\d{10,11}";
+
+                if (!hp.matches(phoneRegex)) {
+                    // If phone number doesn't match the regex, set an error attribute and redirect
+                    request.setAttribute("fail", "Invalid phone number. Phone number must be 10 or 11 digits.");
+                    request.getRequestDispatcher("LoadManageManager").include(request, response);
+                    return; // Stop further execution
+                }
+
                 if (usersFacade.find(username) != null) {
                     throw new Exception();
                 }
-                
-                Users newUser = new Users(username,password, role, status);
+
+                Users newUser = new Users(username, password, role, status);
                 usersFacade.create(newUser);
-                
+
                 Managers newManager = new Managers(username, email, hp, address, gender);
                 managersFacade.create(newManager);
-                
+
                 request.setAttribute("done", "Register successfully");
                 request.getRequestDispatcher("LoadManageManager").include(request, response);
-                
-                
-                
-                
-                
-            }catch (Exception e) {
+
+            } catch (Exception e) {
                 request.setAttribute("fail", "Please try again with another username");
                 request.getRequestDispatcher("LoadManageManager").include(request, response);
             }
