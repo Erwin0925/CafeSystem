@@ -10,6 +10,7 @@
 <head>
     <title>Stallstaff Dashboard</title>
     <link rel="stylesheet" type="text/css" href="stallstaffshome.css"> 
+    <link rel="stylesheet" type="text/css" href="managemanager.css">
 </head>
 <body>
     <div id="dashboard-container">
@@ -23,7 +24,7 @@
         <div id="navigation">
             <a href="LoadProfile" class="nav-item">Edit Profile</a>
             <a href="LoadStallstaffMenu" class="nav-item">Menu Management</a>
-            <a href="managepayment.jsp" class="nav-item">Manage Customer Payment</a>
+            <a href="LoadManagePayment" class="nav-item">Manage Customer Payment</a>
             <a href="LoadViewStallstaffSales" class="nav-item">View Rating</a>
             <a href="LoadBusinessReport" class="nav-item">Business Report</a>
             <a href="LoadRatingFeedbackReport" class="nav-item">Rating and Feedback Report</a>

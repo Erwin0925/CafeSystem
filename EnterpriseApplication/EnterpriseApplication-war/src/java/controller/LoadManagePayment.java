@@ -14,28 +14,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.OrderDetails;
 import model.Users;
-import model.modelfacade.OrderDetailsFacade;
-import model.modelfacade.OrdersFacade;
 import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "ManagePayment", urlPatterns = {"/ManagePayment"})
-public class ManagePayment extends HttpServlet {
+@WebServlet(name = "LoadManagePayment", urlPatterns = {"/LoadManagePayment"})
+public class LoadManagePayment extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-
-    @EJB
-    private OrdersFacade ordersFacade;
-
-    @EJB
-    private OrderDetailsFacade orderDetailsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,27 +39,10 @@ public class ManagePayment extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession s = request.getSession(false);
-        Users loginUser = (Users)s.getAttribute("loginUser");
-        String stallstaffUserName = loginUser.getUsername();
-        String cusUsername = request.getParameter("cusUsername");
-        
         try (PrintWriter out = response.getWriter()) {
-            
-            List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
-            request.setAttribute("orderdetailList", orderdetailList);
-            
-            double totalAmount = 0.0;
-            for (OrderDetails orderdetails : orderdetailList) {
-                totalAmount += orderdetails.getPrice(); 
-            }
-  
-            request.setAttribute("totalAmount", totalAmount);
-            request.setAttribute("cusUsername", cusUsername);
-
-            request.getRequestDispatcher("LoadManagePayment").forward(request, response);
-
+            List<Users> userprof = usersFacade.findUsersByRole("Customer");
+            request.setAttribute("userprof", userprof);
+            request.getRequestDispatcher("managepayment.jsp").forward(request, response);
         }
     }
 
@@ -85,7 +58,7 @@ public class ManagePayment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response); 
+        processRequest(request, response);
     }
 
     /**
