@@ -75,7 +75,7 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("LoadManageManager").include(request, response);
                     break;
                 case "Stallstaff":
-                    request.getRequestDispatcher("stallstaffshome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadProfile").include(request, response);
                     break;
                 default:
                     throw new Exception("Invalid role");
