@@ -53,28 +53,44 @@ public class AddToCart extends HttpServlet {
         
         HttpSession s = request.getSession(false);
         Users loginUser = (Users)s.getAttribute("loginUser");
-        String userName = loginUser.getUsername();
+        String userName = loginUser.getUsername(); 
         
         try (PrintWriter out = response.getWriter()) {
-            
+            String menuIdStr = request.getParameter("menuId");
 
-            Long menuid = Long.parseLong(request.getParameter("menuId"));
-            Menus menuProf = menusFacade.find(menuid);
-            String itemName = menuProf.getItemname();
-            Double price = menuProf.getPrice();
-            String stallName = menuProf.getStallname();
-            String status = menuProf.getStatus();
-
-
-            if ("Out Of Stock".equals(status)) {
-                request.setAttribute("errorMessage", "The item is currently out of stock");
-            } else if ("In Stock".equals(status)) {
-                Carts menu = new Carts(price, menuid, itemName, userName, stallName);
-                cartsFacade.create(menu);
-                System.out.println(price + itemName);
-                request.setAttribute("successMessage", "Successfully added into Cart");
-                
+            if (menuIdStr == null || menuIdStr.trim().isEmpty()) {
+                request.setAttribute("errorMessage", "Please select a menu to add to cart.");
+                request.getRequestDispatcher("LoadCustomerMenu").include(request, response);
+                return;
             }
+
+            try {
+                Long menuid = Long.parseLong(menuIdStr);
+                Menus menuProf = menusFacade.find(menuid);
+
+                if (menuProf == null) {
+                    request.setAttribute("errorMessage", "Selected menu item not found.");
+                    request.getRequestDispatcher("LoadCustomerMenu").include(request, response);
+                    return;
+                }
+
+                String itemName = menuProf.getItemname();
+                Double price = menuProf.getPrice();
+                String stallName = menuProf.getStallname();
+                String status = menuProf.getStatus();
+
+                if ("Out Of Stock".equals(status)) {
+                    request.setAttribute("errorMessage", "The item is currently out of stock.");
+                } else if ("In Stock".equals(status)) {
+                    Carts menu = new Carts(price, menuid, itemName, userName, stallName);
+                    cartsFacade.create(menu);
+                    System.out.println(price + " " + itemName);
+                    request.setAttribute("successMessage", "Successfully added into Cart.");
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("errorMessage", "Invalid menu ID format.");
+            }
+
             request.getRequestDispatcher("LoadCustomerMenu").include(request, response);
         }
     }

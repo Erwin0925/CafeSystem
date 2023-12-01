@@ -59,6 +59,9 @@
                 <input type="submit" value="Show Report">
             </form>
         </main>
+        <footer class="dashboard-footer">
+            <p>&copy; 2023 Stallstaff Dashboard. All rights reserved.</p>
+        </footer>
     </div>        
 </body>
 </html>
