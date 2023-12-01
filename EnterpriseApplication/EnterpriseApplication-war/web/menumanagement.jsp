@@ -43,7 +43,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Replace 'publishedMenus' with the list of already published menus from your database -->
                     <c:forEach var="menus" items="${menus}">
                         <tr>
                             <td>${menus.id}</td>
@@ -101,12 +100,28 @@
                     <div id="searchResults">
                         <div>
                             <br>
-                            <span>${searchResult.id} | </span>
-                            <span>${searchResult.itemname} | </span>
-                            <span>${searchResult.price} |</span>
-                            <span>${searchResult.modifyby} |</span>
-                            <span>${searchResult.stallname} |</span>
-                            <span>${searchResult.status} |</span>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Item Name</th>
+                                        <th>Price</th>
+                                        <th>Modify by</th>
+                                        <th>Stallname</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>${searchResult.id}</td>
+                                            <td>${searchResult.itemname}</td>
+                                            <td>${searchResult.price}</td>
+                                            <td>${searchResult.modifyby}</td>
+                                            <td>${searchResult.stallname}</td>
+                                            <td>${searchResult.status}</td>
+                                        </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 <% } 
