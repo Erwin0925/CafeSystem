@@ -91,9 +91,11 @@
                     <label for="holderName">Card Holder Name:</label>
                     <input type="text" id="holderName" name="holderName" required>
                 </div>
-                <div>
-                    <input type="submit" value="Make Payment"><br><br>
-                </div>
+                <c:if test="${showPaymentButton}">
+                    <div>
+                        <input type="submit" value="Make Payment"><br><br>
+                    </div>
+                </c:if>
             </form>
             <% if (request.getAttribute("msg") != null) { %>
             <p style="color: green;"><%= request.getAttribute("msg") %></p>
@@ -101,29 +103,32 @@
             <% if (request.getAttribute("error") != null) { %>
             <p style="color: red;"><%= request.getAttribute("error") %></p>
             <% } %>
-            <h2>Receipt Details</h2>
-            <table>
-                <tr>
-                    <td>Stall name:</td>
-                    <td><%= request.getAttribute("stallname") %></td>
-                </tr>
-                <tr>
-                    <td>Date:</td>
-                    <td><%= request.getAttribute("mydate") %></td>
-                </tr>
-                <tr>
-                    <td>Customer Name:</td>
-                    <td><%= request.getAttribute("customername") %></td>
-                </tr>
-                <tr>
-                    <td>Total:</td>
-                    <td>RM<%= request.getAttribute("total") %></td>
-                </tr>
-                <tr>
-                    <td>Serve By:</td>
-                    <td><%= request.getAttribute("serveby") %></td>
-                </tr>
-            </table>
+            
+            <c:if test="${not empty total}">
+                <h2>Receipt Details</h2>
+                <table>
+                    <tr>
+                        <td>Stall name:</td>
+                        <td>${stallname}</td>
+                    </tr>
+                    <tr>
+                        <td>Date:</td>
+                        <td>${mydate}</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Name:</td>
+                        <td>${customername}</td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td>RM${total}</td>
+                    </tr>
+                    <tr>
+                        <td>Serve By:</td>
+                        <td>${serveby}</td>
+                    </tr>
+                </table>
+            </c:if>
             
         </main>
         <footer class="dashboard-footer">

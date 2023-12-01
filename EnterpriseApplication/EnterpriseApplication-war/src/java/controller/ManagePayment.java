@@ -76,6 +76,20 @@ public class ManagePayment extends HttpServlet {
                 request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("cusUsername", cusUsername);
             }
+            
+            boolean showPaymentButton = true;
+
+            for (OrderDetails orderDetail : orderdetailList) {
+                if ("red".equals(orderDetail.getStatus())) {
+                    showPaymentButton = false;
+                    break; // No need to check further if any item is "red"
+                }
+            }
+
+            request.setAttribute("showPaymentButton", showPaymentButton);
+
+            
+            
 
             request.getRequestDispatcher("LoadManagePayment").forward(request, response);
 
