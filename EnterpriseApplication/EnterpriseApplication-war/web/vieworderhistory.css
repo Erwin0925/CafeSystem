@@ -1,0 +1,97 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 1, 2023, 10:24:42 AM
+    Author     : Erwin_Yoga
+*/
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-content {
+    width: 80%;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+h2, h3 {
+    background-color: #27632a;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #27632a;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+input[type="radio"] {
+    cursor: pointer;
+}
+
+.feedback-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.feedback-form input[type="text"],
+.feedback-form output,
+.feedback-form input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.feedback-form input[type="range"] {
+    width: 100%;
+}
+
+.feedback-form input[type="submit"] {
+    background-color: #27632a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.feedback-form input[type="submit"]:hover {
+    background-color: #1e5020;
+}
+
+.error-message {
+    color: red;
+    padding: 10px;
+    margin-top: 10px;
+}
+

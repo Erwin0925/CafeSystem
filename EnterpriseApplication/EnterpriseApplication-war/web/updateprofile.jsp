@@ -53,15 +53,15 @@
                     <table class="edit-table">
                         <tr>
                             <td>Password:</td>
-                            <td><input type="password" name="password" class="input-field" value="${password}"></td>
+                            <td><input type="password" name="password" class="input-field" value="${password}" required></td>
                         </tr>
                         <tr>
                             <td>Email:</td>
-                            <td><input type="text" name="email" class="input-field" value="${email}"></td>
+                            <td><input type="text" name="email" class="input-field" value="${email}" required></td>
                         </tr>
                         <tr>
                             <td>Phone Number:</td>
-                            <td><input type="text" name="phone" class="input-field" value="${hp}"></td>
+                            <td><input type="text" name="phone" class="input-field" value="${hp}" required></td>
                         </tr>
                         <tr>
                             <td>Origin State:</td>
@@ -92,11 +92,11 @@
                             <td>Gender:</td>
                             <td>
                                 <label class="gender-radio">
-                                    <input type="radio" name="gender" value="Male" ${"Male".equalsIgnoreCase(gender) ? "checked" : ""}>
+                                    <input type="radio" name="gender" value="Male" ${"Male".equalsIgnoreCase(gender) ? "checked" : ""} required>
                                     Male
                                 </label>
                                 <label class="gender-radio">
-                                    <input type="radio" name="gender" value="Female" ${"Female".equalsIgnoreCase(gender) ? "checked" : ""}>
+                                    <input type="radio" name="gender" value="Female" ${"Female".equalsIgnoreCase(gender) ? "checked" : ""} required>
                                     Female
                                 </label>
                             </td>
