@@ -72,7 +72,7 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("LoadProfile").include(request, response);
                     break;
                 case "Manager":
-                    request.getRequestDispatcher("managershome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadManageManager").include(request, response);
                     break;
                 case "Stallstaff":
                     request.getRequestDispatcher("stallstaffshome.jsp").include(request, response);
