@@ -63,6 +63,14 @@ public class UpdateProfile extends HttpServlet {
         String newGender = request.getParameter("gender");
         String newPassword = request.getParameter("password");
         
+        String phoneRegex = "\\d{10,11}";
+        
+        if (!newPhone.matches(phoneRegex)) {
+            request.setAttribute("error", "Invalid phone number. Phone number must be 10 or 11 digits.");
+            request.getRequestDispatcher("LoadProfile").forward(request, response);
+            return; // Stop further execution
+        }
+        
         try (PrintWriter out = response.getWriter()) {
             Users userProfile = usersFacade.find(userName);
             userProfile.setPassword(newPassword);
@@ -85,7 +93,9 @@ public class UpdateProfile extends HttpServlet {
                 stallstaffsFacade.edit(stallstaffProfile);
             }
             request.getRequestDispatcher("LoadProfile").forward(request, response);
-
+        }catch (Exception e) {
+        request.setAttribute("error", "An error occurred while updating the profile.");
+        request.getRequestDispatcher("LoadProfile").forward(request, response);
         }
     }
 

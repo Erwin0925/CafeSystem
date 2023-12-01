@@ -44,8 +44,7 @@ public class CustomersRegister extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try 
-            {
+            try {
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 String email = request.getParameter("email");
@@ -55,27 +54,31 @@ public class CustomersRegister extends HttpServlet {
                 String status = "approved";
                 String role = "Customer";
 
-                if (usersFacade.find(username) != null) {
-                    throw new Exception();
+                // Regular expression for validating hp (phone number)
+                String phoneRegex = "\\d{10,11}";
+
+                if (!hp.matches(phoneRegex)) {
+                    throw new IllegalArgumentException("Invalid phone number. Phone number must be 10 or 11 digits.");
                 }
-               
-                Users newUser = new Users(username,password, role, status);
+
+                if (usersFacade.find(username) != null) {
+                    throw new Exception("Username already exists.");
+                }
+
+                Users newUser = new Users(username, password, role, status);
                 usersFacade.create(newUser);
-                
-                
-                
 
                 Customers newCustomer = new Customers(username, email, hp, address, gender);
-                // Create and persist the new user entity
                 customersFacade.create(newCustomer);
-                
-                
+
                 request.setAttribute("success", "Registration Complete");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-            } catch (Exception e) {
-                request.setAttribute("fail", "Wrong Input/Username is in used");
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("fail", e.getMessage());
                 request.getRequestDispatcher("customersregister.jsp").include(request, response);
-
+            } catch (Exception e) {
+                request.setAttribute("fail", "An error occurred during registration.");
+                request.getRequestDispatcher("customersregister.jsp").include(request, response);
             }
         }
     }

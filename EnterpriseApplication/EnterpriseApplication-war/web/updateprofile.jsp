@@ -107,6 +107,9 @@
                     </div>
                 </form>
             </div>
+            <% if (request.getAttribute("error") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("error") %></p>
+            <% } %>
         </main>
                                     
         <footer class="dashboard-footer">
