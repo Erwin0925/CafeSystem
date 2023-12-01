@@ -19,6 +19,7 @@ import model.OrderDetails;
 import model.Users;
 import model.modelfacade.OrderDetailsFacade;
 import model.modelfacade.OrdersFacade;
+import model.modelfacade.UsersFacade;
 
 /**
  *
@@ -26,6 +27,9 @@ import model.modelfacade.OrdersFacade;
  */
 @WebServlet(name = "ManagePayment", urlPatterns = {"/ManagePayment"})
 public class ManagePayment extends HttpServlet {
+
+    @EJB
+    private UsersFacade usersFacade;
 
     @EJB
     private OrdersFacade ordersFacade;
@@ -51,20 +55,43 @@ public class ManagePayment extends HttpServlet {
         String stallstaffUserName = loginUser.getUsername();
         String cusUsername = request.getParameter("cusUsername");
         
-        
         try (PrintWriter out = response.getWriter()) {
             
             List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
             request.setAttribute("orderdetailList", orderdetailList);
-            
+
             double totalAmount = 0.0;
+            boolean hasError = false;
             for (OrderDetails orderdetails : orderdetailList) {
+                if ("red".equals(orderdetails.getStatus())) {
+                    hasError = true;
+                    break; 
+                }
                 totalAmount += orderdetails.getPrice(); 
             }
-            request.setAttribute("totalAmount", totalAmount);
-            request.setAttribute("cusUsername", cusUsername);
+
+            if (hasError) {
+                request.setAttribute("error", "No order made by this customer");
+            } else {
+                request.setAttribute("totalAmount", totalAmount);
+                request.setAttribute("cusUsername", cusUsername);
+            }
             
-            request.getRequestDispatcher("managepayment.jsp").forward(request, response);
+            boolean showPaymentButton = true;
+
+            for (OrderDetails orderDetail : orderdetailList) {
+                if ("red".equals(orderDetail.getStatus())) {
+                    showPaymentButton = false;
+                    break; // No need to check further if any item is "red"
+                }
+            }
+
+            request.setAttribute("showPaymentButton", showPaymentButton);
+
+            
+            
+
+            request.getRequestDispatcher("LoadManagePayment").forward(request, response);
 
         }
     }
@@ -81,7 +108,7 @@ public class ManagePayment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request, response); 
     }
 
     /**

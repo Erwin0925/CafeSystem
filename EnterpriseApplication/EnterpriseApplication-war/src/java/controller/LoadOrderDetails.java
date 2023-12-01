@@ -49,6 +49,7 @@ public class LoadOrderDetails extends HttpServlet {
             
             Orders orderprof = ordersFacade.find(id);
             List<OrderDetails> odprof = orderprof.getOrderDetails();
+            request.setAttribute("orderid",id);
             request.setAttribute("odprof", odprof);
             request.getRequestDispatcher("LoadOrderHistory").forward(request, response);
             

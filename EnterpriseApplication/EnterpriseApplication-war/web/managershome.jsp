@@ -9,35 +9,37 @@
 <html>
     <head>
         <title>Manager Dashboard</title>
-        <link rel="stylesheet" type="text/css" href="managerdashboarddesign.css">
+        <link rel="stylesheet" type="text/css" href="managershome.css">
+        <link rel="stylesheet" type="text/css" href="managemanager.css">
     </head>
     <body>
-        <div class="dashboard-header">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
             <h1>Manager Dashboard</h1>
-            <form action="Logout" method="POST" class="logout-form">
-                <button type="submit" class="logout-button">Logout</button>
+            <form action="Logout" method="Post" class="logout-form">
+                <input type="submit" value="Logout" class="logout-button">
             </form>
-        </div>
+        </header>
 
-        <div class="dashboard-main">
-            <div class="grid-container">
-                <a href="LoadManageManager" class="grid-item">Manage Manager</a>
-                <a href="LoadManageStallstaff" class="grid-item">Manage Stall Staff</a>
-                <a href="LoadManageCustomer" class="grid-item">Customer Management</a>
-                <a href="LoadRatingFeedback" class="grid-item">Feedback Analysis</a>
-            </div>
+        <nav class="dashboard-nav">
+            <a href="LoadManageManager" class="dashboard-link">Manage Manager</a>
+            <a href="LoadManageStallstaff" class="dashboard-link">Manage Stall Staff</a>
+            <a href="LoadManageCustomer" class="dashboard-link">Customer Management</a>
+            <a href="LoadRatingFeedback" class="dashboard-link">Feedback Analysis</a>
+            <a href="LoadManagerReport" class="dashboard-link">Manager Information Report</a>
+            <a href="LoadStallstaffReport" class="dashboard-link">Stallstaff Information Report</a>
+            <a href="LoadCustomerReport" class="dashboard-link">Customer Information Report</a>
+            <a href="LoadStallReport" class="dashboard-link">Stall Information Report</a>
+            <a href="LoadStallEarningReport" class="dashboard-link">Stall Selling Report</a>
+        </nav>
 
-            <div class="reports-row">
-                <a href="LoadManagerReport" class="report-item">Manager Information Report</a>
-                <a href="LoadStallstaffReport" class="report-item">Stallstaff Information Report</a>
-                <a href="LoadCustomerReport" class="report-item">Customer Information Report</a>
-                <a href="LoadStallReport" class="report-item">Stall Information Report</a>
-                <a href="LoadStallEarningReport" class="report-item">Stall Selling Report</a>
-            </div>
-        </div>
+        <main class="dashboard-content">
+            
+        </main>
 
-        <footer>
+        <footer class="dashboard-footer">
             <p>&copy; 2023 Manager Dashboard. All rights reserved.</p>
         </footer>
-    </body>
+    </div>
+</body>
 </html>

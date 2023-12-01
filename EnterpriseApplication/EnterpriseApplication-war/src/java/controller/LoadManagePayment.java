@@ -7,35 +7,25 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Customers;
-import model.Stallstaffs;
 import model.Users;
-import model.modelfacade.CustomersFacade;
-import model.modelfacade.StallstaffsFacade;
 import model.modelfacade.UsersFacade;
 
 /**
  *
  * @author Erwin_Yoga
  */
-@WebServlet(name = "LoadProfile", urlPatterns = {"/LoadProfile"})
-public class LoadProfile extends HttpServlet {
+@WebServlet(name = "LoadManagePayment", urlPatterns = {"/LoadManagePayment"})
+public class LoadManagePayment extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-
-    @EJB
-    private StallstaffsFacade stallstaffsFacade;
-
-    @EJB
-    private CustomersFacade customersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,42 +39,10 @@ public class LoadProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession s = request.getSession(false);
-   
-        Users loginUser = (Users)s.getAttribute("loginUser");
-        String userName = loginUser.getUsername();
-        String userType= loginUser.getRole();
-        String pw= loginUser.getPassword();
-        
-
-        // Retrieve other updated data as needed
-        
-        
         try (PrintWriter out = response.getWriter()) {
-            
-            Users userProfile = usersFacade.find(userName);
-            s.setAttribute("pw",userProfile.getPassword());
-            
-            if ("Customer".equalsIgnoreCase(userType)){
-                Customers profile = customersFacade.findcustomerdetails(userName);
-                s.setAttribute("address", profile.getAddress());
-                s.setAttribute("hp", profile.getHp());
-                s.setAttribute("email", profile.getEmail());
-                s.setAttribute("gender", profile.getGender());
-                s.setAttribute("role",userType);
-                s.setAttribute("id",profile.getId());
-                request.getRequestDispatcher("updateprofile.jsp").forward(request, response); 
-            }else if("Stallstaff".equalsIgnoreCase(userType)){
-                Stallstaffs profile = stallstaffsFacade.findstallstaffdetails(userName);
-                s.setAttribute("address", profile.getAddress());
-                s.setAttribute("hp", profile.getHp());
-                s.setAttribute("email", profile.getEmail());
-                s.setAttribute("gender", profile.getGender());
-                s.setAttribute("role",userType);
-                s.setAttribute("id",profile.getId());
-                request.getRequestDispatcher("updatestallstaffsprofile.jsp").forward(request, response); 
-            }
+            List<Users> userprof = usersFacade.findUsersByRole("Customer");
+            request.setAttribute("userprof", userprof);
+            request.getRequestDispatcher("managepayment.jsp").forward(request, response);
         }
     }
 

@@ -3,30 +3,34 @@
     Created on : Nov 26, 2023, 1:47:35 PM
     Author     : Erwin_Yoga
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Customer Update Profile</title>
-        <link rel="stylesheet" type="text/css" href="customershome.css">
-        <link rel="stylesheet" type="text/css" href="updateprofile.css">
-    </head>
-    <body>
-    <div class="dashboard-container">
-        <header class="dashboard-header">
-            <h1>Customer Dashboard</h1>
-            <form action="Logout" method="Post" class="logout-form">
-                <input type="submit" value="Logout" class="logout-button">
+<head>
+    <title>Stallstaff Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="stallstaffshome.css"> 
+    <link rel="stylesheet" type="text/css" href="updateprofile.css">
+</head>
+<body>
+    <div id="dashboard-container">
+        <div id="header">
+            <h1>Stallstaff Dashboard</h1>
+            <form id="logoutForm" action="Logout" method="POST">
+                <input type="submit" value="Logout" id="logout-button">
             </form>
-        </header>
+        </div>
 
-        <nav class="dashboard-nav">
-            <a class="dashboard-link">View Profile</a>
-            <a href="LoadCustomerMenu" class="dashboard-link">View Menu</a>
-            <a href="LoadOrderHistory" class="dashboard-link">Order History</a>
-        </nav>
-
+        <div id="navigation">
+            <a href="LoadProfile" class="nav-item">Edit Profile</a>
+            <a href="LoadStallstaffMenu" class="nav-item">Menu Management</a>
+            <a href="LoadManagePayment" class="nav-item">Manage Customer Payment</a>
+            <a href="LoadViewStallstaffSales" class="nav-item">View Rating</a>
+            <a href="LoadBusinessReport" class="nav-item">Business Report</a>
+            <a href="LoadRatingFeedbackReport" class="nav-item">Rating and Feedback Report</a>
+            <a href="LoadMenuSellingReport" class="nav-item">Menu Selling Report</a>
+        </div>
+        
         <main class="dashboard-content">
             <h2>Edit Profile</h2>
             <div class="original-info">
@@ -39,7 +43,7 @@
                         <th>Original Gender</th>
                     </tr>
                     <tr>
-                        <td>${pw}</td>
+                        <td>${pw}</td> 
                         <td>${email}</td>
                         <td>${address}</td>
                         <td>${hp}</td>
@@ -48,9 +52,9 @@
                 </table>
             </div>
 
-            <div class="update-form">
+            <div class="update-form">        
                 <form action="UpdateProfile" method="POST">
-                    <table class="edit-table">
+                   <table class="edit-table">
                         <tr>
                             <td>Password:</td>
                             <td><input type="password" name="password" class="input-field" value="${password}" required></td>
@@ -112,13 +116,14 @@
             <% } %>
             <% if (request.getAttribute("success") != null) { %>
             <p style="color: green;"><%= request.getAttribute("success") %></p>
-            <% } %>
+            <% } %>   
             
         </main>
-                                    
+            
         <footer class="dashboard-footer">
-            <p>&copy; 2023 Food Service. All rights reserved.</p>
-        </footer>
+            <p>&copy; 2023 Stallstaff Dashboard. All rights reserved.</p>
+        </footer>    
+            
     </body>
 </html>
 

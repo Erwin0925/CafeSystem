@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -59,11 +60,17 @@ public class BusinessReport extends HttpServlet {
             
             String reportType = request.getParameter("reportType");
             Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date midnightDate = calendar.getTime();  
 
             List<Object[]> reportData;
             switch (reportType) {
                 case "today":
-                    reportData = ordersFacade.getDailyReport(stallName, date);
+                    reportData = ordersFacade.getDailyReport(stallName, midnightDate);
                     break;
                 case "weekly":
                     reportData = ordersFacade.getWeeklyReport(stallName, date);
@@ -74,6 +81,14 @@ public class BusinessReport extends HttpServlet {
                 default:
                     throw new IllegalArgumentException("Invalid report type");
             }
+            
+            double total = 0.0;
+            for (Object[] row : reportData) {
+                total += ((Number) row[2]).doubleValue(); 
+            }            
+            request.setAttribute("reportDataTotal", total);
+            
+            
             request.setAttribute("reportData", reportData);
             RequestDispatcher dispatcher = request.getRequestDispatcher("businessreport.jsp");
             dispatcher.forward(request, response);            

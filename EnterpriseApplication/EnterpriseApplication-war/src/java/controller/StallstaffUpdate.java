@@ -44,30 +44,43 @@ public class StallstaffUpdate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
             String stallstaffName = request.getParameter("stallUsername4");
             String newPassword = request.getParameter("password");
             String newAddress = request.getParameter("address");
             String newEmail = request.getParameter("email");
             String newHp = request.getParameter("hp");
             String newGender = request.getParameter("gender");  
-            
+
+            // Regular expression for phone number validation
+            String phoneRegex = "\\d{10,11}";
+
+            if (!newHp.matches(phoneRegex)) {
+                request.setAttribute("fail3", "Invalid phone number. Phone number must be 10 or 11 digits.");
+                request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
+                return; // Stop further execution if the phone number is not valid
+            }
+
             Users userProf = usersFacade.find(stallstaffName);
             Stallstaffs ssProf = stallstaffsFacade.findstallstaffdetails(stallstaffName);
-            
-            userProf.setPassword(newPassword);
-            usersFacade.edit(userProf);
-            ssProf.setAddress(newAddress);
-            ssProf.setEmail(newEmail);
-            ssProf.setGender(newGender);
-            ssProf.setHp(newHp);
-            stallstaffsFacade.edit(ssProf);
-            request.setAttribute("done3", "Done Changes");
-            
-            System.out.println(ssProf.getEmail());
-            System.out.println(userProf.getPassword());
-            
-            request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
+
+            if (userProf != null && ssProf != null) {
+                userProf.setPassword(newPassword);
+                usersFacade.edit(userProf);
+                ssProf.setAddress(newAddress);
+                ssProf.setEmail(newEmail);
+                ssProf.setGender(newGender);
+                ssProf.setHp(newHp);
+                stallstaffsFacade.edit(ssProf);
+                request.setAttribute("done3", "Done Changes");
+
+                System.out.println(ssProf.getEmail());
+                System.out.println(userProf.getPassword());
+
+                request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
+            } else {
+                request.setAttribute("fail3", "Stallstaff username not found");
+                request.getRequestDispatcher("LoadManageStallstaff").include(request, response);
+            }
         }
     }
 

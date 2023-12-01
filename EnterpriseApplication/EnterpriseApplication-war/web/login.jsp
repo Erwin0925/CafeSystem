@@ -9,29 +9,35 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
-        <link rel="stylesheet" type="text/css" href="cssstyle.css">
+        <title>APU Cafeteria System - Login</title>
+        <link rel="stylesheet" type="text/css" href="login.css">
     </head>
     <body>
-        <h1>Login</h1>
-        <br>
-        <form action = "Login" method = "Post">
-            <table>
-                <tr>
-                    <td>Username: </td><td><input type="text" name="username" size="20"></td>
-                </tr>
-                <tr>
-                    <td>Password: </td><td><input type="text" name="password" size="20"></td>
-                </tr>
-            </table>
-            <p><input type="submit" value="Login"></p>
-            <br><br>
-            <div class="inline-button-group">
-                <a href="customersregister.jsp" class="register-button-group button inactive">Customer Registration</a>
-                <a href="LoadStallstaffRegister" class="register-button-group button inactive">Stall Staff Registration</a>
-                <br><br><br>
+        <div class="login-container">
+            <img src="Foods.jpg" alt="APU Cafeteria" class="login-logo">
+            <h1 class="login-title">APU CAFETERIA SYSTEM</h1>
+            <div class="login-form">
+                <form action="Login" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-login">LOGIN</button><br><br>
+                        <a href="customersregister.jsp" class="btn-register">REGISTER</a>
+                    </div>
+                </form>
             </div>
-            
-        </form>
+            <% if (request.getAttribute("fail") != null) { %>
+            <p style="color: red;"><%= request.getAttribute("fail") %></p>
+            <% } %>
+            <% if (request.getAttribute("success") != null) { %>
+                <p style="color: green;"><%= request.getAttribute("success") %></p>
+            <% } %>
+        </div>
     </body>
 </html>

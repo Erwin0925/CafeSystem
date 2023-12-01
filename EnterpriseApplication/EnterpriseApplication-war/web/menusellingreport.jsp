@@ -9,26 +9,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Menu Selling Report</title>
-    <link rel="stylesheet" type="text/css" href="cssstyle.css"> 
+    <title>Stallstaff Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="stallstaffshome.css"> 
+    <link rel="stylesheet" type="text/css" href="managemanager.css">
 </head>
 <body>
-    <a href="stallstaffshome.jsp" class="back-button">Back</a><br><br>
-    <h1>Menu Selling Report</h1>
+    <div id="dashboard-container">
+        <div id="header">
+            <h1>Stallstaff Dashboard</h1>
+            <form id="logoutForm" action="Logout" method="POST">
+                <input type="submit" value="Logout" id="logout-button">
+            </form>
+        </div>
 
-    <table border="1">
-        <tr>
-            <th>Menu ID</th>
-            <th>Name</th>
-            <th>Count</th>
-        </tr>
-        <c:forEach var="menuCount" items="${menuCounts}">
-            <tr>
-                <td>${menuCount[0]}</td>
-                <td>${menuCount[1]}</td>
-                <td>${menuCount[2]}</td>
-            </tr>
-        </c:forEach>
-    </table>
+        <div id="navigation">
+            <a href="LoadProfile" class="nav-item">Edit Profile</a>
+            <a href="LoadStallstaffMenu" class="nav-item">Menu Management</a>
+            <a href="LoadManagePayment" class="nav-item">Manage Customer Payment</a>
+            <a href="LoadViewStallstaffSales" class="nav-item">View Rating</a>
+            <a href="LoadBusinessReport" class="nav-item">Business Report</a>
+            <a href="LoadRatingFeedbackReport" class="nav-item">Rating and Feedback Report</a>
+            <a href="LoadMenuSellingReport" class="nav-item">Menu Selling Report</a>
+        </div>
+        
+        <main class="dashboard-content">
+            <h1>Menu Selling Report</h1>
+
+            <table border="1">
+                <tr>
+                    <th>Menu ID</th>
+                    <th>Name</th>
+                    <th>Count</th>
+                </tr>
+                <c:forEach var="menuCount" items="${menuCounts}">
+                    <tr>
+                        <td>${menuCount[0]}</td>
+                        <td>${menuCount[1]}</td>
+                        <td>${menuCount[2]}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </main>
+        <footer class="dashboard-footer">
+            <p>&copy; 2023 Stallstaff Dashboard. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>

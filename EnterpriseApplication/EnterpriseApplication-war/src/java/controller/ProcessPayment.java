@@ -53,7 +53,6 @@ public class ProcessPayment extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-
         HttpSession s = request.getSession(false);
         Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
@@ -61,9 +60,8 @@ public class ProcessPayment extends HttpServlet {
         Stallstaffs sf = stallstaffsFacade.findstallstaffdetails(userName);
         String stallname = sf.getStallname();
         
-        
         String cusUsername = request.getParameter("cusUsername");
-        Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
+        //Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
         double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
         int rating = 0;
         String Feedback = "";
@@ -71,8 +69,45 @@ public class ProcessPayment extends HttpServlet {
         String status2 = "new";
         Date mydate = new Date();
         
+        String cardNoStr = request.getParameter("cardNumber");
+        String csvStr = request.getParameter("csv");
+        String expiryDate = request.getParameter("expiryDate");
+        String cardowner = request.getParameter("holderName");
+
+        // Validation regex patterns
+        String cardNoRegex = "\\d{16}";
+        String csvRegex = "\\d{3}";
+        String expiryDateRegex = "(0[1-9]|1[0-2])/(2[2-9]|[3-9][0-9])"; // MM/YY format, starting from 22 to 99
+        String cardOwnerRegex = "^[a-zA-Z\\s]+$";
+        
         
         try (PrintWriter out = response.getWriter()) {
+            
+            if (!cardNoStr.matches(cardNoRegex)) {
+                request.setAttribute("error", "Invalid card number. Card number must be 16 digits.");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+
+            if (!csvStr.matches(csvRegex)) {
+                request.setAttribute("error", "Invalid CSV. CSV must be 3 digits.");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+
+            if (!expiryDate.matches(expiryDateRegex)) {
+                request.setAttribute("error", "Invalid expiry date. Format must be MM/YY (01/22 to 12/99).");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+
+            if (!cardowner.matches(cardOwnerRegex)) {
+                request.setAttribute("error", "Invalid card owner name. Only alphabets and spaces are allowed.");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+            
+            Long cardNo = Long.parseLong(cardNoStr);
             
             Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo, stallname);
             ordersFacade.create(orderProf);
@@ -94,7 +129,7 @@ public class ProcessPayment extends HttpServlet {
             request.setAttribute("stallname", stallname);
             request.setAttribute("customername", cusUsername);
             request.setAttribute("serveby", userName);
-            request.getRequestDispatcher("managepayment.jsp").include(request, response);
+            request.getRequestDispatcher("LoadManagePayment").include(request, response);
         }
     }
 

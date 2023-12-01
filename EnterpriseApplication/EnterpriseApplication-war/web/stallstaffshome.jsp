@@ -9,47 +9,35 @@
 <html>
 <head>
     <title>Stallstaff Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="staffdashboarddesign.css"> 
+    <link rel="stylesheet" type="text/css" href="stallstaffshome.css"> 
+    <link rel="stylesheet" type="text/css" href="managemanager.css">
 </head>
 <body>
     <div id="dashboard-container">
         <div id="header">
             <h1>Stallstaff Dashboard</h1>
             <form id="logoutForm" action="Logout" method="POST">
-                <input type="submit" value="Logout">
+                <input type="submit" value="Logout" id="logout-button">
             </form>
         </div>
 
-        <div id="menu-container">
-            <div class="menu-item">
-                <a href="LoadProfile">Edit Profile</a>
-            </div>
-            <div class="menu-item">
-                <a href="LoadStallstaffMenu">Menu Management</a>
-            </div>
-            <div class="menu-item">
-                <a href="managepayment.jsp">Manage Customer Payment</a>
-            </div>
-            <div class="menu-item">
-                <a href="LoadViewStallstaffSales">View Rating</a>
-            </div>
+        <div id="navigation">
+            <a href="LoadProfile" class="nav-item">Edit Profile</a>
+            <a href="LoadStallstaffMenu" class="nav-item">Menu Management</a>
+            <a href="LoadManagePayment" class="nav-item">Manage Customer Payment</a>
+            <a href="LoadViewStallstaffSales" class="nav-item">View Rating</a>
+            <a href="LoadBusinessReport" class="nav-item">Business Report</a>
+            <a href="LoadRatingFeedbackReport" class="nav-item">Rating and Feedback Report</a>
+            <a href="LoadMenuSellingReport" class="nav-item">Menu Selling Report</a>
         </div>
+        
+        <main class="dashboard-content">
+            
+        </main>
 
-        <div id="reports-container">
-            <div class="report-item">
-                <a href="LoadBusinessReport">Business Report</a>
-            </div>
-            <div class="report-item">
-                <a href="LoadRatingFeedbackReport">Rating and Feedback Report</a>
-            </div>
-            <div class="report-item">
-                <a href="LoadMenuSellingReport">Menu Selling Report</a>
-            </div>
-        </div>
-
-        <div id="footer">
+        <footer class="dashboard-footer">
             <p>&copy; 2023 Stallstaff Dashboard. All rights reserved.</p>
-        </div>
+        </footer>
     </div>
 </body>
 </html>

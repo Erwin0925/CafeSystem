@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 30, 2023, 12:11:49 AM
+    Author     : Erwin_Yoga
+*/
+#dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navigation {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    background-color: #27632a;
+    padding: 20px;
+    gap: 10px;
+}
+
+.nav-item {
+    background-color: #27632a;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #1b4721;
+}
+
+#logout-button {
+    padding: 10px 20px;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.dashboard-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+    /* Add more styles as per your UI/UX design */
+}
+
+/* Add additional CSS for responsive adjustments and other styling as needed */

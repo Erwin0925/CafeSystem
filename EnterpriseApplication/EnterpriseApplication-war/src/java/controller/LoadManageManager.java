@@ -51,7 +51,10 @@ public class LoadManageManager extends HttpServlet {
             List<Managers> managers = managersFacade.findAll();
             request.setAttribute("managers", managers);
             
-
+            List<Users> userprof = usersFacade.findUsersByRole("Manager");
+            request.setAttribute("userprof", userprof);
+            
+           
             request.getRequestDispatcher("managemanager.jsp").forward(request, response);
         }
     }

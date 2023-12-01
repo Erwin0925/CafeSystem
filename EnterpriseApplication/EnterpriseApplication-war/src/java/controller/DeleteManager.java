@@ -55,10 +55,7 @@ public class DeleteManager extends HttpServlet {
             usersFacade.remove(userProf);
             
             request.setAttribute("done2", "Successfully Delete");
-            request.getRequestDispatcher("LoadManageManager").include(request, response);
-            
-            
-            
+            request.getRequestDispatcher("LoadManageManager").include(request, response);    
         }
     }
 

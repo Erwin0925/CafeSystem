@@ -54,8 +54,8 @@ public class Login extends HttpServlet {
             // Check the user's status
             String status = found.getStatus();
             if ("pending".equalsIgnoreCase(status)) {
+                request.setAttribute("fail","Account pending approval. Please wait.");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Account pending approval. Please wait.");
                 return;
             } else if (!"approved".equalsIgnoreCase(status)) {
                 throw new Exception("Account not approved or recognized.");
@@ -69,21 +69,21 @@ public class Login extends HttpServlet {
             System.out.println(userRole);
             switch (userRole) {
                 case "Customer":
-                    request.getRequestDispatcher("customershome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadProfile").include(request, response);
                     break;
                 case "Manager":
-                    request.getRequestDispatcher("managershome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadManageManager").include(request, response);
                     break;
                 case "Stallstaff":
-                    request.getRequestDispatcher("stallstaffshome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadProfile").include(request, response);
                     break;
                 default:
                     throw new Exception("Invalid role");
             }
 
             } catch (Exception e) {
+                request.setAttribute("fail",e.getMessage());
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>" + e.getMessage());
             }
         }
     }

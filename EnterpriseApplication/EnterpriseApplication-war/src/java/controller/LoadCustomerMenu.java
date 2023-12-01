@@ -67,6 +67,9 @@ public class LoadCustomerMenu extends HttpServlet {
                 request.setAttribute("menuList", menuList);
             }
             
+            List<Carts> cartprof = cartsFacade.findByUsername(userName);
+                request.setAttribute("cartprof",cartprof);
+            
             List<Carts> carts = cartsFacade.findByUsername(userName);
             request.setAttribute("carts", carts);
             request.getRequestDispatcher("customerviewmenu.jsp").forward(request, response);
