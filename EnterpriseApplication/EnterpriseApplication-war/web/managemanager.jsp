@@ -106,8 +106,6 @@
             </form>
             <c:choose>
                 <c:when test="${managerFound}">
-                    <!-- Display the table if manager is found -->
-                    <br><br>
                     <table border="1">
                         <tr>
                             <th>ManagerId</th>                
@@ -140,7 +138,12 @@
             <!-- Delete Manager Form -->
             <h3>Delete Manager</h3>
             <form action="DeleteManager" method="post">
-                ManagerId: <input type="text" name="managerId">
+                <label for="managerId">ManagerId:</label>
+                <select name="managerId" id="managerId">
+                    <c:forEach items="${managers}" var="manager">
+                        <option value="${manager.id}">${manager.id}</option>
+                    </c:forEach>
+                </select>
                 <input type="submit" value="Delete Manager">
             </form>
             <% if (request.getAttribute("done2") != null) { %>
@@ -151,8 +154,13 @@
             <!-- Update Manager Form -->
             <h3>Update Manager Profile</h3>
             <form action="UpdateManagerProfile" method="post">
-                Username of Manager to Update: <input type="text" name="username">
-                Password: <input type="password" name="password">
+                <label for="username">Username of Manager to Update:</label>
+                    <select name="username" id="username" required>
+                        <c:forEach items="${userprof}" var="user">
+                            <option value="${user.username}">${user.username}</option>
+                        </c:forEach>
+                    </select>
+                Password: <input type="password" name="password" required>
                 Origin State:<select name="address" required>
                                 <option value="">Select a State</option>
                                 <option value="johor">Johor</option>
@@ -173,10 +181,10 @@
                                 <option value="terengganu">Terengganu</option>
                                 <option value="other">Other Country</option>
                             </select>
-                Email: <input type="email" name="email">
-                HP: <input type="text" name="hp">
+                Email: <input type="email" name="email" required>
+                HP: <input type="text" name="hp" required>
                 Gender:
-                    <input type="radio" id="male" name="gender" value="Male">
+                    <input type="radio" id="male" name="gender" value="Male" required>
                     <label for="male">Male</label>
                     <input type="radio" id="female" name="gender" value="Female">
                     <label for="female">Female</label><br><br>

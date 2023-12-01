@@ -45,17 +45,26 @@ public class UpdateManagerProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
             String userName = request.getParameter("username");
             String newPassword = request.getParameter("password");
             String newAddress = request.getParameter("address");
             String newEmail = request.getParameter("email");
             String newHp = request.getParameter("hp");
             String newGender = request.getParameter("gender");
-            
+
+            // Regular expression for phone number validation
+            String phoneRegex = "\\d{10,11}";
+
+            if (!newHp.matches(phoneRegex)) {
+                // If phone number doesn't match the regex, set an error attribute and redirect
+                request.setAttribute("fail3", "Invalid phone number. Phone number must be 10 or 11 digits.");
+                request.getRequestDispatcher("LoadManageManager").include(request, response);
+                return; // Stop further execution
+            }
+
             Users userProf = usersFacade.find(userName);
             Managers managerProf = managersFacade.findmanagerdetails(userName);
-            
+
             if (userProf != null) {
                 userProf.setPassword(newPassword);
                 usersFacade.edit(userProf);
@@ -67,7 +76,7 @@ public class UpdateManagerProfile extends HttpServlet {
                 request.setAttribute("done3", "Done Changes");
             } else {
                 request.setAttribute("fail3", "Wrong Username");
-            } 
+            }
 
             request.getRequestDispatcher("LoadManageManager").include(request, response);
         }
