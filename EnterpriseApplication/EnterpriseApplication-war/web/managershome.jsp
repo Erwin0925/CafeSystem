@@ -10,6 +10,7 @@
     <head>
         <title>Manager Dashboard</title>
         <link rel="stylesheet" type="text/css" href="managershome.css">
+        <link rel="stylesheet" type="text/css" href="managemanager.css">
     </head>
     <body>
     <div class="dashboard-container">
