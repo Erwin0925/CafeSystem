@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
             System.out.println(userRole);
             switch (userRole) {
                 case "Customer":
-                    request.getRequestDispatcher("customershome.jsp").include(request, response);
+                    request.getRequestDispatcher("LoadProfile").include(request, response);
                     break;
                 case "Manager":
                     request.getRequestDispatcher("managershome.jsp").include(request, response);

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Customer Dashboard</title>
+        <title>Customer Update Profile</title>
         <link rel="stylesheet" type="text/css" href="customershome.css">
         <link rel="stylesheet" type="text/css" href="updateprofile.css">
     </head>
@@ -22,7 +22,7 @@
         </header>
 
         <nav class="dashboard-nav">
-            <a href="LoadProfile" class="dashboard-link">View Profile</a>
+            <a class="dashboard-link">View Profile</a>
             <a href="LoadCustomerMenu" class="dashboard-link">View Menu</a>
             <a href="LoadOrderHistory" class="dashboard-link">Order History</a>
         </nav>
