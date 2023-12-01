@@ -52,77 +52,83 @@ public class ProcessPayment extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         HttpSession s = request.getSession(false);
-        Users loginUser = (Users) s.getAttribute("loginUser");
+        Users loginUser = (Users)s.getAttribute("loginUser");
         String userName = loginUser.getUsername();
-
+        
         Stallstaffs sf = stallstaffsFacade.findstallstaffdetails(userName);
         String stallname = sf.getStallname();
-
+        
         String cusUsername = request.getParameter("cusUsername");
-        String cardNoStr = request.getParameter("cardNumber");
-        String csvStr = request.getParameter("csv");
-        String expiryDate = request.getParameter("expiryDate");
-        String cardOwner = request.getParameter("cardOwner");
+        //Long cardNo = Long.parseLong(request.getParameter("cardNumber"));
         double totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
         int rating = 0;
         String Feedback = "";
         String status = "empty";
         String status2 = "new";
         Date mydate = new Date();
+        
+        String cardNoStr = request.getParameter("cardNumber");
+        String csvStr = request.getParameter("csv");
+        String expiryDate = request.getParameter("expiryDate");
+        String cardowner = request.getParameter("holderName");
 
+        // Validation regex patterns
+        String cardNoRegex = "\\d{16}";
+        String csvRegex = "\\d{3}";
+        String expiryDateRegex = "(0[1-9]|1[0-2])/(2[2-9]|[3-9][0-9])"; // MM/YY format, starting from 22 to 99
+        String cardOwnerRegex = "^[a-zA-Z\\s]+$";
+        
+        
         try (PrintWriter out = response.getWriter()) {
-
-            // Regular expressions for validation
-            String cardNoRegex = "\\d{16}";
-            String csvRegex = "\\d{3}";
-            String expiryDateRegex = "(0[1-9]|1[0-2])/(2[2-9]|3[0-9])";
-            String cardOwnerRegex = "[A-Za-z ]+";
-
+            
             if (!cardNoStr.matches(cardNoRegex)) {
-                request.setAttribute("error", "Invalid card number. Must be 16 digits.");
+                request.setAttribute("error", "Invalid card number. Card number must be 16 digits.");
                 request.getRequestDispatcher("LoadManagePayment").include(request, response);
-            } else if (!csvStr.matches(csvRegex)) {
-                request.setAttribute("error", "Invalid CSV. Must be 3 digits.");
-                request.getRequestDispatcher("LoadManagePayment").include(request, response);
-            } else if (!expiryDate.matches(expiryDateRegex)) {
-                request.setAttribute("error", "Invalid expiry date. Format must be MM/YY within acceptable range.");
-                request.getRequestDispatcher("LoadManagePayment").include(request, response);
-            } else if (!cardOwner.matches(cardOwnerRegex)) {
-                request.setAttribute("error", "Invalid card owner name. Alphabet characters only.");
-                request.getRequestDispatcher("LoadManagePayment").include(request, response);
-            } else {
-                // Convert cardNo and csv from String to appropriate types
-                Long cardNo = Long.parseLong(cardNoStr);
-                int csv = Integer.parseInt(csvStr);
-
-                Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo, stallname);
-                ordersFacade.create(orderProf);
-
-                Orders existingOrder = ordersFacade.findByUsernameAndStatusNew(cusUsername);
-                existingOrder.setStatus2("old");
-                ordersFacade.edit(existingOrder);
-
-                List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
-                for (OrderDetails orderdetails : orderdetailList) {
-                    existingOrder.getOrderDetails().add(orderdetails);
-                    ordersFacade.edit(existingOrder);
-                    orderdetails.setStatus("red");
-                    orderDetailsFacade.edit(orderdetails);
-                }
-                request.setAttribute("msg", "Successfully Pay");
+                return;
             }
 
+            if (!csvStr.matches(csvRegex)) {
+                request.setAttribute("error", "Invalid CSV. CSV must be 3 digits.");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+
+            if (!expiryDate.matches(expiryDateRegex)) {
+                request.setAttribute("error", "Invalid expiry date. Format must be MM/YY (01/22 to 12/99).");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+
+            if (!cardowner.matches(cardOwnerRegex)) {
+                request.setAttribute("error", "Invalid card owner name. Only alphabets and spaces are allowed.");
+                request.getRequestDispatcher("LoadManagePayment").include(request, response);
+                return;
+            }
+            
+            Long cardNo = Long.parseLong(cardNoStr);
+            
+            Orders orderProf = new Orders(mydate, rating, Feedback, cusUsername, totalAmount, status, status2, userName, cardNo, stallname);
+            ordersFacade.create(orderProf);
+            
+            Orders existingOrder = ordersFacade.findByUsernameAndStatusNew(cusUsername);
+            existingOrder.setStatus2("old");
+            ordersFacade.edit(existingOrder);
+            
+            List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
+            for (OrderDetails orderdetails : orderdetailList) {
+                existingOrder.getOrderDetails().add(orderdetails);
+                ordersFacade.edit(existingOrder);
+                orderdetails.setStatus("red");
+                orderDetailsFacade.edit(orderdetails);
+            }
+            request.setAttribute("msg", "Successfully Pay");
             request.setAttribute("mydate", mydate);
             request.setAttribute("total", totalAmount);
             request.setAttribute("stallname", stallname);
             request.setAttribute("customername", cusUsername);
             request.setAttribute("serveby", userName);
-            request.getRequestDispatcher("managepayment.jsp").include(request, response);
-        } catch (Exception e) {
-            // Handle other exceptions if needed
-            request.setAttribute("error", "An error occurred while processing the payment.");
             request.getRequestDispatcher("LoadManagePayment").include(request, response);
         }
     }

@@ -59,14 +59,23 @@ public class ManagePayment extends HttpServlet {
             
             List<OrderDetails> orderdetailList = orderDetailsFacade.findByUsername(cusUsername);
             request.setAttribute("orderdetailList", orderdetailList);
-            
+
             double totalAmount = 0.0;
+            boolean hasError = false;
             for (OrderDetails orderdetails : orderdetailList) {
+                if ("red".equals(orderdetails.getStatus())) {
+                    hasError = true;
+                    break; 
+                }
                 totalAmount += orderdetails.getPrice(); 
             }
-  
-            request.setAttribute("totalAmount", totalAmount);
-            request.setAttribute("cusUsername", cusUsername);
+
+            if (hasError) {
+                request.setAttribute("error", "No order made by this customer");
+            } else {
+                request.setAttribute("totalAmount", totalAmount);
+                request.setAttribute("cusUsername", cusUsername);
+            }
 
             request.getRequestDispatcher("LoadManagePayment").forward(request, response);
 
