@@ -68,5 +68,8 @@
                 </c:forEach>
             </table>
         </main>
+        <footer class="dashboard-footer">
+            <p>&copy; 2023 Manager Dashboard. All rights reserved.</p>
+        </footer>    
     </body>
 </html>

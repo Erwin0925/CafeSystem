@@ -251,5 +251,8 @@
                 <p style="color: red;"><%= request.getAttribute("fail3") %></p>
             <% } %>
         </main>
+        <footer class="dashboard-footer">
+            <p>&copy; 2023 Manager Dashboard. All rights reserved.</p>
+        </footer>
     </body>
 </html>
