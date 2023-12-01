@@ -117,8 +117,12 @@
                     <h3>Delete Cart Item</h3>
                     <form action="DeletetoCart" method="post" class="delete-form">
                         <div class="form-group">
-                            <label for="cartId">Menu ID:</label>
-                            <input type="text" id="cartId" name="cartId" class="input-text">
+                            <label for="cartId">Cart ID:</label>
+                            <select id="cartId" name="cartId" class="select-dropdown">
+                                <c:forEach items="${cartprof}" var="cart">
+                                    <option value="${cart.id}">${cart.id}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <input type="submit" value="Remove From Cart" class="submit-button">
                     </form>

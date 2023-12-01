@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,16 +57,15 @@ public class AddToCart extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            System.out.println("testing");
+
             Long menuid = Long.parseLong(request.getParameter("menuId"));
-            System.out.println(menuid);
             Menus menuProf = menusFacade.find(menuid);
             String itemName = menuProf.getItemname();
             Double price = menuProf.getPrice();
             String stallName = menuProf.getStallname();
             String status = menuProf.getStatus();
-            System.out.println(status);
-            
+
+
             if ("Out Of Stock".equals(status)) {
                 request.setAttribute("errorMessage", "The item is currently out of stock");
             } else if ("In Stock".equals(status)) {
