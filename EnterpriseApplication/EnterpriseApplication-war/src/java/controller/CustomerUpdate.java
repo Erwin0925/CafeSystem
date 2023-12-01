@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Customers;
-import model.Stallstaffs;
 import model.Users;
 import model.modelfacade.CustomersFacade;
 import model.modelfacade.UsersFacade;
@@ -44,30 +43,47 @@ public class CustomerUpdate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
-
+            
             String cusName = request.getParameter("cusUsername3");
             String newPassword = request.getParameter("password");
             String newAddress = request.getParameter("address");
             String newEmail = request.getParameter("email");
             String newHp = request.getParameter("hp");
             String newGender = request.getParameter("gender"); 
-            
+
+            // Regular expression for phone number validation
+            String phoneRegex = "\\d{10,11}";
+
+            if (!newHp.matches(phoneRegex)) {
+                // If phone number doesn't match the regex, set an error attribute and redirect
+                request.setAttribute("fail3", "Invalid phone number. Phone number must be 10 or 11 digits.");
+                request.getRequestDispatcher("LoadManageCustomer").include(request, response);
+                return; // Stop further execution
+            }
+
             Users userProf = usersFacade.find(cusName);
             Customers cusProf = customersFacade.findcustomerdetails(cusName);
-            
-            userProf.setPassword(newPassword);
-            usersFacade.edit(userProf);
-            cusProf.setAddress(newAddress);
-            cusProf.setEmail(newEmail);
-            cusProf.setGender(newGender);
-            cusProf.setHp(newHp);
-            customersFacade.edit(cusProf);
-            request.setAttribute("done3", "Done Changes");
-            
+
+            if (userProf != null && cusProf != null) {
+                userProf.setPassword(newPassword);
+                usersFacade.edit(userProf);
+                cusProf.setAddress(newAddress);
+                cusProf.setEmail(newEmail);
+                cusProf.setGender(newGender);
+                cusProf.setHp(newHp);
+                customersFacade.edit(cusProf);
+                request.setAttribute("done3", "Done Changes");
+            } else {
+                request.setAttribute("fail3", "Customer username not found");
+            }
+
             request.getRequestDispatcher("LoadManageCustomer").include(request, response);
-            
-            
+        } catch (Exception e) {
+            // Handle other exceptions if needed
+            request.setAttribute("error", "An error occurred while updating the profile.");
+            request.getRequestDispatcher("LoadManageCustomer").include(request, response);
         }
     }
 

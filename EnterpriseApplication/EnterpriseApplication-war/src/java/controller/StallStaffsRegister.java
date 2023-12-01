@@ -61,9 +61,15 @@ public class StallStaffsRegister extends HttpServlet {
                 String stallname = request.getParameter("stallname");
                 String status = "pending";
                 String role = "Stallstaff";
+                
+                String phoneRegex = "\\d{10,11}";
+
+                if (!hp.matches(phoneRegex)) {
+                    throw new IllegalArgumentException("Invalid phone number. Phone number must be 10 or 11 digits.");
+                }
 
                 if (usersFacade.find(username) != null) {
-                    throw new Exception();
+                    throw new Exception("Username already exists.");
                 }
                
                 Users newUser = new Users(username,password, role, status);
@@ -72,18 +78,21 @@ public class StallStaffsRegister extends HttpServlet {
                 Stallstaffs newStallstaff = new Stallstaffs(username, email, hp, address, gender, stallname);
                 stallstaffsFacade.create(newStallstaff);
 
-                // Find the existing stall by name (you might want to add error handling if it doesn't exist)
+                
                 Stalls existingStall = stallsFacade.find(stallname);
 
-                // Add the new stall staff to the stall
+                
                 existingStall.getStallstaffs().add(newStallstaff);
                 stallsFacade.edit(existingStall);
+                
                 request.setAttribute("success", "Registration Complete");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-            } catch (Exception e) {
-                request.setAttribute("fail", "Wrong Input/Username is in used");
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("fail", e.getMessage());
                 request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
-
+            } catch (Exception e) {
+                request.setAttribute("fail", "An error occurred during registration.");
+                request.getRequestDispatcher("stallstaffsregister.jsp").include(request, response);
             }
         }
     }
