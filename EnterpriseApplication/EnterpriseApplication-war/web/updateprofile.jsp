@@ -110,6 +110,10 @@
             <% if (request.getAttribute("error") != null) { %>
             <p style="color: red;"><%= request.getAttribute("error") %></p>
             <% } %>
+            <% if (request.getAttribute("success") != null) { %>
+            <p style="color: green;"><%= request.getAttribute("success") %></p>
+            <% } %>
+            
         </main>
                                     
         <footer class="dashboard-footer">

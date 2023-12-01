@@ -54,8 +54,8 @@ public class Login extends HttpServlet {
             // Check the user's status
             String status = found.getStatus();
             if ("pending".equalsIgnoreCase(status)) {
+                request.setAttribute("fail","Account pending approval. Please wait.");
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>Account pending approval. Please wait.");
                 return;
             } else if (!"approved".equalsIgnoreCase(status)) {
                 throw new Exception("Account not approved or recognized.");
@@ -82,8 +82,8 @@ public class Login extends HttpServlet {
             }
 
             } catch (Exception e) {
+                request.setAttribute("fail",e.getMessage());
                 request.getRequestDispatcher("login.jsp").include(request, response);
-                out.println("<br><br><br>" + e.getMessage());
             }
         }
     }

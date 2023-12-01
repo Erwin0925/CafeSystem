@@ -92,6 +92,7 @@ public class UpdateProfile extends HttpServlet {
                 // Update other profile attributes as needed
                 stallstaffsFacade.edit(stallstaffProfile);
             }
+            request.setAttribute("success", "Successfully Update");
             request.getRequestDispatcher("LoadProfile").forward(request, response);
         }catch (Exception e) {
         request.setAttribute("error", "An error occurred while updating the profile.");
